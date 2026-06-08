@@ -1,0 +1,83 @@
+// 🎨 Variables for colors
+$primary-color: #2563eb;   // blue
+$secondary-color: #f3f4f6; // light gray
+$text-color: #1f2937;      // dark gray
+$card-bg: #ffffff;
+$card-shadow: rgba(0, 0, 0, 0.1);
+
+// 🔹 Filters bar
+.filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  select {
+    padding: 0.5rem 1rem;
+    border: 1px solid $secondary-color;
+    border-radius: 6px;
+    background: $card-bg;
+    color: $text-color;
+    font-size: 0.95rem;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+    }
+  }
+}
+
+// 🔹 Menu grid
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+// 🔹 Menu card
+.menu-card {
+  background: $card-bg;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px $card-shadow;
+  padding: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: $primary-color;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: $text-color;
+    margin: 0.5rem 0;
+  }
+
+  span {
+    display: block;
+    font-weight: bold;
+    color: darken($primary-color, 10%);
+    margin-top: 0.5rem;
+  }
+
+  small {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+    color: gray;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px $card-shadow;
+  }
+}
+
+// 🔹 Responsive tweaks
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+  }
+}

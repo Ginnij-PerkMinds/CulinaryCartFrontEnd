@@ -1,0 +1,12 @@
+<div class="menu-grid">
+  <div class="menu-card" *ngFor="let item of menuItems">
+    <h3>{{ item.foodItemName }}</h3>
+    <p>{{ item.offers }}</p>
+    <span>{{ item.price | currency:'INR' }}</span>
+    <small>{{ item.categoryName }} | {{ item.dietaryPreferenceName }}</small>
+    <img [src]="'http://localhost:5209' + item.imageUrl" alt="{{ item.foodItemName }}" />
+  </div>
+</div>
+
+
+
