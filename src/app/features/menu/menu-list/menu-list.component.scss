@@ -1,11 +1,29 @@
-// 🎨 Variables for colors
+.app-header {
+  text-align: center;
+  margin-bottom: 10px;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #e63946; // a nice red accent
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: #555;
+    margin-top: 5px;
+  }
+}
+
+// Variables for colors
 $primary-color: #2563eb;   // blue
 $secondary-color: #f3f4f6; // light gray
 $text-color: #1f2937;      // dark gray
 $card-bg: #ffffff;
 $card-shadow: rgba(0, 0, 0, 0.1);
 
-// 🔹 Filters bar
+// Filters bar
 .filters {
   display: flex;
   gap: 1rem;
@@ -28,14 +46,14 @@ $card-shadow: rgba(0, 0, 0, 0.1);
   }
 }
 
-// 🔹 Menu grid
+//  Menu grid
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1.5rem;
 }
 
-// 🔹 Menu card
+// Menu card
 .menu-card {
   background: $card-bg;
   border-radius: 10px;
@@ -75,7 +93,7 @@ $card-shadow: rgba(0, 0, 0, 0.1);
   }
 }
 
-// 🔹 Responsive tweaks
+// Responsive tweaks
 @media (max-width: 768px) {
   .filters {
     flex-direction: column;
