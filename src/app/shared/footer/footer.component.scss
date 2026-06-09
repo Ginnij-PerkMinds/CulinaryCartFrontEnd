@@ -1,0 +1,29 @@
+.site-footer {
+  background: #f9f9f9;
+  padding: 1rem;
+  text-align: center;
+
+  .footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;   // ✅ space between items
+    flex-wrap: wrap;
+
+    span, a {
+      color: #555;
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .separator {
+      color: #999;   // ✅ lighter color for the bar
+      font-weight: bold;
+    }
+  }
+}
+

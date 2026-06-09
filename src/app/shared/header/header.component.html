@@ -1,0 +1,33 @@
+<header class="app-header">
+  <!-- Left Logo -->
+  <div class="logo-container">
+    <img src="assets/images/Culinary.png" alt="Culinary Cart Logo" class="logo" />
+  </div>
+
+  <!-- Centered Title -->
+  <h1 class="title">Culinary Cart Restaurant</h1>
+
+  <!-- Right Corner Dropdown -->
+  <div class="dropdown" *ngIf="!authService.isLoggedIn()">
+    <button class="dropbtn">
+      <img src="assets/images/dropdown.png" alt="Dropdown Icon" class="drop-icon" />
+    </button>
+    <div class="dropdown-content">
+      <a routerLink="/signup">Signup</a>
+      <a routerLink="/login">Login</a>
+    </div>
+  </div>
+
+  <!-- Show only Logout after login -->
+  <div class="dropdown" *ngIf="authService.isLoggedIn()">
+    <button class="dropbtn">
+      <img src="assets/images/dropdown.png" alt="Dropdown Icon" class="drop-icon" />
+    </button>
+    <div class="dropdown-content">
+      <a (click)="authService.logout()">Logout</a>
+    </div>
+  </div>
+</header>
+
+
+

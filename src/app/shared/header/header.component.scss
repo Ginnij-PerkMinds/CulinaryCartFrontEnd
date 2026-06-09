@@ -1,0 +1,82 @@
+.app-header {
+  display: flex;
+  justify-content: center;   // centers the title
+  align-items: center;
+  position: relative;
+  padding: 1rem;
+  background: linear-gradient(90deg, #f2bec2, #f1faee); // red to light background
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+
+  .logo-container {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+
+    .logo {
+      height: 180px;
+      width: auto;
+      margin-left: 50px; // slight left offset for better balance
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+  }
+
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: 'Georgia', serif; // elegant font
+    color: #1d3557;                // deep navy
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2); // subtle shadow
+  }
+
+  .dropdown {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+
+    .dropbtn {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .drop-icon {
+      width: 36px;
+      height: 36px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #fff;
+      min-width: 140px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      border-radius: 6px;
+      z-index: 1;
+
+      a {
+        display: block;
+        padding: 0.6rem 1rem;
+        text-decoration: none;
+        color: #1d3557;
+        font-weight: 500;
+
+        &:hover {
+          background-color: #f1faee;
+          color: #e63946;
+        }
+      }
+    }
+
+    &:hover .dropdown-content {
+      display: block;
+    }
+  }
+}
+
+

@@ -1,15 +1,16 @@
 import { Routes } from '@angular/router';
 import { MenuListComponent } from './features/menu/menu-list/menu-list.component';
-import { SignupComponent } from './auth/signup/signup.component';
+import {LandingComponent} from "./public/landing/landing.component";
 import { LoginComponent } from './auth/login/login.component';
-import { LogoutComponent } from './auth/logout/logout.component';
+import { SignupComponent } from './auth/signup/signup.component';
+
 
 
 export const routes: Routes = [
-  { path: 'menu', component: MenuListComponent },
-  { path: 'signup', component: SignupComponent },
+  {path: '', component: LandingComponent},
+  { path: 'landing', component: LandingComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'logout', component: LogoutComponent },
-  { path: '', redirectTo: 'menu', pathMatch: 'full' },
-  { path: '**', redirectTo: 'menu' }
+  { path: 'signup', component: SignupComponent },
+  { path: 'menu', component: MenuListComponent },
+  { path: '**', redirectTo: '' }
 ];

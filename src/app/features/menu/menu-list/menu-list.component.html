@@ -1,3 +1,5 @@
+<app-header></app-header>
+
 <div class="menu-grid">
   <div class="menu-card" *ngFor="let item of menuItems">
     <h3>{{ item.foodItemName }}</h3>
@@ -7,6 +9,8 @@
     <img [src]="'http://localhost:5209' + item.imageUrl" alt="{{ item.foodItemName }}" />
   </div>
 </div>
+
+<app-footer></app-footer>
 
 
 
