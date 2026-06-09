@@ -1,1 +1,52 @@
-<p>signup works!</p>
+<div class="auth-container">
+  <h2>Create Account</h2>
+
+  <form (ngSubmit)="onSignup()" #signupForm="ngForm">
+    <!-- Name -->
+    <label for="name">Name</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      [(ngModel)]="name"
+      required
+      placeholder="Enter your full name"
+    />
+
+    <!-- Email -->
+    <label for="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      [(ngModel)]="email"
+      required
+      placeholder="Enter your email"
+    />
+
+    <!-- Password -->
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      [(ngModel)]="password"
+      required
+      minlength="8"
+      placeholder="Choose a strong password"
+    />
+
+    <button type="submit" [disabled]="signupForm.invalid || isLoading">
+      {{ isLoading ? 'Signing Up...' : 'Sign Up' }}
+    </button>
+  </form>
+
+  <!-- ✅ Feedback messages -->
+  <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+  <p class="redirect">
+    Already have an account?
+    <a routerLink="/login">Login here</a>
+  </p>
+</div>

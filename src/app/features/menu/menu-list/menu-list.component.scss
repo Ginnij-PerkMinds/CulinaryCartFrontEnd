@@ -1,29 +1,49 @@
+/* 🔹 Header styling */
 .app-header {
-  text-align: center;
-  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between; /* pushes nav to right */
+  align-items: center;
+  background: #f8f9fa;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ddd;
 
   h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: bold;
-    color: #e63946; // a nice red accent
+    color: #e63946; // red accent
     margin: 0;
   }
 
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #555;
-    margin-top: 5px;
+    margin: 0.25rem 0 0;
+  }
+
+  nav {
+    display: flex;
+    gap: 1rem;
+
+    a {
+      text-decoration: none;
+      color: #2563eb; // blue
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }
 
-// Variables for colors
+/* 🔹 Variables */
 $primary-color: #2563eb;   // blue
 $secondary-color: #f3f4f6; // light gray
 $text-color: #1f2937;      // dark gray
 $card-bg: #ffffff;
 $card-shadow: rgba(0, 0, 0, 0.1);
 
-// Filters bar
+/* 🔹 Filters bar */
 .filters {
   display: flex;
   gap: 1rem;
@@ -46,20 +66,22 @@ $card-shadow: rgba(0, 0, 0, 0.1);
   }
 }
 
-//  Menu grid
+/* 🔹 Menu grid */
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1.5rem;
+  padding: 2rem;
 }
 
-// Menu card
+/* 🔹 Menu card */
 .menu-card {
   background: $card-bg;
   border-radius: 10px;
   box-shadow: 0 4px 6px $card-shadow;
   padding: 1rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
 
   h3 {
     margin: 0;
@@ -87,15 +109,111 @@ $card-shadow: rgba(0, 0, 0, 0.1);
     color: gray;
   }
 
+  img {
+    margin-top: 0.75rem;
+    max-width: 100%;
+    border-radius: 6px;
+  }
+
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 12px $card-shadow;
   }
 }
 
-// Responsive tweaks
+/* 🔹 Responsive tweaks */
 @media (max-width: 768px) {
   .filters {
     flex-direction: column;
+  }
+}
+
+/* 🔹 Auth forms (Login, Signup) */
+.auth-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      margin: 0.5rem 0 0.25rem;
+      font-weight: 600;
+      color: #444;
+    }
+
+    input {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+
+      &:focus {
+        border-color: $primary-color;
+        outline: none;
+      }
+    }
+
+    button {
+      background: $primary-color;
+      color: #fff;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: darken($primary-color, 10%);
+      }
+
+      &:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .redirect {
+    text-align: center;
+    margin-top: 1rem;
+
+    a {
+      color: $primary-color;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+/* 🔹 Logout message */
+.logout-message {
+  text-align: center;
+  padding: 2rem;
+  color: #333;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: #666;
   }
 }

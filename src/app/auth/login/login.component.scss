@@ -1,0 +1,85 @@
+.auth-container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2563eb;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      margin: 8px 0 4px;
+      font-weight: 600;
+    }
+
+    input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      font-size: 14px;
+
+      &:focus {
+        border-color: #2563eb;
+        outline: none;
+      }
+    }
+
+    button {
+      padding: 12px;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:disabled {
+        background: #94a3b8;
+        cursor: not-allowed;
+      }
+
+      &:hover:not(:disabled) {
+        background: #1e40af;
+      }
+    }
+  }
+
+  .success {
+    color: green;
+    font-weight: bold;
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  .error {
+    color: red;
+    font-weight: bold;
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  .redirect {
+    margin-top: 16px;
+    text-align: center;
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
