@@ -1,10 +1,10 @@
 .app-header {
   display: flex;
-  justify-content: center;   // centers the title
+  justify-content: center;   
   align-items: center;
   position: relative;
   padding: 1rem;
-  background: linear-gradient(90deg, #f2bec2, #f1faee); // red to light background
+  background: linear-gradient(90deg, #f2bec2, #f1faee); 
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 
   .logo-container {
@@ -14,21 +14,21 @@
     transform: translateY(-50%);
 
     .logo {
-      height: 180px;
+      height: 200px;
       width: auto;
-      margin-left: 50px; // slight left offset for better balance
+      margin-left: 50px; 
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
     }
   }
 
   .title {
-    font-size: 2rem;
+    font-size: 5rem;
     font-weight: bold;
-    font-family: 'Georgia', serif; // elegant font
-    color: #1d3557;                // deep navy
+    font-family: 'Georgia', cursive; 
+    color: #1d3557;             
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2); // subtle shadow
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.6); 
   }
 
   .dropdown {

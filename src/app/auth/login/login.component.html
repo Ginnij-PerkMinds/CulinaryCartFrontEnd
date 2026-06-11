@@ -1,45 +1,81 @@
 <app-header></app-header>
 
-<div class="auth-container">
-  <h2>Login</h2>
+<section class="landing">
+  <div class="landing-container">
 
-  <form (ngSubmit)="onLogin()" #loginForm="ngForm">
-    <!-- Email -->
-    <label for="email">Email</label>
-    <input
-      type="email"
-      id="email"
-      name="email"
-      [(ngModel)]="email"
-      required
-      placeholder="Enter your email"
-    />
+    <!-- Left Card About Us -->
+    <div class="about-card">
+      <h2>🍴 About Us</h2>
+      <p>
+        At Culinary Cart, food is more than just a meal — it’s an experience. 
+        Born from a passion for flavors and  a  love for innovation, together 
+        we bring diverse cuisines under one roof, making dining simple, cozy,
+        delightful, and accessible.
+      
+        We brings authentic flavors to your fingertips - simple sign‑up, smart 
+        ordering, and meals crafted to delight. From comfort to yummy & global 
+        cuisine, we connect you to flavors that inspire and satisfy.
+      </p>
 
-    <!-- Password -->
-    <label for="password">Password</label>
-    <input
-      type="password"
-      id="password"
-      name="password"
-      [(ngModel)]="password"
-      required
-      minlength="8"
-      placeholder="Enter your password"
-    />
+    </div>
 
-    <button type="submit" [disabled]="loginForm.invalid || isLoading">
-      {{ isLoading ? 'Logging In...' : 'Login' }}
-    </button>
-  </form>
+    <!-- Middle Expertise Card -->
+    <div class="expertise-card">
+      <h2>Our Expertise</h2>
+      <p>We specialize in a variety of cuisines, crafted to perfection.</p>
 
-  <!-- Feedback messages -->
-  <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
-  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+      <div class="expertise-slider">
+        <div class="slide"><img src="assets/images/piza.jpg" alt="Pizza" /></div>
+        <div class="slide"><img src="assets/images/burger.jpg" alt="Burger" /></div>
+        <div class="slide"><img src="assets/images/cold coffee.jpg" alt="Cold Coffee" /></div>
+        <div class="slide"><img src="assets/images/pasta.jpg" alt="Pasta" /></div>
+        <div class="slide"><img src="assets/images/tikka.jpg" alt="Tikka" /></div>
+        <div class="slide"><img src="assets/images/wrap.jpg" alt="Wrap" /></div>
+      </div>
+    </div>
 
-  <p class="redirect">
-    Don’t have an account?
-    <a routerLink="/signup">Create one here</a>
-  </p>
-</div>
+    <!-- Right Login Card -->
+    <div class="login-card">
+      <h2>Login to Culinary Cart</h2>
+      <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+
+        <!-- Email -->
+        <div class="form-group">
+          <input id="email" name="email" type="email" [(ngModel)]="email" required 
+                 placeholder="Enter your email" #emailRef="ngModel" />
+          <div class="error" *ngIf="emailRef.invalid && emailRef.touched">
+            Please enter a registered email.
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <input id="password" name="password" 
+          [type]="showPassword ? 'text' : 'password'" 
+          [(ngModel)]="password" required minlength="8"
+          placeholder="Enter your password" 
+          #passwordRef="ngModel" />
+          <span class="toggle-password" (click)="togglePassword()">👁️</span>
+          <div class="error" *ngIf="passwordRef.invalid && passwordRef.touched">
+            Password must be at least 8 characters.
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="button-container">
+          <button type="submit" [disabled]="loginForm.invalid || isLoading">
+            {{ isLoading ? 'Logging in...' : 'Login' }}
+          </button>
+        </div>
+      </form>
+
+      <div class="signup-link">
+        <p>Don’t have an account? <a routerLink="/signup">Sign up here</a></p>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 <app-footer></app-footer>
+

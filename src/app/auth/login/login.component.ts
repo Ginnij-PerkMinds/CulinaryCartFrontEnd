@@ -16,6 +16,11 @@ import { FooterComponent } from '../../shared/footer/footer.component';
 export class LoginComponent {
   email = '';
   password = '';
+  showPassword: boolean = false;
+
+  togglePassword() {             
+    this.showPassword = !this.showPassword;
+  }
 
   errorMessage = '';
   successMessage = '';
@@ -31,7 +36,7 @@ export class LoginComponent {
     this.authService.login({ email: this.email, password: this.password }).subscribe({
       next: (res) => {
         this.isLoading = false;
-        // ✅ Save JWT if backend returns { token: "..." }
+        // Save JWT if backend returns { token: "..." }
         if (res.token) {
           this.authService.setToken(res.token);
         }

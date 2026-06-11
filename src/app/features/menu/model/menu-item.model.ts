@@ -6,6 +6,8 @@ export interface MenuItem {
   imageUrl: string;
   categoryName: string;
   dietaryPreferenceName: string;
+
+  selectedQty?: number;
 }
 
 export interface MenuResponse {

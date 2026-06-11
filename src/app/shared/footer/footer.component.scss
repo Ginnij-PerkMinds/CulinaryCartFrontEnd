@@ -7,7 +7,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1rem;   // ✅ space between items
+    gap: 1rem;   
     flex-wrap: wrap;
 
     span, a {
@@ -21,7 +21,7 @@
     }
 
     .separator {
-      color: #999;   // ✅ lighter color for the bar
+      color: #999;   
       font-weight: bold;
     }
   }

@@ -3,11 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import {HeaderComponent} from "../../shared/header/header.component";
+import {FooterComponent} from "../../shared/footer/footer.component";
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, HeaderComponent, FooterComponent],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
@@ -15,10 +17,15 @@ export class SignupComponent {
   name = '';
   email = '';
   password = '';
+  showPassword: boolean = false;
 
-  errorMessage = '';    // for error feedback
-  successMessage = '';  // for success feedback
-  isLoading = false;    // for loading spinner
+  togglePassword() {             
+    this.showPassword = !this.showPassword;
+  }
+
+  errorMessage = '';    
+  successMessage = '';  
+  isLoading = false;    
 
   constructor(private authService: AuthService, private router: Router) {}
 

@@ -2,62 +2,40 @@
 
 <section class="landing">
   <div class="landing-container">
+
     <!-- Left Expertise Card -->
     <div class="expertise-card">
       <h2>Our Expertise</h2>
       <p>We specialize in a variety of cuisines, crafted to perfection.</p>
-      <div class="expertise-images">
-        <img src="assets/images/piza.jpg" alt="Pizza" />
-        <img src="assets/images/burger.jpg" alt="Burger" />
-        <img src="assets/images/cold coffee.jpg" alt="Cold Coffee" />
-        <img src="assets/images/pasta.jpg" alt="Pasta" />
-        <img src="assets/images/tikka.jpg" alt="Tikka" />
-        <img src="assets/images/wrap.jpg" alt="Wrap" />
+
+      <div class="expertise-slider">
+        <div class="slide"><img src="assets/images/piza.jpg" alt="Pizza" /></div>
+        <div class="slide"><img src="assets/images/burger.jpg" alt="Burger" /></div>
+        <div class="slide"><img src="assets/images/cold coffee.jpg" alt="Cold Coffee" /></div>
+        <div class="slide"><img src="assets/images/pasta.jpg" alt="Pasta" /></div>
+        <div class="slide"><img src="assets/images/tikka.jpg" alt="Tikka" /></div>
+        <div class="slide"><img src="assets/images/wrap.jpg" alt="Wrap" /></div>
       </div>
-      <button routerLink="/menu" class="view-menu-btn">View Menu</button>
     </div>
 
-    <!-- Right Signup Card -->
-    <div class="signup-card">
-      <h2>Join Culinary Cart</h2>
-      <form (ngSubmit)="onSignup()" #signupForm="ngForm">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input id="name" name="name" [(ngModel)]="name" required />
-        </div>
+    <!-- Right Promo Card -->
+    <div class="promo-card">
+      <img src="assets/images/connect.jpg" alt="Connect with Us" class="connect-image" />
+      <img src="assets/images/chef.jpg" alt="Chef" class="chef-image" />
+      <h2>Get ₹299 Off</h2> 
+      <p>Your first five orders — enjoy freshly prepared meals delivered to your door!</p>
 
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input id="email" name="email" [(ngModel)]="email" required />
-        </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input id="password" name="password" type="password" [(ngModel)]="password" required />
-        </div>
-
-        <!-- Centered Signup Button -->
-        <div class="button-container">
-          <button type="submit" [disabled]="isLoading">
-            {{ isLoading ? 'Signing up...' : 'Signup' }}
-          </button>
-        </div>
+      <form>
+        <input type="email" placeholder="Email *" required />
+        <input type="text" placeholder="Zip Code *" required />
+        <button type="submit">See Meals and Pricing</button>
       </form>
-
-      <!-- Already Have a Account -->
-      <div class="login-link">
-        <p>Already have an account? <a routerLink="/login">Login here</a></p>
-      </div>
-
-      <!-- Messages -->
-      <div class="messages">
-        <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
-        <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
-      </div>
     </div>
+
   </div>
 </section>
 
 <app-footer></app-footer>
+
 
 

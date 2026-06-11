@@ -1,52 +1,86 @@
-<div class="auth-container">
-  <h2>Create Account</h2>
+<app-header></app-header>
 
-  <form (ngSubmit)="onSignup()" #signupForm="ngForm">
-    <!-- Name -->
-    <label for="name">Name</label>
-    <input
-      type="text"
-      id="name"
-      name="name"
-      [(ngModel)]="name"
-      required
-      placeholder="Enter your full name"
-    />
+<section class="landing">
+  <div class="landing-container">
 
-    <!-- Email -->
-    <label for="email">Email</label>
-    <input
-      type="email"
-      id="email"
-      name="email"
-      [(ngModel)]="email"
-      required
-      placeholder="Enter your email"
-    />
+    <!-- Left Expertise Card -->
+    <div class="expertise-card">
+      <h2>Our Expertise</h2>
+      <p>We specialize in a variety of cuisines, crafted to perfection.</p>
 
-    <!-- Password -->
-    <label for="password">Password</label>
-    <input
-      type="password"
-      id="password"
-      name="password"
-      [(ngModel)]="password"
-      required
-      minlength="8"
-      placeholder="Choose a strong password"
-    />
+      <!-- Smooth slider -->
+      <div class="expertise-slider">
+        <div class="slide"><img src="assets/images/piza.jpg" alt="Pizza" /></div>
+        <div class="slide"><img src="assets/images/burger.jpg" alt="Burger" /></div>
+        <div class="slide"><img src="assets/images/cold coffee.jpg" alt="Cold Coffee" /></div>
+        <div class="slide"><img src="assets/images/pasta.jpg" alt="Pasta" /></div>
+        <div class="slide"><img src="assets/images/tikka.jpg" alt="Tikka" /></div>
+        <div class="slide"><img src="assets/images/wrap.jpg" alt="Wrap" /></div>
+      </div>
+    </div>
 
-    <button type="submit" [disabled]="signupForm.invalid || isLoading">
-      {{ isLoading ? 'Signing Up...' : 'Sign Up' }}
-    </button>
-  </form>
+    <!-- Right Signup Card -->
+    <div class="signup-card">
+      <h2>Join Culinary Cart</h2>
+      <form (ngSubmit)="onSignup()" #signupForm="ngForm">
 
-  <!-- ✅ Feedback messages -->
-  <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
-  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+        <div class="form-group">
+          <input 
+            id="name" 
+            name="name" 
+            [(ngModel)]="name" 
+            required 
+            placeholder="Enter your full name"
+            #nameRef="ngModel"/>
+          <div class="error" *ngIf="nameRef.invalid && nameRef.touched">
+            Full Name is required.
+        </div>
+        </div>  
 
-  <p class="redirect">
-    Already have an account?
-    <a routerLink="/login">Login here</a>
-  </p>
-</div>
+        <div class="form-group">
+          <input 
+            id="email" 
+            name="email" 
+            type="email" 
+            [(ngModel)]="email" 
+            required 
+            placeholder="Enter your email"
+            #emailRef="ngModel" />
+          <div class="error" *ngIf="emailRef.invalid && emailRef.touched">
+            Please enter a valid email.
+        </div>
+        </div>
+
+        <div class="form-group">
+          <input 
+            id="password" 
+            name="password" 
+            [type]="showPassword ? 'text' : 'password'" 
+            [(ngModel)]="password" 
+            required minlength="8"
+            placeholder="Choose a strong password"
+            #passwordRef="ngModel" />
+          <span class="toggle-password" (click)="togglePassword()">👁️</span> 
+          <div class="error" *ngIf="passwordRef.invalid && passwordRef.touched">
+            Password must be atleast 8 character.
+        </div>
+        </div>
+
+        <div class="button-container">
+          <button type="submit" [disabled]="isLoading">
+            {{ isLoading ? 'Signing up...' : 'Sign Up' }}
+          </button>
+        </div>
+        </form>
+
+      <div class="login-link">
+        <p>Already have an account? <a routerLink="/login">Login here</a></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<app-footer></app-footer>
+
+

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../auth/services/auth.service';   // ✅ correct path
+import { AuthService } from '../../auth/services/auth.service';   
 import { HeaderComponent } from '../../shared/header/header.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 
@@ -27,7 +27,7 @@ export class LandingComponent {
     private router: Router
   ) {}
 
-  // ✅ Signup handler (real API)
+  // Signup handler (real API)
   onSignup(): void {
     this.errorMessage = '';
     this.successMessage = '';
@@ -56,7 +56,7 @@ export class LandingComponent {
     });
   }
 
-  // ✅ Menu tab click
+  // Menu tab click
   goToMenu(): void {
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/menu']);
