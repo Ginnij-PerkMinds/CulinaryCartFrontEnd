@@ -8,6 +8,8 @@ export interface MenuItem {
   dietaryPreferenceName: string;
 
   selectedQty?: number;
+
+  quantity?: number; 
 }
 
 export interface MenuResponse {

@@ -2,8 +2,16 @@
 
 <section class="landing">
   <div class="landing-container">
+    
+     <!-- Left Promo Card -->
+    <div class="promo-card">
+      <img src="assets/images/connect.jpg" alt="Connect with Us" class="connect-image" />
+      <img src="assets/images/chef.jpg" alt="Chef" class="chef-image" />
+      <p>Get ₹299 Off your first five orders.</p>
+      
+    </div>
 
-    <!-- Left Expertise Card -->
+    <!-- Middle Expertise Card -->
     <div class="expertise-card">
       <h2>Our Expertise</h2>
       <p>We specialize in a variety of cuisines, crafted to perfection.</p>
@@ -71,6 +79,15 @@
             {{ isLoading ? 'Signing up...' : 'Sign Up' }}
           </button>
         </div>
+        
+         <!-- ✅ Added success/fail message blocks -->
+        <div class="alert alert-success" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+        <div class="alert alert-danger" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+
         </form>
 
       <div class="login-link">

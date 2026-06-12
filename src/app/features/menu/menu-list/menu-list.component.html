@@ -1,46 +1,50 @@
 <app-header></app-header>
 
-<!-- Sidebar filters -->
-<div class="filters-sidebar">
-  <div class="filter-section">
-    <h3>Category</h3>
-    <div *ngFor="let cat of categories">
-      <label>
-        <input type="checkbox" [value]="cat.categoryName" (change)="onCategoryChange($event)">
-        {{cat.categoryName}}
-      </label>
+<div class="menu-layout">
+  <!-- Sidebar filters -->
+  <aside class="filters-sidebar">
+    <div class="filter-section">
+      <h3>Category</h3>
+      <div *ngFor="let cat of categories">
+        <label>
+          <input type="checkbox" [value]="cat.categoryName" (change)="onCategoryChange($event)">
+          {{cat.categoryName}}
+        </label>
+      </div>
     </div>
-  </div>
 
-  <div class="filter-section">
-    <h3>Dietary Preferences</h3>
-    <div *ngFor="let diet of dietaryPreferences">
-      <label>
-        <input type="checkbox" [value]="diet.diet" (change)="onDietChange($event)">
-        {{diet.diet}}
-      </label>
+    <div class="filter-section">
+      <h3>Dietary Preferences</h3>
+      <div *ngFor="let diet of dietaryPreferences">
+        <label>
+          <input type="checkbox" [value]="diet.diet" (change)="onDietChange($event)">
+          {{diet.diet}}
+        </label>
+      </div>
     </div>
-  </div>
+  </aside>
+
+  <!-- Scrollable menu grid -->
+  <section class="menu-grid">
+    <div class="menu-card" *ngFor="let item of menuItems">
+      <h3>{{ item.foodItemName }}</h3>
+      <p>{{ item.offers }}</p>
+      
+      <small>{{ item.categoryName }} | {{ item.dietaryPreferenceName }}</small>
+      <img [src]="'http://localhost:5209' + item.imageUrl" alt="{{ item.foodItemName }}" />
+
+      <span>{{ item.price | currency:'INR' }}</span>
+
+      <div class="cart-controls">
+        <button class="qty-btn" (click)="decreaseQuantity(item)">-</button>
+        <span class="qty-display">{{ item.quantity }}</span>
+        <button class="qty-btn" (click)="increaseQuantity(item)">+</button>
+        <button class="add-btn" (click)="addToCart(item)">Add to Cart</button>
+      </div>
+    </div>
+  </section>
 </div>
 
-<!-- Menu grid -->
-<div class="menu-grid">
-  <div class="menu-card" *ngFor="let item of menuItems">
-    <h3>{{ item.foodItemName }}</h3>
-    <p>{{ item.offers }}</p>
-    <span>{{ item.price | currency:'INR' }}</span>
-    <small>{{ item.categoryName }} | {{ item.dietaryPreferenceName }}</small>
-    <img [src]="'http://localhost:5209' + item.imageUrl" alt="{{ item.foodItemName }}" />
-
-    <div class="cart-controls">
-  <span class="quantity-label">Quantity:</span>
-  <select>
-    <option *ngFor="let qty of quantities" [value]="qty">{{ qty }}</option>
-  </select>
-  <button>Add to Cart</button>
-</div>
-  </div>
-</div>
 
 <app-footer></app-footer>
 

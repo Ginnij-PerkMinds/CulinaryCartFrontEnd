@@ -1,0 +1,42 @@
+<!-- ✅ Notification near cart button -->
+<div class="cart-notification" *ngIf="notification">
+{{notification}}
+</div>
+
+<!-- ✅ Cart popup overlay -->
+<div class="cart-overlay" *ngIf="isVisible">
+  <div class="cart-popup">
+    <!-- Close button -->
+    <button class="close-btn" (click)="closeCart()">✖</button>
+    <h2>Your Cart</h2>
+
+    <!-- ✅ Empty cart message -->
+    <div *ngIf="cartItems.length === 0" class="empty-cart">
+      <p>Your cart is empty.</p>
+    </div>
+
+    <!-- ✅ Cart items list -->
+    <div *ngFor="let item of cartItems" class="cart-item">
+      <div class="details">
+        <h3>{{ item.foodItemName }}</h3>
+        <span>{{ item.price | currency:'INR' }}</span>
+      </div>
+
+      <div class="cart-controls">
+        <!-- Quantity controls -->
+        <button class="qty-btn" (click)="decreaseQuantity(item)">-</button>
+        <span class="qty-display">{{ item.quantity }}</span>
+        <button class="qty-btn" (click)="increaseQuantity(item)">+</button>
+
+        <!-- ✅ Delete icon -->
+        <button class="delete-btn" (click)="removeItem(item)">🗑</button>
+      </div>
+    </div>
+
+    <!-- ✅ Cart summary -->
+    <div class="cart-summary" *ngIf="cartItems.length > 0">
+      <h3>Total: {{ totalPrice | currency:'INR' }}</h3>
+      <button class="checkout-btn" (click)="checkout()">Checkout</button>
+    </div>
+  </div>
+</div>

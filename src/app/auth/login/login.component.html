@@ -69,6 +69,14 @@
         </div>
       </form>
 
+       <div *ngIf="successMessage" class="alert alert-success">
+              {{ successMessage }}
+          </div>
+
+          <div *ngIf="errorMessage" class="alert alert-danger">
+              {{ errorMessage }}
+          </div>
+
       <div class="signup-link">
         <p>Don’t have an account? <a routerLink="/signup">Sign up here</a></p>
       </div>

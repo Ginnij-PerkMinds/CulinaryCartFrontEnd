@@ -7,6 +7,19 @@
   <!-- Centered Title -->
   <h1 class="brand-title">Culinary Cart Restaurant</h1>
 
+  <!-- Right Controls -->
+  <div class="header-controls">
+    <!-- Cart button with badge (only after login) -->
+    <button class="cart-btn" *ngIf="authService.isLoggedIn()" (click)="cart.openCart()">
+      🛒 Cart
+      <span class="cart-badge" *ngIf="cart.itemCount > 0">{{ cart.itemCount }}</span>
+    </button>
+
+     <!-- ✅ Added: popup notification near cart button -->
+    <div class="cart-popup-notification" *ngIf="cartNotification">
+      {{ cartNotification }}
+    </div>
+
   <!-- Right Corner Dropdown -->
   <div class="dropdown" *ngIf="!authService.isLoggedIn()">
     <button class="dropbtn">
@@ -27,7 +40,10 @@
       <a (click)="authService.logout()">Logout</a>
     </div>
   </div>
-</header>
 
+
+<!-- ✅ Keep cart component reference -->
+<app-cart #cart></app-cart>
+<header>
 
 
