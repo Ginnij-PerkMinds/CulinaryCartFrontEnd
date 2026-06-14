@@ -17,13 +17,13 @@ export class CartService {
     });
   }
 
-  // ✅ View cart
+  // View cart
   getCart(): Observable<any[]> {
     const headers = this.getAuthHeaders();
     return this.http.get<any[]>(`${this.baseUrl}/ViewCart`, { headers });
   }
 
-  // ✅ Add item
+  // Add item
   addItem(foodItemId: number, qty: number): Observable<any> {
     const headers = this.getAuthHeaders();
     return this.http.post(
@@ -33,7 +33,7 @@ export class CartService {
     );
   }
 
-  // ✅ Update item
+  // Update item
   updateItem(foodItemId: number, qty: number): Observable<any> {
     const headers = this.getAuthHeaders();
     return this.http.put(
@@ -43,13 +43,13 @@ export class CartService {
     );
   }
 
-  // ✅ Remove item
+  // Remove item
   removeItem(foodItemId: number): Observable<any> {
     const headers = this.getAuthHeaders();
     return this.http.delete(`${this.baseUrl}/delete/${foodItemId}`, { headers });
   }
 
-  // ✅ Checkout (you’ll need to add this endpoint in backend if not present)
+  // Checkout 
   checkout(cartItems: any[]): Observable<any> {
     const headers = this.getAuthHeaders();
     return this.http.post(`${this.baseUrl}/checkout`, cartItems, { headers });

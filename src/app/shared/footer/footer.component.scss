@@ -1,7 +1,13 @@
 .site-footer {
-  background: #f9f9f9;
-  padding: 1rem;
+  background: #d60707;
+  padding: 0.15rem;
   text-align: center;
+
+  position: fixed;    
+  bottom: 0;        
+  left: 0;
+  width: 100%;     
+  z-index: 1000;         
 
   .footer-content {
     display: flex;
@@ -11,13 +17,9 @@
     flex-wrap: wrap;
 
     span, a {
-      color: #555;
-      font-size: 0.9rem;
+      color: #0f0f0f;
+      font-size: 0.75rem;
       text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
     }
 
     .separator {
@@ -26,4 +28,5 @@
     }
   }
 }
+
 

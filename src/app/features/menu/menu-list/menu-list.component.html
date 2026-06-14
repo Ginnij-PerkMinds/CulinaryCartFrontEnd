@@ -1,52 +1,66 @@
 <app-header></app-header>
 
-<div class="menu-layout">
-  <!-- Sidebar filters -->
-  <aside class="filters-sidebar">
-    <div class="filter-section">
-      <h3>Category</h3>
-      <div *ngFor="let cat of categories">
-        <label>
-          <input type="checkbox" [value]="cat.categoryName" (change)="onCategoryChange($event)">
-          {{cat.categoryName}}
-        </label>
+<div class="container-fluid my-4">
+  <div class="row">
+
+    <!-- Sidebar -->
+    <aside class="col-md-3 col-lg-2">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+
+          <h5 class="text-danger fw-bold mb-2 fs-6">Category</h5>
+          <div *ngFor="let cat of categories" class="form-check mb-1">
+            <input class="form-check-input" type="checkbox" [value]="cat.categoryName" (change)="onCategoryChange($event)">
+            <label class="form-check-label small fw-semibold">{{cat.categoryName}}</label>
+          </div>
+
+          <h5 class="text-danger fw-bold mt-3 mb-2 fs-6">Dietary Preferences</h5>
+          <div *ngFor="let diet of dietaryPreferences" class="form-check mb-1">
+            <input class="form-check-input" type="checkbox" [value]="diet.diet" (change)="onDietChange($event)">
+            <label class="form-check-label small fw-semibold">{{diet.diet}}</label>
+          </div>
+
+        </div>
       </div>
-    </div>
+    </aside>
 
-    <div class="filter-section">
-      <h3>Dietary Preferences</h3>
-      <div *ngFor="let diet of dietaryPreferences">
-        <label>
-          <input type="checkbox" [value]="diet.diet" (change)="onDietChange($event)">
-          {{diet.diet}}
-        </label>
+    <!-- Menu Grid -->
+    <section class="col-md-9 col-lg-10">
+      <div class="row g-3 menu-grid">
+        <div class="col" *ngFor="let item of menuItems">
+          <div class="card h-100 text-center p-2">
+            <img [src]="'http://localhost:5209' + item.imageUrl"
+                 class="card-img-top"
+                 alt="{{ item.foodItemName }}"
+                 style="height:90px; object-fit:cover;">
+            <div class="card-body p-2">
+              <h6 class="card-title text-danger fw-bold mb-1">{{ item.foodItemName }}</h6>
+              <p class="small fw-semibold text-muted mb-1">{{ item.offers }}</p>
+              <small class="d-block fw-semibold text-secondary mb-1">
+                {{ item.categoryName }} | {{ item.dietaryPreferenceName }}
+              </small>
+              <span class="fw-bold text-dark d-block mb-2">{{ item.price | currency:'INR' }}</span>
+
+              <div class="d-flex justify-content-center align-items-center gap-1">
+                <button class="btn btn-outline-secondary btn-sm fw-bold" (click)="decreaseQuantity(item)">-</button>
+                <span class="fw-bold small">{{ item.quantity }}</span>
+                <button class="btn btn-outline-secondary btn-sm fw-bold" (click)="increaseQuantity(item)">+</button>
+                <button class="btn btn-dark btn-sm fw-bold" (click)="addToCart(item)">Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </aside>
+    </section>
 
-  <!-- Scrollable menu grid -->
-  <section class="menu-grid">
-    <div class="menu-card" *ngFor="let item of menuItems">
-      <h3>{{ item.foodItemName }}</h3>
-      <p>{{ item.offers }}</p>
-      
-      <small>{{ item.categoryName }} | {{ item.dietaryPreferenceName }}</small>
-      <img [src]="'http://localhost:5209' + item.imageUrl" alt="{{ item.foodItemName }}" />
-
-      <span>{{ item.price | currency:'INR' }}</span>
-
-      <div class="cart-controls">
-        <button class="qty-btn" (click)="decreaseQuantity(item)">-</button>
-        <span class="qty-display">{{ item.quantity }}</span>
-        <button class="qty-btn" (click)="increaseQuantity(item)">+</button>
-        <button class="add-btn" (click)="addToCart(item)">Add to Cart</button>
-      </div>
-    </div>
-  </section>
+  </div>
 </div>
 
-
 <app-footer></app-footer>
+
+
+
+
 
 
 

@@ -88,14 +88,14 @@ import { ViewChild } from '@angular/core';
     const foodItemId = item.foodItemID || item.id || item.foodItemId;
 
     if (!foodItemId) {
-      console.error('❌ foodItemId is missing for item:', item);
+      console.error('foodItemId is missing for item:', item);
       alert('Failed to add item: missing ID');
       return;
     }
       
     this.cartService.addItem(foodItemId, item.quantity).subscribe({
       next: (res) => {
-        console.log('✅ Item added successfully', res);
+        console.log(' Item added successfully', res);
         // alert(`Added ${item.quantity} x ${item.foodItemName} to cart!`);
         this.headerComponent.showCartNotification(`Added ${item.quantity} x ${item.foodItemName} to cart!`);
         // Refresh cart view
@@ -104,7 +104,7 @@ import { ViewChild } from '@angular/core';
         });
       },
       error: (err) => {
-        console.error('❌ Failed to add item', err);
+        console.error('Failed to add item', err);
         alert('Failed to add item.');
       }
       

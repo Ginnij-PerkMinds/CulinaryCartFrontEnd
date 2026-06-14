@@ -1,49 +1,57 @@
-<header class="app-header">
+<header class="app-header d-flex justify-content-between align-items-center bg-danger text-white px-4 py-2 sticky-top">
   <!-- Left Logo -->
   <div class="logo-container">
-    <img src="assets/images/Culinary.png" alt="Culinary Cart Logo" class="logo" />
+    <img src="assets/images/Culinary.png" alt="Culinary Cart Logo" class="logo img-fluid" />
   </div>
 
+  <a routerLink="/landing" class="btn btn-outline-light fw-bold">
+      Home
+    </a>
+
   <!-- Centered Title -->
-  <h1 class="brand-title">Culinary Cart Restaurant</h1>
+  <h1 class="brand-title fs-2 fw-bold text-white text-center flex-grow-1">
+    Culinary Cart Restaurant
+  </h1>
 
   <!-- Right Controls -->
-  <div class="header-controls">
+  <div class="header-controls d-flex align-items-center gap-3 position-relative">
     <!-- Cart button with badge (only after login) -->
-    <button class="cart-btn" *ngIf="authService.isLoggedIn()" (click)="cart.openCart()">
+    <button class="btn btn-dark position-relative" *ngIf="authService.isLoggedIn()" (click)="cart.openCart()">
       🛒 Cart
-      <span class="cart-badge" *ngIf="cart.itemCount > 0">{{ cart.itemCount }}</span>
+      <span class="badge bg-warning text-dark position-absolute top-0 start-100 translate-middle">
+        {{ cart.itemCount }}
+      </span>
     </button>
 
-     <!-- ✅ Added: popup notification near cart button -->
-    <div class="cart-popup-notification" *ngIf="cartNotification">
+    <!-- Popup notification near cart button -->
+    <div class="cart-popup-notification alert alert-light py-1 px-2 position-absolute top-100 end-0 mt-1"
+         *ngIf="cartNotification">
       {{ cartNotification }}
     </div>
 
-  <!-- Right Corner Dropdown -->
-  <div class="dropdown" *ngIf="!authService.isLoggedIn()">
-    <button class="dropbtn">
-      <img src="assets/images/dropdown.png" alt="Dropdown Icon" class="drop-icon" />
-    </button>
-    <div class="dropdown-content">
-      <a routerLink="/signup">Signup</a>
-      <a routerLink="/login">Login</a>
+    <!-- Dropdown before login -->
+    <div class="dropdown" *ngIf="!authService.isLoggedIn()">
+      <button class="btn btn-link dropdown-toggle p-0" type="button" data-bs-toggle="dropdown">
+        <img src="assets/images/dropdown.png" alt="Dropdown Icon" class="drop-icon" />
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" routerLink="/signup">Signup</a></li>
+        <li><a class="dropdown-item" routerLink="/login">Login</a></li>
+      </ul>
+    </div>
+
+    <!-- Dropdown after login -->
+    <div class="dropdown" *ngIf="authService.isLoggedIn()">
+      <button class="btn btn-link dropdown-toggle p-0" type="button" data-bs-toggle="dropdown">
+        <img src="assets/images/dropdown.png" alt="Dropdown Icon" class="drop-icon" />
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" (click)="authService.logout()">Logout</a></li>
+      </ul>
     </div>
   </div>
 
-  <!-- Show only Logout after login -->
-  <div class="dropdown" *ngIf="authService.isLoggedIn()">
-    <button class="dropbtn">
-      <img src="assets/images/dropdown.png" alt="Dropdown Icon" class="drop-icon" />
-    </button>
-    <div class="dropdown-content">
-      <a (click)="authService.logout()">Logout</a>
-    </div>
-  </div>
-
-
-<!-- ✅ Keep cart component reference -->
-<app-cart #cart></app-cart>
-<header>
-
+  <!-- Cart component reference -->
+  <app-cart #cart></app-cart>
+</header>
 

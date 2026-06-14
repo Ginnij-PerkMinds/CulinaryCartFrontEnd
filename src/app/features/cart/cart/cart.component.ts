@@ -30,55 +30,69 @@ export class CartComponent {
   loadCart(): void {
     this.cartService.getCart().subscribe({
       next: (items) => {
-        this.cartItems = items.map((i: any) => ({ ...i, quantity: i.quantity || 1 }));
+        this.cartItems = items.map((i: any) => ({
+          foodItemID: i.foodItemID,   
+          foodItemName: i.foodItemName,
+          price: i.price,
+          quantity: i.quantity,
+          finalPrice: i.finalPrice
+        }));
         this.updateCounts();
       },
-      error: () => this.showNotification ("Failed to load cart")
+      error: () => this.showNotification("Failed to load cart")
     });
   }
 
   addItem(foodItemId: number, qty: number = 1): void {
     this.cartService.addItem(foodItemId, qty).subscribe({
       next: () => {
-        this.showNotification  ("Item Added Successfully!");
+        this.showNotification("Item Added Successfully!");
         this.loadCart();
       },
-      error: () => this.showNotification  ("Failed to add item.")
+      error: () => this.showNotification("Failed to add item.")
     });
   }
 
   increaseQuantity(item: any): void {
-    item.quantity++;
+    const newQty = item.quantity + 1;
+    item.quantity = newQty;
     this.updateCounts();
+    this.showNotification("Cart Updated");
+    this.cartService.updateItem(item.foodItemID, newQty).subscribe({
+      next: () => this.loadCart(),
+      error: () => this.showNotification("Failed to update quantity.")
+    });
   }
 
   decreaseQuantity(item: any): void {
     if (item.quantity > 1) {
-      item.quantity--;
+      const newQty = item.quantity - 1;
+      item.quantity = newQty;
       this.updateCounts();
+      this.showNotification("Cart Updated");
+      this.cartService.updateItem(item.foodItemID, newQty).subscribe({
+        next: () => this.loadCart(),
+        error: () => this.showNotification("Failed to update quantity.")
+      });
     }
   }
 
   removeItem(item: any): void {
-    this.cartService.removeItem(item.id).subscribe({
+    this.cartService.removeItem(item.foodItemID).subscribe({
       next: () => {
-        this.cartItems = this.cartItems.filter(i => i.id !== item.id);
+        this.cartItems = this.cartItems.filter(i => i.foodItemID !== item.foodItemID);
         this.updateCounts();
+        this.showNotification("Item removed");
+        this.loadCart();
       },
       error: () => this.showNotification("Failed to remove item.")
     });
   }
 
   updateCounts(): void {
-    this.totalPrice = this.cartItems.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+    this.totalPrice = this.cartItems.reduce((sum, i) => sum + i.finalPrice, 0);
     this.itemCount = this.cartItems.reduce((sum, i) => sum + i.quantity, 0);
   }
-  
-  updateTotalPrice(): void {
-  this.totalPrice = this.cartItems.reduce((sum, item) => {
-    return sum + (item.price * item.quantity);
-  }, 0);
-}
 
   checkout(): void {
     this.cartService.checkout(this.cartItems).subscribe({
@@ -91,11 +105,13 @@ export class CartComponent {
       error: () => this.showNotification("Checkout failed.")
     });
   }
+
   showNotification(message: string): void {
     this.notification = message;
-    setTimeout(() => this.notification = null, 5000); 
+    setTimeout(() => this.notification = null, 5000);
+  }
 }
-}
+
 
 
 

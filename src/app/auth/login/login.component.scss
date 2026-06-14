@@ -1,456 +1,168 @@
-// .landing-container {
-//   flex: 1;
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: flex-start;
-//   gap: 2.5rem;
-//   max-width: 1400px;
-//   padding: 2rem;
-//   margin: 2rem auto 0 auto;
-//   min-height: calc(77.9vh - 77.9px); //for header and footer
-// }
-
-// /* About Us Card (Left) */
-// .about-card {
-//   flex: 1;
-//   background: rgba(0,0,0,0.5);
-//   color: #fff;
-//   padding: 2rem;
-//   border-radius: 8px;
-//   text-align: left;
-//   margin-left: -1rem;
-//   margin-bottom: 1rem;
-//   line-height: 1.6;
-
-//   h2 {
-//     margin-bottom: 1rem;
-//     color: #ffeb3b;
-//   }
-
-//   p {
-//     line-height: 1.6;
-//     font-size: 0.95rem;
-//   }
-// }
-
-// /* Expertise Card (Middle) */
-// .expertise-card {
-//   flex: 1;
-//   background: rgba(0,0,0,0.4);
-//   padding: 2rem;
-//   border-radius: 8px;
-//   text-align: center;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-
-//   h2 {
-//     color: #ffeb3b;
-//     margin-bottom: 0.5rem;
-//   }
-
-//   p {
-//     color: #f1f1f1;
-//     margin-bottom: 1.5rem;
-//   }
-
-//   .expertise-slider {
-//     position: relative;
-//     width: 220px;
-//     height: 150px;
-//     margin: 0 auto 1.5rem auto;
-//     overflow: hidden;
-
-//     .slide {
-//       position: absolute;
-//       top: 0; left: 0;
-//       width: 100%; height: 100%;
-//       opacity: 0;
-//       transition: opacity 0.8s ease-in-out;
-
-//       img {
-//         width: 100%;
-//         height: 100%;
-//         object-fit: cover;
-//         border-radius: 8px;
-//       }
-//     }
-
-//     .slide:nth-child(1) { animation: fadeResize 12s infinite; animation-delay: 0s; }
-//     .slide:nth-child(2) { animation: fadeResize 12s infinite; animation-delay: 2s; }
-//     .slide:nth-child(3) { animation: fadeResize 12s infinite; animation-delay: 4s; }
-//     .slide:nth-child(4) { animation: fadeResize 12s infinite; animation-delay: 6s; }
-//     .slide:nth-child(5) { animation: fadeResize 12s infinite; animation-delay: 8s; }
-//     .slide:nth-child(6) { animation: fadeResize 12s infinite; animation-delay: 10s; }
-//   }
-// }
-
-// /* Login Card (Right) */
-// .login-card {
-//   flex: 1;
-//   background: rgba(0,0,0,0.4);
-//   padding: 2rem;
-//   border-radius: 8px;
-//   text-align: center;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   color: #000;
-//   position: relative;
-//   left: 100px;
-
-//   h2 {
-//     margin-bottom: 1rem;
-//     color: #d8f313;
-//   }
-
-//   .form-group {
-//     margin-bottom: 1rem;
-
-//     input {
-//       width: 80%;
-//       padding: 0.6rem;
-//       padding-right: 2.5rem; 
-//       border: 1px solid #ccc;
-//       border-radius: 4px;
-//       font-size: 0.9rem;
-//       box-sizing: border-box;
-      
-//       &::placeholder {
-//         color: #666;
-//         font-style: italic;
-//       }
-
-//       &:focus {
-//         outline: none;
-//         border-color: #e63946;
-//         box-shadow: 0 0 4px rgba(230,57,70,0.4);
-//       }
-//     }
-
-//     .error {
-//       margin-top: 0.3rem;
-//       font-size: 0.85rem;
-//       color: #fff;   
-//       text-align: center;
-//       text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-//     }
-//   }
-
-//   .password-group {                  
-//     position: relative;
-
-   
-//   }
-
-//   .toggle-password {              
-//     position: absolute;
-//     // right: 0.75rem;
-//     top: 50%;
-//     transform: translateY(-50%);
-//     cursor: pointer;
-//     font-size: 1.2rem;
-//     color: #666;
-//     transition: color 0.3s ease, font-weight 0.3s ease;
-    
-
-//     &:hover {
-//       color: #ffeb3b;
-//       font-weight: bold;
-//     }
-//   }
-// }
-
-//   .button-container {
-//     margin-top: 1rem;
-
-//     button {
-//       width: 25%;
-//       background: #02f306;
-//       color: #fff;
-//       border: none;
-//       padding: 0.6rem;
-//       border-radius: 4px;
-//       cursor: pointer;
-//       font-weight: 600;
-
-//       &:hover {
-//         background: #08e029;
-//       }
-
-//       &:disabled {
-//         background: #ed0505;
-//         cursor: not-allowed;
-//       }
-//     }
-//   }
-//        .alert {
-//         padding: 6px 10px;
-//         border-radius: 4px;
-//         margin-bottom: 10px;
-//         font-size: 14px;
-//       }
-
-//        .alert-success {
-//          background-color: #d4edda;
-//          color: #155724;
-//          }
-
-//       .alert-danger {
-//         background-color: #f8d7da;
-//         color: #721c24;
-//         }
-
-//   .signup-link {
-//     margin-top: 1rem;
-//     font-size: 0.9rem;
-//     color: #faf7f7;
-
-//     a {
-//       color: #f7f5f5;
-//       text-decoration: none;
-
-//       &:hover {
-//         color: #ffeb3b;
-//         font-weight: bold;
-//       }
-//     }
-//   }
-
-
-// /* Slider animation */
-// @keyframes fadeResize {
-//   0%   { opacity: 1; transform: scale(1); }
-//   20%  { opacity: 1; transform: scale(1.1); }
-//   30%  { opacity: 0; transform: scale(0.95); }
-//   100% { opacity: 0; transform: scale(0.95); }
-// }
-
-.landing-container {
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 2.5rem;
-  max-width: 1400px;
-  padding: 2rem;
-  margin: 2rem auto 0 auto;
-  min-height: calc(77.9vh - 77.9px); // for header and footer
+/* Page Layout */
+html, body {
+  height: 100%;
+  margin: 0;
 }
-
-/* About Us Card (Left) */
-.about-card {
-  flex: 1;
-  background: rgba(0,0,0,0.5);
-  color: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  text-align: left;
-  margin-left: -1rem;
-  margin-bottom: 1rem;
-  line-height: 1.6;
-
-  h2 {
-    margin-bottom: 1rem;
-    color: #ffeb3b;
-  }
-
-  p {
-    line-height: 1.6;
-    font-size: 0.95rem;
-  }
-}
-
-/* Expertise Card (Middle) */
-.expertise-card {
-  flex: 1;
-  background: rgba(0,0,0,0.4);
-  padding: 2rem;
-  border-radius: 8px;
-  text-align: center;
+body {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  min-height: 100vh;
+}
+app-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+main {
+  flex: 1;
+}
 
-  h2 {
+/* Offer Scroll Bar */
+.offer-scroll {
+  overflow: hidden;
+  white-space: nowrap;
+  background: #747373, opacity($color: #848282);
+  color: #f1e605;
+  font-weight: bold;
+  font-style:italic;
+  font-size: medium;
+  padding: 0.9rem;
+
+  span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll-left 30s linear infinite;
+  }
+}
+@keyframes scroll-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Cards */
+.card {
+  height: 100%;
+  border-radius: 8px;
+}
+.row.g-4 {
+  align-items: stretch;
+}
+
+/* Expertise carousel images */
+.carousel-inner img {
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* About Us branding */
+.about-card h2 {
+  color: #ffeb3b;
+}
+.about-card p {
+  color: #c10808;
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* Expertise branding */
+.expertise-card h2 {
+  color: #ffeb3b;
+}
+.expertise-card p {
+  color: #f1f1f1;
+}
+
+/* Login branding */
+.login-card h2 {
+  color: #d8f313;
+}
+
+/* Form focus */
+.form-control:focus {
+  border-color: #e63946;
+  box-shadow: 0 0 4px rgba(230, 57, 70, 0.4);
+}
+
+/* Password toggle */
+.toggle-password {
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #666;
+  transition: color 0.3s ease, font-weight 0.3s ease;
+
+  &:hover {
     color: #ffeb3b;
-    margin-bottom: 0.5rem;
-  }
-
-  p {
-    color: #f1f1f1;
-    margin-bottom: 1.5rem;
-  }
-
-  .expertise-slider {
-    position: relative;
-    width: 220px;
-    height: 150px;
-    margin: 0 auto 1.5rem auto;
-    overflow: hidden;
-
-    .slide {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      opacity: 0;
-      transition: opacity 0.8s ease-in-out;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 8px;
-      }
-    }
-
-    .slide:nth-child(1) { animation: fadeResize 12s infinite; animation-delay: 0s; }
-    .slide:nth-child(2) { animation: fadeResize 12s infinite; animation-delay: 2s; }
-    .slide:nth-child(3) { animation: fadeResize 12s infinite; animation-delay: 4s; }
-    .slide:nth-child(4) { animation: fadeResize 12s infinite; animation-delay: 6s; }
-    .slide:nth-child(5) { animation: fadeResize 12s infinite; animation-delay: 8s; }
-    .slide:nth-child(6) { animation: fadeResize 12s infinite; animation-delay: 10s; }
+    font-weight: bold;
   }
 }
 
-/* Login Card (Right) */
-.login-card {
-  flex: 1;
-  background: rgba(0,0,0,0.4);
-  padding: 2rem;
-  border-radius: 8px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;   // ✅ keep content stacked
-  color: #000;
-  position: relative;
-  left: 100px;
+/* Buttons */
+.btn-success {
+  background: #02f306;
+  border: none;
+  font-weight: 600;
 
-  h2 {
-    margin-bottom: 1rem;
-    color: #d8f313;
+  &:hover {
+    background: #08e029;
   }
+  &:disabled {
+    background: #ed0505;
+    cursor: not-allowed;
+  }
+}
 
-  .form-group {
-    margin-bottom: 1rem;
+/* Signup link */
+.signup-link a {
+  color: #05eb78;
+  font-weight: bold;
 
-    input {
-      width: 80%;
-      padding: 0.6rem;
-      padding-right: 2.5rem; 
-      border: 1px solid #ccc;
-      border-radius: 4px;
+  &:hover {
+    color: #ffeb3b;
+  }
+}
+
+/*  Footer  */
+.site-footer {
+  background: #f9f9f9;
+  padding: 1rem;
+  text-align: center;
+  position: fixed;   /* sticky footer */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+
+  .footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    span, a {
+      color: #555;
       font-size: 0.9rem;
-      box-sizing: border-box;
-      
-      &::placeholder {
-        color: #666;
-        font-style: italic;
-      }
-
-      &:focus {
-        outline: none;
-        border-color: #e63946;
-        box-shadow: 0 0 4px rgba(230,57,70,0.4);
-      }
+      text-decoration: none;
     }
 
-    .error {
-      margin-top: 0.3rem;
-      font-size: 0.85rem;
-      color: #fff;   
-      text-align: center;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    a:hover {
+      text-decoration: underline;
     }
-  }
 
-  .password-group {                  
-    position: relative;
-  }
-
-  .toggle-password {              
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 1.2rem;
-    color: #666;
-    transition: color 0.3s ease, font-weight 0.3s ease;
-
-    &:hover {
-      color: #ffeb3b;
+    .separator {
+      color: #999;
       font-weight: bold;
     }
   }
-
-  /* ✅ Message blocks separated from button */
-  .alert {
-    padding: 6px 10px;
-    border-radius: 4px;
-    margin: 0.5rem auto 1rem auto;   // spacing above button
-    font-size: 0.9rem;
-    width: 80%;
-    text-align: center;
-  }
-
-  .alert-success {
-    background-color: #d4edda;
-    color: #155724;
-  }
-
-  .alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-  }
-
-  .button-container {
-    margin-top: 0.5rem;   // ✅ ensures button sits below messages
-
-    button {
-      width: 40%;
-      background: #02f306;
-      color: #fff;
-      border: none;
-      padding: 0.6rem;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 600;
-
-      &:hover {
-        background: #08e029;
-      }
-
-      &:disabled {
-        background: #ed0505;
-        cursor: not-allowed;
-      }
-    }
-  }
-
-  .signup-link {
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    color: #faf7f7;
-
-    a {
-      color: #f7f5f5;
-      text-decoration: none;
-
-      &:hover {
-        color: #ffeb3b;
-        font-weight: bold;
-      }
-    }
-  }
 }
 
-/* Slider animation */
-@keyframes fadeResize {
-  0%   { opacity: 1; transform: scale(1); }
-  20%  { opacity: 1; transform: scale(1.1); }
-  30%  { opacity: 0; transform: scale(0.95); }
-  100% { opacity: 0; transform: scale(0.95); }
+/* Prevent content overlap with sticky footer */
+main {
+  padding-bottom: 60px; // adjust to footer height
 }
+
+
+
+
 
 

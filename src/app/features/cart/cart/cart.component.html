@@ -1,42 +1,52 @@
-<!-- ✅ Notification near cart button -->
-<div class="cart-notification" *ngIf="notification">
-{{notification}}
-</div>
+<!-- Cart popup overlay -->
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true" [class.show]="isVisible" [style.display]="isVisible ? 'block' : 'none'">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
 
-<!-- ✅ Cart popup overlay -->
-<div class="cart-overlay" *ngIf="isVisible">
-  <div class="cart-popup">
-    <!-- Close button -->
-    <button class="close-btn" (click)="closeCart()">✖</button>
-    <h2>Your Cart</h2>
-
-    <!-- ✅ Empty cart message -->
-    <div *ngIf="cartItems.length === 0" class="empty-cart">
-      <p>Your cart is empty.</p>
-    </div>
-
-    <!-- ✅ Cart items list -->
-    <div *ngFor="let item of cartItems" class="cart-item">
-      <div class="details">
-        <h3>{{ item.foodItemName }}</h3>
-        <span>{{ item.price | currency:'INR' }}</span>
+      <!-- Header with logo + brand -->
+      <div class="modal-header bg-secondary text-black p-2" style="height: 70px;">
+            <div class="d-flex align-items-start">
+            <img src="assets/images/Culinary.png" alt="Logo" class="cart-logo me-2" style="height: 50px;" />
+            <h5 class="modal-title fw-bold mb-0 lh-lg">Culinary Cart</h5>
+      </div>
+            <button type="button" class="btn-close btn-close-white" (click)="closeCart()"></button>
       </div>
 
-      <div class="cart-controls">
-        <!-- Quantity controls -->
-        <button class="qty-btn" (click)="decreaseQuantity(item)">-</button>
-        <span class="qty-display">{{ item.quantity }}</span>
-        <button class="qty-btn" (click)="increaseQuantity(item)">+</button>
 
-        <!-- ✅ Delete icon -->
-        <button class="delete-btn" (click)="removeItem(item)">🗑</button>
+      <!-- Body -->
+      <div class="modal-body">
+        <!-- Empty cart -->
+        <div *ngIf="cartItems.length === 0" class="text-center text-muted py-4">
+          Your cart is empty.
+        </div>
+
+        <!-- Cart items -->
+        <div *ngFor="let item of cartItems" class="row align-items-center border-bottom py-2">
+          <div class="col-6">
+            <h6 class="mb-1">{{ item.foodItemName }}</h6>
+            <small class="text-muted">Qty: {{ item.quantity }}</small>
+          </div>
+          <div class="col-3 text-end">
+            
+            <!-- backend-calculated price -->
+            <span class="fw-bold">₹{{ item.finalPrice }}</span>
+          </div>
+          <div class="col-3 text-end">
+            <div class="btn-group btn-group-sm" role="group">
+              <button class="btn btn-outline-secondary" (click)="decreaseQuantity(item)">−</button>
+              <button class="btn btn-outline-secondary disabled">{{ item.quantity }}</button>
+              <button class="btn btn-outline-secondary" (click)="increaseQuantity(item)">+</button>
+            </div>
+            <button class="btn btn-sm btn-outline-danger ms-2" (click)="removeItem(item)">🗑</button>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <!-- ✅ Cart summary -->
-    <div class="cart-summary" *ngIf="cartItems.length > 0">
-      <h3>Total: {{ totalPrice | currency:'INR' }}</h3>
-      <button class="checkout-btn" (click)="checkout()">Checkout</button>
+      <!-- Footer -->
+      <div class="modal-footer d-flex justify-content-between">
+        <h5 class="fw-bold mb-0">Total: ₹{{ totalPrice }}</h5>
+        <button class="btn btn-warning fw-bold" (click)="checkout()">Checkout</button>
+      </div>
     </div>
   </div>
 </div>

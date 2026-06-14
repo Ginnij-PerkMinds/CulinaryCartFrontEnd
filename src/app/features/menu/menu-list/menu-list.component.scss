@@ -1,142 +1,29 @@
-.menu-layout {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  margin-top: 20px;
-  height: calc(83vh - 83px); // adjust based on header height
+/* Sidebar fills page height */
+aside {
+  height: calc(95vh - 120px); 
 }
 
-/* Sidebar fixed height, no scroll */
-.filters-sidebar {
-  width: 220px;
-  background: rgba(255, 255, 255, 0.65); // semi-transparent
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  flex-shrink: 0; // prevent shrinking
-  align-self: flex-start; // height only as per content
-  position: sticky;
-  top: 100px; // pinned below header
-
-  h3 {
-    margin-bottom: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #d20808;
-  }
-
-  label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-  }
+/* Force exactly 5 cards per row */
+.menu-grid > .col {
+  flex: 0 0 20%;   // each card = 20% width
+  max-width: 20%;
 }
 
-/* Menu grid scrolls independently */
+/* Show only 2 rows, then scroll */
 .menu-grid {
-  flex: 1;
-  overflow-y: auto;
-  padding-right: 8px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 14px;
+  max-height: calc(2 * 250px + 24px); 
+  overflow-y: auto;               
 }
 
-/* Menu card styling */
-.menu-card {
-  background: rgba(255, 255, 255, 0.65); // slightly transparent
-  border-radius: 8px;
-  padding: 10px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-
-  h3 {
-    margin-bottom: 6px;
-    font-size: 20px;
-    font-weight: bold; // bold item name
-    color: #de0808;
-     }
-
-  p {
-    font-size: 15px;
-    font-weight: bold; // bold offers
-    color: #444;
-    margin-bottom: 6px;
-    }
-
-  img {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 6px;
-    margin: 10px 0;
-     }
-
-  span {
-    display:block;
-    margin-top: 4px;
-    font-size: 18px;
-    font-weight: bold; // bold price
-    color: #111;
-     }
-
-  small {
-    font-size: 12px;
-    font-weight: bold; // bold category/diet info
-    color: #555;
-    margin-top: 2px;
-    display:block;
-      }
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.25);
-    transition: all 0.2s ease;
-  }
+/* Shrink card contents */
+.card {
+  font-size: 0.8rem;
 }
-
-/* Cart controls */
-.cart-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 10px;
+.card-title {
+  font-size: 0.85rem;
 }
-
-.qty-btn {
-  width: 30px;
-  height: 30px;
-  font-size: 18px;
-  border: 1px solid #ccc;
-  background: #f9f9f9;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: bold;
+.card-img-top {
+  height: 90px;        
+  object-fit: cover;
 }
-
-.qty-display {
-  min-width: 30px;
-  text-align: center;
-  font-weight: bold;
-  color: #222;
-}
-
-.add-btn {
-  background: #000;
-  color: #fff;
-  padding: 8px 16px;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: bold;
-  transition: background 0.2s ease;
-
-  &:hover {
-    background: #333;
-  }
-}
-
 
