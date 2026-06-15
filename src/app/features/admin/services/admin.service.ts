@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { MenuResponse } from '../model/menu-item.model';
+import { MenuResponse } from '../model/admin.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MenuService {
+export class AdminService {
   private apiUrl = '/api/Menu/ShowMenu';
   private categoryUrl = '/api/Category/GetCategories';  
   private dietUrl = '/api/DietaryPreference/GetDietaryPreferences';
@@ -43,6 +43,3 @@ export class MenuService {
     return this.http.post(`${this.apiUrl}/AddMenu`, formData);
   }
 }
-
-
-

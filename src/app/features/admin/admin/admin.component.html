@@ -1,0 +1,86 @@
+<app-header></app-header>
+
+<div class="container my-4">
+  <!-- Filter Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+    <div class="container-fluid">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- Category Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-bold text-danger" href="#" id="categoryDropdown"
+             role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Category
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+            <li *ngFor="let cat of categories">
+              <a class="dropdown-item" (click)="applyCategoryFilter(cat.categoryName)">
+                {{ cat.categoryName }}
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Dietary Preferences Dropdown -->
+        <li class="nav-item dropdown ms-3">
+          <a class="nav-link dropdown-toggle fw-bold text-danger" href="#" id="dietDropdown"
+             role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dietary Preferences
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dietDropdown">
+            <li *ngFor="let diet of dietaryPreferences">
+              <a class="dropdown-item" (click)="applyDietFilter(diet.diet)">
+                {{ diet.diet }}
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Menu Items Table -->
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">FoodItemID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Image</th>
+          <th scope="col">Category</th>
+          <th scope="col">Diet</th>
+          <th scope="col">Offers</th>
+          <th scope="col">Price</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of menuItems">
+          <td>{{ item.foodItemID }}</td>
+          <td>{{ item.foodItemName }}</td>
+          <td>
+            <img [src]="'http://localhost:5209' + item.imageUrl"
+                 alt="{{ item.foodItemName }}"
+                 style="width:40px; height:30px; object-fit:cover;">
+          </td>
+          <td>{{ item.categoryName }}</td>
+          <td>{{ item.dietaryPreferenceName }}</td>
+          <td>{{ item.offers }}</td>
+          <td>{{ item.price | currency:'INR' }}</td>
+          <td>
+            <div class="d-flex justify-content-center gap-3">
+              <!-- View Icon -->
+              <i class="bi bi-eye text-primary" role="button" (click)="viewItem(item)" title="View"></i>
+              <!-- Update Icon -->
+              <i class="bi bi-pencil-square text-warning" role="button" (click)="updateItem(item)" title="Update"></i>
+              <!-- Delete Icon -->
+              <i class="bi bi-trash text-danger" role="button" (click)="deleteItem(item)" title="Delete"></i>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-footer></app-footer>
+
