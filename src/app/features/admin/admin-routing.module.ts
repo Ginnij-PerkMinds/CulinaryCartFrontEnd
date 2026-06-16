@@ -1,22 +1,19 @@
-// import { NgModule } from '@angular/core';
-// import { RouterModule, Routes } from '@angular/router';
-// import { AdminComponent } from './admin/admin.component';
-
-// const routes: Routes = [
-//   { path: '', component: AdminComponent }   // ✅ /admin loads AdminComponent
-// ];
-
-// @NgModule({
-//   imports: [RouterModule.forChild(routes)],
-//   exports: [RouterModule]
-// })
-// export class AdminRoutingModule {}
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminComponent } from './admin/admin.component';
+import { AdminHomeComponent } from './components/admin-home/admin-home.component';
+import { AdminMenuComponent } from './components/admin-menu/admin-menu.component';
+import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 
 const routes: Routes = [
-  { path: '', component: AdminComponent }   // ✅ /admin → AdminComponent
+  {
+    path: '',
+    component: AdminHomeComponent,
+    children: [
+      { path: 'menu', component: AdminMenuComponent },
+      { path: 'users', component: AdminUsersComponent },
+      { path: '', redirectTo: 'menu', pathMatch: 'full' }
+    ]
+  }
 ];
 
 @NgModule({
@@ -24,6 +21,9 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AdminRoutingModule {}
+
+
+
 
 
 

@@ -1,0 +1,104 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light w-100 border-bottom mb-3">
+  <div class="container-fluid">
+    <ul class="navbar-nav mb-2 mb-lg-0">
+      <!-- Category Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle fw-bold text-danger" href="#" id="categoryDropdown"
+           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Category
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+          <li>
+          <a class="dropdown-item" (click)="applyCategoryFilter('')">
+           None
+          </a>
+          </li>
+          <li *ngFor="let cat of categories">
+            <a class="dropdown-item" (click)="applyCategoryFilter(cat.categoryName)">
+              {{ cat.categoryName }}
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- Dietary Preferences Dropdown -->
+      <li class="nav-item dropdown ms-3">
+        <a class="nav-link dropdown-toggle fw-bold text-danger" href="#" id="dietDropdown"
+           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Dietary Preferences
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dietDropdown">
+          <li>
+          <a class="dropdown-item" (click)="applyDietFilter('')">
+           None
+           </a>
+          </li>
+          <li *ngFor="let diet of dietaryPreferences">
+            <a class="dropdown-item" (click)="applyDietFilter(diet.diet)">
+              {{ diet.diet }}
+            </a>
+          </li>
+        </ul>
+      </li>
+      </ul>
+
+      <!-- Search bar aligned right -->
+<!-- <li class="nav-item ms-auto">
+  <div class="d-flex"> -->
+    <form class="d-flex" (ngSubmit)="searchItems(searchInput.value)">
+    <input #searchInput type="text" class="form-control me-2" placeholder="Search items..."
+           (input)="searchItems(searchInput.value)">
+    <button class="btn btn-outline-success" type="submit">
+      <i class="bi bi-search"></i>
+    </button>
+  </form>
+  </div>
+</nav>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-hover align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>FoodItemID</th>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Category</th>
+        <th>Diet</th>
+        <th>Offers</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of menuItems">
+        <td class="col-1">{{ item.foodItemID }}</td>
+        <td class="col-2 text-start">{{ item.foodItemName }}</td>
+        <td>
+          <img [src]="'http://localhost:5209' + item.imageUrl"
+               alt="{{ item.foodItemName }}"
+               class="img-thumbnail" width="40" height="30">
+        </td>
+        <td>{{ item.categoryName }}</td>
+        <td>{{ item.dietaryPreferenceName }}</td>
+        <td>{{ item.offers }}</td>
+        <td>{{ item.price | currency:'INR' }}</td>
+        <td>
+          <div class="d-flex justify-content-center gap-2">
+            <button class="btn btn-sm btn-outline-primary" (click)="viewItem(item)" title="View">
+              <i class="bi bi-eye"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-warning" (click)="updateItem(item)" title="Update">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger" (click)="deleteItem(item.foodItemID)" title="Delete">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+

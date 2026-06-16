@@ -1,14 +1,12 @@
 <header class="app-header d-flex justify-content-between align-items-center bg-danger text-white px-4 py-2 sticky-top">
-  <!-- Left Logo -->
+  <!-- Left Logo (clickable, redirects to localhost:4200) -->
   <div class="logo-container">
-    <img src="assets/images/Culinary.png" alt="Culinary Cart Logo" class="logo img-fluid" />
+    <a href="http://localhost:4200">
+      <img src="assets/images/Culinary.png" alt="Culinary Cart Logo" class="logo img-fluid" />
+    </a>
   </div>
 
-  <a routerLink="/landing" class="btn btn-outline-light fw-bold">
-      Home
-    </a>
-
-  <!-- Centered Title -->
+  <!-- Centered Title (not clickable) -->
   <h1 class="brand-title fs-2 fw-bold text-white text-center flex-grow-1">
     Culinary Cart Restaurant
   </h1>

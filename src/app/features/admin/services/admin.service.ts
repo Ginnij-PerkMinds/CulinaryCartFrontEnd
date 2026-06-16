@@ -3,43 +3,38 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MenuResponse } from '../model/admin.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AdminService {
-  private apiUrl = '/api/Menu/ShowMenu';
-  private categoryUrl = '/api/Category/GetCategories';  
-  private dietUrl = '/api/DietaryPreference/GetDietaryPreferences';
+  private menuUrl = 'http://localhost:5209/api/Menu';
+  private categoryUrl = 'http://localhost:5209/api/Category/GetCategories';
+  private dietUrl = 'http://localhost:5209/api/DietaryPreference/GetDietaryPreferences';
 
   constructor(private http: HttpClient) {}
 
-  // Support multi-select filters
-  getFilteredMenu(categories: string[], diets: string[], pageNumber: number=1, pageSize: number=50): Observable<MenuResponse> {
+  // ✅ Fetch categories
+  getCategories(): Observable<any[]> {
+    return this.http.get<any[]>(this.categoryUrl);
+  }
+
+  // ✅ Fetch dietary preferences
+  getDietaryPreferences(): Observable<any[]> {
+    return this.http.get<any[]>(this.dietUrl);
+  }
+
+  // ✅ Fetch menu with filters
+  getFilteredMenu(categoryName?: string, dietName?: string, pageNumber: number = 1, pageSize: number = 50): Observable<MenuResponse> {
     const params: any = { PageNumber: pageNumber, PageSize: pageSize };
-    if (categories.length) params.CategoryNames = categories.join(',');
-    if (diets.length) params.DietaryPreferenceNames = diets.join(',');
+    if (categoryName) params.CategoryName = categoryName;
+    if (dietName) params.DietaryPreferenceName = dietName;
 
-    return this.http.get<MenuResponse>(this.apiUrl, { params });
-  }
-  // fetch categories from DB
-  getCategories(): Observable<any[]> {                 
-        return this.http.get<any[]>(this.categoryUrl);     
+    return this.http.get<MenuResponse>(`${this.menuUrl}/ShowMenu`, { params });
   }
 
-  // fetch dietary preferences from DB
-  getDietaryPreferences(): Observable<any[]> {         
-    return this.http.get<any[]>(this.dietUrl);         
-  }
-
- deleteMenuItem(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/DeleteMenu/${id}`);
-  }
-
-  updateMenuItem(id: number, formData: FormData): Observable<any> {
-    return this.http.put(`${this.apiUrl}/UpdateMenu/${id}`, formData);
-  }
-
-  addMenuItem(formData: FormData): Observable<any> {
-    return this.http.post(`${this.apiUrl}/AddMenu`, formData);
+  // ✅ Delete menu item
+  deleteMenuItem(id: number): Observable<any> {
+    return this.http.delete(`${this.menuUrl}/DeleteMenu/${id}`);
   }
 }
+
+
+

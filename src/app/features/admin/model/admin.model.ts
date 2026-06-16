@@ -1,15 +1,12 @@
 export interface MenuItem {
   foodItemID: number;
   foodItemName: string;
-  price: number;
-  offers: string;
   imageUrl: string;
   categoryName: string;
   dietaryPreferenceName: string;
-
-  selectedQty?: number;
-
-  quantity?: number; 
+  offers: string;
+  price: number;
+  quantity?: number;
 }
 
 export interface MenuResponse {
@@ -18,3 +15,4 @@ export interface MenuResponse {
   pageSize: number;
   data: MenuItem[];
 }
+
