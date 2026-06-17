@@ -1,5 +1,3 @@
-<!-- <h3></h3>
-
 <div class="table-responsive">
   <table class="table table-bordered table-hover align-middle">
     <thead class="table-light">
@@ -7,7 +5,7 @@
         <th>UserId</th>
         <th>Name</th>
         <th>EmailId</th>
-        <th>PasswordHash</th>
+        <!-- <th>PasswordHash</th> -->
         <th>CreatedAt</th>
         <th>UpdatedAt</th>
         <th>IsActive</th>
@@ -19,50 +17,19 @@
         <td>{{ user.userId }}</td>
         <td>{{ user.name }}</td>
         <td>{{ user.emailId }}</td>
-        <td>{{ user.passwordHash }}</td>
-        <td>{{ user.createdAt }}</td>
-        <td>{{ user.updatedAt }}</td>
-        <td>
-          <input type="checkbox" [checked]="user.isActive" (change)="toggleActive(user)" />
-        </td>
-        <td>
-          <input type="checkbox" [checked]="user.isAdmin" (change)="toggleAdmin(user)" />
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div> -->
-<h3></h3>
 
-<div class="table-responsive">
-  <table class="table table-bordered table-hover align-middle">
-    <thead class="table-light">
-      <tr>
-        <th>UserId</th>
-        <th>Name</th>
-        <th>EmailId</th>
-        <th>PasswordHash</th>
-        <th>CreatedAt</th>
-        <th>UpdatedAt</th>
-        <th>IsActive</th>
-        <th>IsAdmin</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{ user.userId }}</td>
-        <td>{{ user.name }}</td>
-        <td>{{ user.emailId }}</td>
-        <td>{{ user.passwordHash }}</td>
-        <td>{{ user.createdAt }}</td>
-        <td>{{ user.updatedAt }}</td>
-        <td>
-          <!-- Old Checkbox -->
-          <!--
-          <input type="checkbox" [checked]="user.isActive" (change)="toggleActive(user)" />
-          -->
+        <!-- Removed Column passwordHash -->
+        <!-- <td>{{ user.passwordHash }}</td> -->
 
-          <!-- New Toggle Switch -->
+        <!-- <td>{{ user.createdAt }}</td>
+        <td>{{ user.updatedAt }}</td> -->
+
+        <!-- Changed Format of DateTime -->
+        <td>{{ user.createdAt | date:'dd/MM/yyyy, hh:mm a' }}</td>
+        <td>{{ user.updatedAt | date:'dd/MM/yyyy, hh:mm a' }}</td>
+        <td>
+          
+          <!-- Toggle Switch -->
           <div class="form-check form-switch">
             <input 
               class="form-check-input" 
@@ -72,12 +39,8 @@
           </div>
         </td>
         <td>
-          <!-- Old Checkbox -->
-          <!--
-          <input type="checkbox" [checked]="user.isAdmin" (change)="toggleAdmin(user)" />
-          -->
-
-          <!-- New Toggle Switch -->
+         
+         <!-- Toggle Switch -->
           <div class="form-check form-switch">
             <input 
               class="form-check-input" 

@@ -2,18 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { User } from '../../model/user.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-admin-users',
   standalone: true,
   imports: [CommonModule],
+  providers: [DatePipe],
   templateUrl: './admin-users.component.html',
   styleUrls: ['./admin-users.component.scss']
 })
 export class AdminUsersComponent implements OnInit {
   users: User[] = [];
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,
+              private datePipe:DatePipe
+  ) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -21,7 +25,12 @@ export class AdminUsersComponent implements OnInit {
 
   loadUsers(): void {
     this.userService.getAllUsers().subscribe(data => {
-      this.users = data;
+      // this.users = data;
+      this.users = data.map(user => ({
+        ...user,
+        createdAtFormatted: this.datePipe.transform(user.createdAt, 'dd/MM/yyyy, hh:mm a'),
+        updatedAtFormatted: this.datePipe.transform(user.updatedAt, 'dd/MM/yyyy, hh:mm a')
+      }));
     });
   }
 

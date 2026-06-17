@@ -1,8 +1,29 @@
-.navbar {
-  width: 100%;
-  border-bottom: 1px solid #ddd;
+/* Sidebar styling */
+.sidebar {
+  background-color: #dfe6ed;   
+  min-height: 100vh;           
+  padding-top: 1rem;
 }
 
-.nav-link.active {
-  border-bottom: 2px solid #ffc107;
+.sidebar .nav-link {
+  color: #0f0f0f;            
+  padding: 10px 15px;
+  border-radius: 4px;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #aeb3b7;   
+  color: #1b1b1b;            
+}
+
+.sidebar .nav-link.active {
+  background-color: #ec0a0a;
+  color: #eaedf0;              
+  font-weight: bold;
+}
+
+/* Content area */
+.content-area {
+  padding: 20px;
+  background-color: #f3ecec;   
 }

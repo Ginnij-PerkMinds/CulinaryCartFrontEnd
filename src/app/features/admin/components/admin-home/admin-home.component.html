@@ -1,35 +1,40 @@
 <app-header></app-header>
 
-<div class="container mt-4">
-  <!-- Bootstrap nav-tabs -->
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a 
-        class="nav-link fw-bold" 
-        routerLink="menu" 
-        routerLinkActive="active" 
-        [routerLinkActiveOptions]="{ exact: true }">
-        Menu
-      </a>
-    </li>
-    <li class="nav-item">
-      <a 
-        class="nav-link fw-bold" 
-        routerLink="users" 
-        routerLinkActive="active" 
-        [routerLinkActiveOptions]="{ exact: true }">
-        Users
-      </a>
-    </li>
-  </ul>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 col-lg-2 sidebar">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a 
+            class="nav-link fw-bold" 
+            routerLink="menu" 
+            routerLinkActive="active" 
+            [routerLinkActiveOptions]="{ exact: true }">
+            Menu
+          </a>
+        </li>
+        <li class="nav-item">
+          <a 
+            class="nav-link fw-bold" 
+            routerLink="users" 
+            routerLinkActive="active" 
+            [routerLinkActiveOptions]="{ exact: true }">
+            Users
+          </a>
+        </li>
+      </ul>
+    </div>
 
-  <!-- Tab content area -->
-  <div class="tab-content mt-3">
-    <router-outlet></router-outlet>
+    <!-- Main content -->
+    <div class="col-md-9 col-lg-10 content-area">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
 
 <app-footer></app-footer>
+
 
 
 

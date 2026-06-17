@@ -11,17 +11,17 @@ export class AdminService {
 
   constructor(private http: HttpClient) {}
 
-  // ✅ Fetch categories
+  // Fetch categories
   getCategories(): Observable<any[]> {
     return this.http.get<any[]>(this.categoryUrl);
   }
 
-  // ✅ Fetch dietary preferences
+  // Fetch dietary preferences
   getDietaryPreferences(): Observable<any[]> {
     return this.http.get<any[]>(this.dietUrl);
   }
 
-  // ✅ Fetch menu with filters
+  // Fetch menu with filters
   getFilteredMenu(categoryName?: string, dietName?: string, pageNumber: number = 1, pageSize: number = 50): Observable<MenuResponse> {
     const params: any = { PageNumber: pageNumber, PageSize: pageSize };
     if (categoryName) params.CategoryName = categoryName;
@@ -30,7 +30,7 @@ export class AdminService {
     return this.http.get<MenuResponse>(`${this.menuUrl}/ShowMenu`, { params });
   }
 
-  // ✅ Delete menu item
+  // Delete menu item
   deleteMenuItem(id: number): Observable<any> {
     return this.http.delete(`${this.menuUrl}/DeleteMenu/${id}`);
   }
