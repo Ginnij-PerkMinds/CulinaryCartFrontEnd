@@ -36,12 +36,33 @@ export class LoginComponent {
     this.authService.login({ email: this.email, password: this.password }).subscribe({
       next: (res) => {
         this.isLoading = false;
-        // Save JWT if backend returns { token: "..." }
-        if (res.token) {
-          this.authService.setToken(res.token);
-        }
+        // // Save JWT if backend returns { token: "..." }
+        // if (res.token && res.user) {
+        //   this.authService.setSession(res.token, res.user);
+        // }
+        // ✅ Always call setSession, not setToken
+          if (res.token) {
+          const jwt = typeof res.token === 'string' ? res.token : res.token.token;
+          const user = res.user ?? { email: res.token.email, isAdmin: res.token.isAdmin };
+
+          this.authService.setSession(jwt, user);
+          }
         this.successMessage = res.message || 'Login successful!';
-        setTimeout(() => this.router.navigate(['/menu']), 2000); // redirect after 2s
+
+         // 🔍 Debug logs to inspect response
+          console.log('Login response:', res);
+          console.log('isAdmin flag:', res.user?.isAdmin);
+          console.log('token object:', res.token);
+
+        // --- Admin redirect logic (commented) ---
+        
+        if (res.token && res.token.isAdmin) {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/menu']);
+        }
+
+        // setTimeout(() => this.router.navigate(['/menu']), 2000); // redirect after 2s
       },
       error: (err) => {
         this.isLoading = false;

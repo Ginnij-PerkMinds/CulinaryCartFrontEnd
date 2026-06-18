@@ -1,20 +1,23 @@
 <header class="app-header d-flex justify-content-between align-items-center bg-danger text-white px-4 py-2 sticky-top">
-  <!-- Left Logo (clickable, redirects to localhost:4200) -->
+  <!-- Left Logo -->
   <div class="logo-container">
     <a href="http://localhost:4200">
       <img src="assets/images/Culinary.png" alt="Culinary Cart Logo" class="logo img-fluid" />
     </a>
   </div>
 
-  <!-- Centered Title  -->
+  <!-- Center Title -->
   <h1 class="brand-title fs-2 fw-bold text-white text-center flex-grow-1">
     Culinary Cart Restaurant
   </h1>
 
   <!-- Right Controls -->
   <div class="header-controls d-flex align-items-center gap-3 position-relative">
-    <!-- Cart button with badge (only after login) -->
-    <button class="btn btn-dark position-relative" *ngIf="authService.isLoggedIn()" (click)="cart.openCart()">
+
+    <!-- Cart button (only for logged-in normal users) -->
+    <button class="btn btn-dark position-relative"
+            *ngIf="authService.isLoggedIn() && !authService.isAdmin()"
+            (click)="cart.openCart()">
       🛒 Cart
       <span class="badge bg-warning text-dark position-absolute top-0 start-100 translate-middle">
         {{ cart.itemCount }}
@@ -27,7 +30,7 @@
       {{ cartNotification }}
     </div>
 
-    <!-- Dropdown before login -->
+    <!-- Dropdown for guests (Signup/Login) -->
     <div class="dropdown" *ngIf="!authService.isLoggedIn()">
       <button class="btn btn-link dropdown-toggle p-0" type="button" data-bs-toggle="dropdown">
         <img src="assets/images/dropdown.png" alt="Dropdown Icon" class="drop-icon" />
@@ -38,7 +41,7 @@
       </ul>
     </div>
 
-    <!-- Dropdown after login -->
+    <!-- Dropdown for logged-in users (Logout only) -->
     <div class="dropdown" *ngIf="authService.isLoggedIn()">
       <button class="btn btn-link dropdown-toggle p-0" type="button" data-bs-toggle="dropdown">
         <img src="assets/images/dropdown.png" alt="Dropdown Icon" class="drop-icon" />
@@ -52,4 +55,5 @@
   <!-- Cart component reference -->
   <app-cart #cart></app-cart>
 </header>
+
 

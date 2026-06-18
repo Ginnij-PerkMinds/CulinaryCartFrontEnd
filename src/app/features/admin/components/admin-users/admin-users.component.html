@@ -1,55 +1,44 @@
 <div class="table-responsive">
-  <table class="table table-bordered table-hover align-middle">
-    <thead class="table-light">
+  <table class="table user-table table-bordered table-hover align-middle">
+    <thead class="table-header">
       <tr>
-        <th>UserId</th>
+        <th>User-Id</th>
         <th>Name</th>
-        <th>EmailId</th>
-        <!-- <th>PasswordHash</th> -->
-        <th>CreatedAt</th>
-        <th>UpdatedAt</th>
-        <th>IsActive</th>
-        <th>IsAdmin</th>
+        <th>Email-Id</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>Is Active</th>
+        <th>Is Admin</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users">
+      <tr *ngFor="let user of users; let i = index"
+          [ngClass]="i % 2 === 0 ? 'table-light' : 'table-secondary'">
         <td>{{ user.userId }}</td>
         <td>{{ user.name }}</td>
         <td>{{ user.emailId }}</td>
-
-        <!-- Removed Column passwordHash -->
-        <!-- <td>{{ user.passwordHash }}</td> -->
-
-        <!-- <td>{{ user.createdAt }}</td>
-        <td>{{ user.updatedAt }}</td> -->
-
-        <!-- Changed Format of DateTime -->
         <td>{{ user.createdAt | date:'dd/MM/yyyy, hh:mm a' }}</td>
         <td>{{ user.updatedAt | date:'dd/MM/yyyy, hh:mm a' }}</td>
         <td>
-          
-          <!-- Toggle Switch -->
           <div class="form-check form-switch">
-            <input 
-              class="form-check-input" 
-              type="checkbox" 
-              [checked]="user.isActive" 
-              (change)="toggleActive(user)" />
+            <input class="form-check-input"
+                   type="checkbox"
+                   [checked]="user.isActive"
+                   (change)="toggleActive(user)" />
           </div>
         </td>
         <td>
-         
-         <!-- Toggle Switch -->
           <div class="form-check form-switch">
-            <input 
-              class="form-check-input" 
-              type="checkbox" 
-              [checked]="user.isAdmin" 
-              (change)="toggleAdmin(user)" />
+            <input class="form-check-input"
+                   type="checkbox"
+                   [checked]="user.isAdmin"
+                   (change)="toggleAdmin(user)" />
           </div>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
+
+
+

@@ -43,7 +43,12 @@ export class LandingComponent {
 
         // Save JWT if backend returns { token: "..." }
         if (res.token) {
-          this.authService.setToken(res.token);
+          // this.authService.setToken(res.token);
+          // Save both token and user info
+          const jwt = typeof res.token === 'string' ? res.token : res.token.token;
+          const user = res.user ?? { email: res.token.email, isAdmin: res.token.isAdmin };
+
+          this.authService.setSession(jwt, user);
         }
 
         this.successMessage = res.message || 'Signup successful!';
