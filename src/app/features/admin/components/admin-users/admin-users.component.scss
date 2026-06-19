@@ -1,9 +1,9 @@
 .user-table {
-  border-radius: 12px;
-  border: 2px solid black;
+  border-radius: 10px;
+  border: 2.5px solid black;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   border-collapse: separate;
-  border-spacing: 4px 6px;
+  border-spacing: 2px 2px;
   background-color: #f8f9f7;   //off-white
 
   .table-header {
@@ -26,7 +26,7 @@
   }
 
   .form-check-input {
-    transform: scale(1.1);
+    transform: scale(1);
     cursor: pointer;
   }
 }
@@ -34,12 +34,12 @@
 /* toggle switch colors */
 .form-check-input:checked {
   background-color: #28a745 !important;
-  border-color: #28a745 !important;
+  border-color: black !important;
 }
 
 .form-check-input:not(:checked) {
   background-color: #6c757d !important;
-  border-color: #6c757d !important;
+  border-color: black !important;
 }
 
 
