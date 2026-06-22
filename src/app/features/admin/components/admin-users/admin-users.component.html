@@ -1,45 +1,3 @@
-<!-- <div class="table-responsive">
-  <table class="table user-table table-bordered table-hover align-middle">
-    <thead class="table-header">
-      <tr>
-        <th>User-Id</th>
-        <th>Name</th>
-        <th>Email-Id</th>
-        <th>Created At</th>
-        <th>Updated At</th>
-        <th>Is Active</th>
-        <th>Is Admin</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users; let i = index"
-          [ngClass]="i % 2 === 0 ? 'table-light' : 'table-secondary'">
-        <td>{{ user.userId }}</td>
-        <td>{{ user.name }}</td>
-        <td>{{ user.emailId }}</td>
-        <td>{{ user.createdAt | date:'dd/MM/yyyy, hh:mm a' }}</td>
-        <td>{{ user.updatedAt | date:'dd/MM/yyyy, hh:mm a' }}</td>
-        <td>
-          <div class="form-check form-switch">
-            <input class="form-check-input"
-                   type="checkbox"
-                   [checked]="user.isActive"
-                   (change)="toggleActive(user)" />
-          </div>
-        </td>
-        <td>
-          <div class="form-check form-switch">
-            <input class="form-check-input"
-                   type="checkbox"
-                   [checked]="user.isAdmin"
-                   (change)="toggleAdmin(user)" />
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div> -->
-
 <div class="table-responsive">
   <table class="table user-table table-bordered table-hover align-middle">
     <thead class="table-header">
@@ -62,16 +20,16 @@
         <td>{{ user.userId }}</td>
         <td>
           <img *ngIf="user.profilePic && user.profilePic !== 'NA'"
-               [src]="user.profilePic"
+               [src]="'http://localhost:5209/' + user.profilePic"
                alt="Profile"
                class="img-thumbnail"
-               width="20"
-               height="20"/>
+               width="50"
+               height="50"/>
         </td>
         <td>{{ user.name }}</td>
         <td>{{ user.emailId }}</td>
         <td>{{ user.phoneNo !== 'NA' ? user.phoneNo:''}}</td>
-        <td>{{ user.fullAddress }}</td>
+        <td>{{ user.address }}</td>
         <td>{{ user.createdAtFormatted }}</td>
         <td>{{ user.updatedAtFormatted }}</td>
         <td>
