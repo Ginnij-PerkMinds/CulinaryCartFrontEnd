@@ -1,3 +1,39 @@
+// .logo-container {
+//   caret-color: transparent; 
+// }
+// .app-header {
+//   height: 70px;
+// }
+
+// .logo {
+//   height: 155px; 
+//   width: auto;
+// }
+
+
+// .brand-title {
+//   font-family: 'Georgia', 'Times New Roman', serif;
+//   letter-spacing: 1.3px;
+//   text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+// }
+
+// .drop-icon {
+//   height: 32px;
+//   width: auto;
+// }
+
+// .cart-popup-notification {
+//   font-size: 0.85rem;
+//   border-radius: 6px;
+//   animation: fadeOut 3s ease forwards;
+// }
+
+// @keyframes fadeOut {
+//   0% { opacity: 1; }
+//   80% { opacity: 1; }
+//   100% { opacity: 0; }
+// }
+
 .logo-container {
   caret-color: transparent; 
 }
@@ -9,7 +45,6 @@
   height: 155px; 
   width: auto;
 }
-
 
 .brand-title {
   font-family: 'Georgia', 'Times New Roman', serif;
@@ -32,4 +67,19 @@
   0% { opacity: 1; }
   80% { opacity: 1; }
   100% { opacity: 0; }
+}
+
+/* Modal styling */
+.modal .card {
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.modal .card-header {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.modal-backdrop.show {
+  backdrop-filter: blur(5px);   // adjust blur strength
+  background-color: rgba(0,0,0,0.4); // optional darker overlay
 }

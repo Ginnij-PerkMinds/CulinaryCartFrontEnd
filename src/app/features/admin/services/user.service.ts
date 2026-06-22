@@ -12,24 +12,29 @@ export class UserService {
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/GetAllUsers`);  
   }
+  
+  getUserById(id: number): Observable<User> {
+  return this.http.get<User>(`${this.apiUrl}/GetUser/${id}`);
+  }
 
-  // updateUser(id: number, user: User): Observable<any> {
-  //   return this.http.put(`${this.apiUrl}/UpdateUser/${id}`, user);
-  // }
-  //  // Admin toggles
-  // updateFlags(id: number, isActive: boolean, isAdmin: boolean): Observable<any> {
-  //   return this.http.put(`${this.apiUrl}/UpdateFlags/${id}`, { isActive, isAdmin });
-  // }
+  getCurrentUser(): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/GetUser/1`);    
+  }
+
   updateFlags(id: number, isActive: boolean, isAdmin: boolean): Observable<any> {
   return this.http.put(`${this.apiUrl}/UpdateUser/${id}`, {
     IsActive: isActive,
     IsAdmin: isAdmin
   });
-}
+  }
 
-updateProfile(id: number, formData: FormData): Observable<any> {
+  updateProfile(id: number, formData: FormData): Observable<any> {
   return this.http.put(`${this.apiUrl}/UpdateUser/${id}`, formData);
-}
+  }
+
+  changePassword(id: number, oldPassword: string, newPassword: string): Observable<string> {
+  return this.http.put<string>(`${this.apiUrl}/ChangePassword/${id}`, { oldPassword, newPassword });
+  }
 
 }
 

@@ -14,7 +14,7 @@
   <!-- Right Controls -->
   <div class="header-controls d-flex align-items-center gap-3 position-relative">
 
-    <!-- Cart button (only for logged-in normal users) -->
+    <!-- Cart button -->
     <button class="btn btn-dark position-relative"
             *ngIf="authService.isLoggedIn() && !authService.isAdmin()"
             (click)="cart.openCart()">
@@ -24,13 +24,13 @@
       </span>
     </button>
 
-    <!-- Popup notification near cart button -->
+    <!-- Popup notification -->
     <div class="cart-popup-notification alert alert-light py-1 px-2 position-absolute top-100 end-0 mt-1"
          *ngIf="cartNotification">
       {{ cartNotification }}
     </div>
 
-    <!-- Dropdown for guests (Signup/Login) -->
+    <!-- Dropdown for guests -->
     <div class="dropdown" *ngIf="!authService.isLoggedIn()">
       <button class="btn btn-link dropdown-toggle p-0" type="button" data-bs-toggle="dropdown">
         <img src="assets/images/dropdown.png" alt="Dropdown Icon" class="drop-icon" />
@@ -41,19 +41,121 @@
       </ul>
     </div>
 
-    <!-- Dropdown for logged-in users (Logout only) -->
+    <!-- Dropdown for logged-in users -->
     <div class="dropdown" *ngIf="authService.isLoggedIn()">
       <button class="btn btn-link dropdown-toggle p-0" type="button" data-bs-toggle="dropdown">
         <img src="assets/images/dropdown.png" alt="Dropdown Icon" class="drop-icon" />
       </button>
       <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" (click)="openProfileModal()">Profile</a></li>
+        <li><a class="dropdown-item" (click)="openChangePasswordModal()">Change Password</a></li>
         <li><a class="dropdown-item" (click)="authService.logout()">Logout</a></li>
       </ul>
     </div>
   </div>
 
-  <!-- Cart component reference -->
+  <!-- Cart component -->
   <app-cart #cart></app-cart>
 </header>
+
+<!-- Profile Modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <!-- Left: Pic + Email -->
+          <div class="col-md-3 text-center">
+            <img *ngIf="currentUser.profilePic"
+                 [src]="'http://localhost:5209/' + currentUser.profilePic"
+                 alt="Profile Picture"
+                 class="rounded-circle img-thumbnail mb-2"
+                 width="120" height="120"/>
+            <p class="text-muted mb-0">{{ currentUser.emailId }}</p>
+          </div>
+          <!-- Right: Info -->
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Personal Info</h5>
+                <button class="btn btn-outline-primary btn-sm" (click)="enableEdit()">Edit</button>
+              </div>
+              <div class="card-body">
+                <div *ngIf="!editMode">
+                  <p><strong>Name:</strong> {{ currentUser.name }}</p>
+                  <p><strong>Phone No:</strong> {{ currentUser.phoneNo }}</p>
+                  <p><strong>Address:</strong> {{ currentUser.address }}</p>
+                </div>
+                <form *ngIf="editMode" [formGroup]="profileForm">
+                  <div class="mb-2">
+                    <label>Name</label>
+                    <input formControlName="name" class="form-control"/>
+                  </div>
+                  <div class="mb-2">
+                    <label>Phone No</label>
+                    <input formControlName="phoneNo" class="form-control"/>
+                  </div>
+                  <div class="mb-2">
+                    <label>Address</label>
+                    <textarea formControlName="address" class="form-control"></textarea>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" *ngIf="editMode">
+        <button class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+        <button class="btn btn-primary" (click)="saveProfile()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Change Password Modal -->
+<div class="modal fade" id="passwordModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Change Password</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-header">
+            <h6 class="mb-0">Update Your Password</h6>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="passwordForm">
+              <div class="mb-3">
+                <label>Old Password</label>
+                <input type="password" formControlName="oldPassword" class="form-control"/>
+              </div>
+              <div class="mb-3">
+                <label>New Password</label>
+                <input type="password" formControlName="newPassword" class="form-control"/>
+              </div>
+              <div class="mb-3">
+                <label>Re-enter New Password</label>
+                <input type="password" formControlName="confirmPassword" class="form-control"/>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-primary" (click)="changePassword()">Update Password</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 
