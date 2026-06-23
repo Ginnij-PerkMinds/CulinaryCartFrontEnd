@@ -1,32 +1,3 @@
-// import { Component, viewChild, ViewChild } from '@angular/core';
-// import { CommonModule } from '@angular/common';
-// import { RouterModule } from '@angular/router';
-// import {AuthService} from "../../auth/services/auth.service";
-// import { CartComponent } from '../../features/cart/cart/cart.component';
-
-// @Component({
-//   selector: 'app-header',
-//   standalone: true,
-//   imports: [CommonModule, RouterModule, CartComponent],
-//   templateUrl: './header.component.html',
-//   styleUrls: ['./header.component.scss']
-// })
-
-// export class HeaderComponent {
-// constructor(public authService: AuthService) {}  
-
-// @ViewChild(CartComponent) cart!: CartComponent;
-
-// cartNotification: string | null = null;
-
-// showCartNotification(message: string) {
-//     this.cartNotification = message;
-//     setTimeout(() => {
-//       this.cartNotification = null;
-//     }, 3000); // auto-hide after 3s
-//   }
-// }
-
 import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -74,13 +45,19 @@ export class HeaderComponent {
     });
 
     if (this.authService.isLoggedIn()) {
-      this.userService.getCurrentUser().subscribe(user => {
+    const userId = this.authService.getUserId(); // saved at login
+    if (userId) {
+      this.userService.getUserById(userId).subscribe(user => {
         this.currentUser = user;
-        this.profileForm.patchValue(user);
+        this.profileForm.patchValue({
+        name: user.name,
+        phoneNo: user.phoneNo,
+        address: user.address
       });
+    })
     }
-  }
-
+ }
+}
   showCartNotification(message: string) {
     this.cartNotification = message;
     setTimeout(() => {
@@ -107,10 +84,10 @@ export class HeaderComponent {
     const updated = this.profileForm.value;
     this.userService.updateProfile(this.currentUser.userId, updated)
       .subscribe(res => {
-        if (res.includes('exists')) {
-          alert(res);
+        if (res.message.includes('exists')) {
+          alert(res.message);
         } else {
-          alert('Profile updated successfully');
+          alert(res.message);
           this.currentUser = { ...this.currentUser, ...updated };
           this.editMode = false;
         }
@@ -131,12 +108,11 @@ export class HeaderComponent {
     }
     this.userService.changePassword(this.currentUser.userId, oldPassword, newPassword)
       .subscribe(res => {
-        alert(res);
-        if (res === 'Password updated successfully') {
+        alert(res.message);
+        if (res.message === 'Password updated successfully') {
           this.passwordForm.reset();
         }
       });
   }
 }
-
 

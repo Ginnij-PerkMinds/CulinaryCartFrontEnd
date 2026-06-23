@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   // Saving both token + user
-  setSession(token: string, user: any): void {
+    setSession(token: string, user: any): void {
     localStorage.setItem(this.tokenKey, token);
     localStorage.setItem(this.userKey, JSON.stringify(user));
 
@@ -37,7 +37,11 @@ export class AuthService {
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
   }
-
+  
+  getUserId(): number | null {
+  const user = this.getUser();
+  return user ? user.userId : null;
+  }
   
   getUser(): any | null {
     const user = localStorage.getItem(this.userKey);
