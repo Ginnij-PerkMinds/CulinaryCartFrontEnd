@@ -1,20 +1,19 @@
 <header class="app-header d-flex justify-content-between align-items-center bg-danger text-white px-4 py-2 sticky-top">
-  <!-- Left Logo -->
+  <!-- Logo -->
   <div class="logo-container">
     <a href="http://localhost:4200">
       <img src="assets/images/Culinary.png" alt="Culinary Cart Logo" class="logo img-fluid" />
     </a>
   </div>
 
-  <!-- Center Title -->
+  <!-- Title -->
   <h1 class="brand-title fs-2 fw-bold text-white text-center flex-grow-1">
     Culinary Cart Restaurant
   </h1>
 
-  <!-- Right Controls -->
+  <!-- Controls -->
   <div class="header-controls d-flex align-items-center gap-3 position-relative">
-
-    <!-- Cart button -->
+    <!-- Cart -->
     <button class="btn btn-dark position-relative"
             *ngIf="authService.isLoggedIn() && !authService.isAdmin()"
             (click)="cart.openCart()">
@@ -24,13 +23,13 @@
       </span>
     </button>
 
-    <!-- Popup notification -->
+    <!-- Notification -->
     <div class="cart-popup-notification alert alert-light py-1 px-2 position-absolute top-100 end-0 mt-1"
          *ngIf="cartNotification">
       {{ cartNotification }}
     </div>
 
-    <!-- Dropdown for guests -->
+    <!-- Guest dropdown -->
     <div class="dropdown" *ngIf="!authService.isLoggedIn()">
       <button class="btn btn-link dropdown-toggle p-0" type="button" data-bs-toggle="dropdown">
         <img src="assets/images/dropdown.png" alt="Dropdown Icon" class="drop-icon" />
@@ -41,7 +40,7 @@
       </ul>
     </div>
 
-    <!-- Dropdown for logged-in users -->
+    <!-- User dropdown -->
     <div class="dropdown" *ngIf="authService.isLoggedIn()">
       <button class="btn btn-link dropdown-toggle p-0" type="button" data-bs-toggle="dropdown">
         <img src="assets/images/dropdown.png" alt="Dropdown Icon" class="drop-icon" />
@@ -54,7 +53,6 @@
     </div>
   </div>
 
-  <!-- Cart component -->
   <app-cart #cart></app-cart>
 </header>
 
@@ -78,6 +76,7 @@
                    width="120" height="120"/>
               <p class="text-muted mb-0">{{ currentUser.emailId }}</p>
             </div>
+
             <!-- Right: Info -->
             <div class="col-md-9">
               <div class="card">
@@ -86,12 +85,26 @@
                   <button class="btn btn-outline-primary btn-sm" type="button" (click)="enableEdit()">Edit</button>
                 </div>
                 <div class="card-body">
-                  <div *ngIf="!editMode">
+                  <!-- View Mode -->
+                  <div *ngIf="!editMode && currentUser">
                     <p><strong>Name:</strong> {{ currentUser.name }}</p>
                     <p><strong>Phone No:</strong> {{ currentUser.phoneNo }}</p>
                     <p><strong>Address:</strong> {{ currentUser.address }}</p>
+                    <!-- <p><strong>House No:</strong> {{ currentUser.houseNo }}</p>
+                    <p><strong>Locality:</strong> {{ currentUser.locality }}</p>
+                    <p><strong>Landmark:</strong> {{ currentUser.landmark }}</p>
+                    <p><strong>City:</strong> {{ currentUser.city }}</p>
+                    <p><strong>District:</strong> {{ currentUser.district }}</p>
+                    <p><strong>Pincode:</strong> {{ currentUser.pincode }}</p>
+                    <p><strong>State:</strong> {{ currentUser.state }}</p> -->
                   </div>
+
+                  <!-- Edit Mode -->
                   <div *ngIf="editMode">
+                    <div class="mb-2">
+                      <label>Email ID</label>
+                      <input formControlName="emailId" class="form-control"/>
+                    </div>
                     <div class="mb-2">
                       <label>Name</label>
                       <input formControlName="name" class="form-control"/>
@@ -104,15 +117,48 @@
                       <label>Address</label>
                       <textarea formControlName="address" class="form-control"></textarea>
                     </div>
+                    <!-- <div class="mb-2">
+                      <label>House No</label>
+                      <input formControlName="houseNo" class="form-control"/>
+                    </div>
+                    <div class="mb-2">
+                      <label>Locality</label>
+                      <input formControlName="locality" class="form-control"/>
+                    </div>
+                    <div class="mb-2">
+                      <label>Landmark</label>
+                      <input formControlName="landmark" class="form-control"/>
+                    </div>
+                    <div class="mb-2">
+                      <label>City</label>
+                      <input formControlName="city" class="form-control"/>
+                    </div>
+                    <div class="mb-2">
+                      <label>District</label>
+                      <input formControlName="district" class="form-control"/>
+                    </div>
+                    <div class="mb-2">
+                      <label>Pincode</label>
+                      <input formControlName="pincode" class="form-control"/>
+                    </div>
+                    <div class="mb-2">
+                      <label>State</label>
+                      <input formControlName="state" class="form-control"/>
+                    </div> -->
+                    <div class="mb-2">
+                      <label>Profile Picture</label>
+                      <input type="file" (change)="onFileSelected($event)" class="form-control"/>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <!-- Footer -->
         <div class="modal-footer" *ngIf="editMode">
           <button class="btn btn-secondary" type="button" (click)="cancelEdit()">Cancel</button>
-          <button class="btn btn-primary" type="submit" >Save Changes</button>
+          <button class="btn btn-primary" type="submit">Save Changes</button>
         </div>
       </form>
     </div>
@@ -149,8 +195,10 @@
             </div>
           </div>
         </div>
+        
+        <!-- ✅ Footer buttons included -->
         <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+         <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
           <button class="btn btn-primary" type="submit" >Update Password</button>
         </div>
       </form>

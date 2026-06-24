@@ -30,12 +30,21 @@ export class HeaderComponent {
   profileForm!: FormGroup;
   passwordForm!: FormGroup;
   editMode = false;
+  selectedFile: File | null = null;
 
   ngOnInit(): void {
     this.profileForm = this.fb.group({
       name: ['', Validators.required],
       phoneNo: ['', Validators.required],
-      address: ['']
+      address: [''],
+      emailId: [''],
+      houseNo: [''],
+      locality: [''],
+      landmark: [''],
+      city: [''],
+      district: [''],
+      pincode: [''],
+      state: ['']
     });
 
     this.passwordForm = this.fb.group({
@@ -45,19 +54,14 @@ export class HeaderComponent {
     });
 
     if (this.authService.isLoggedIn()) {
-    const userId = this.authService.getUserId(); // saved at login
-    if (userId) {
-      this.userService.getUserById(userId).subscribe(user => {
-        this.currentUser = user;
-        this.profileForm.patchValue({
-        name: user.name,
-        phoneNo: user.phoneNo,
-        address: user.address
-      });
-    })
+      const storedUser = this.authService.getUser();
+      if (storedUser) {
+        this.currentUser = storedUser;
+        this.profileForm.patchValue(storedUser);
+      }
     }
- }
-}
+  }
+
   showCartNotification(message: string) {
     this.cartNotification = message;
     setTimeout(() => {
@@ -68,7 +72,16 @@ export class HeaderComponent {
   // Profile modal
   openProfileModal() {
     const modal = document.getElementById('profileModal');
-    if (modal) new bootstrap.Modal(modal).show();
+        if (modal) new bootstrap.Modal(modal).show();
+
+    const userId = this.authService.getUserId();
+    if (userId) {
+      this.userService.getUserById(userId).subscribe(user => {
+        this.currentUser = user;
+        this.profileForm.patchValue(user);
+        this.authService.setSession(this.authService.getToken()!, user); 
+      });
+    }
   }
 
   enableEdit() {
@@ -80,15 +93,38 @@ export class HeaderComponent {
     this.profileForm.patchValue(this.currentUser);
   }
 
+  onFileSelected(event: any) {
+    if (event.target.files && event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+    }
+  }
+
   saveProfile() {
     const updated = this.profileForm.value;
-    this.userService.updateProfile(this.currentUser.userId, updated)
+    const formData = new FormData();
+
+    formData.append('name', updated.name);
+    formData.append('phoneNo', updated.phoneNo);
+    formData.append('address', updated.address);
+    formData.append('emailId', updated.emailId);
+    if (updated.houseNo) formData.append('houseNo', updated.houseNo);
+    if (updated.locality) formData.append('locality', updated.locality);
+    if (updated.landmark) formData.append('landmark', updated.landmark);
+    if (updated.city) formData.append('city', updated.city);
+    if (updated.district) formData.append('district', updated.district);
+    if (updated.pincode) formData.append('pincode', updated.pincode);
+    if (updated.state) formData.append('state', updated.state);
+
+    if (this.selectedFile) {
+      formData.append('profilePic', this.selectedFile);
+    }
+
+    this.userService.updateProfile(this.currentUser.userId, formData)
       .subscribe(res => {
-        if (res.message.includes('exists')) {
-          alert(res.message);
-        } else {
-          alert(res.message);
-          this.currentUser = { ...this.currentUser, ...updated };
+        alert(res.message);
+        if (res.user) {
+          this.currentUser = res.user;
+          this.authService.setSession(this.authService.getToken()!, res.user);
           this.editMode = false;
         }
       });
@@ -115,4 +151,9 @@ export class HeaderComponent {
       });
   }
 }
+
+
+
+
+
 

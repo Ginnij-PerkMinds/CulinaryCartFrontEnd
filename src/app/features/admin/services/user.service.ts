@@ -27,20 +27,15 @@ export class UserService {
     );
   }
 
-  // Update profile → backend route is UpdateUserForm/{id}, expects FormData
-  updateProfile(id: number, updated: Partial<User>): Observable<{ message: string }> {
-    const formData = new FormData();
-    if (updated.name) formData.append('name', updated.name);
-    if (updated.phoneNo) formData.append('phoneNo', updated.phoneNo);
-    if (updated.address) formData.append('address', updated.address);
-
-    return this.http.put<{ message: string }>(
+  // Update profile 
+  updateProfile(id: number, formData: FormData): Observable<{ message: string; user: User }> {
+    return this.http.put<{ message: string; user: User }>(
       `${this.apiUrl}/UpdateUserForm/${id}`,
       formData
     );
   }
 
-  // Change password → backend route is ChangePassword/{id}, expects JSON
+  // Change password 
   changePassword(id: number, oldPassword: string, newPassword: string): Observable<{ message: string }> {
     return this.http.put<{ message: string }>(
       `${this.apiUrl}/ChangePassword/${id}`,
@@ -48,11 +43,12 @@ export class UserService {
     );
   }
 
-  // Delete user (optional)
+  // Delete user 
   deleteUser(id: number): Observable<{ message: string }> {
     return this.http.delete<{ message: string }>(`${this.apiUrl}/DeleteUser/${id}`);
   }
 }
+
 
 
 

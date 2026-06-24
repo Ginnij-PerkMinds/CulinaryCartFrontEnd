@@ -18,15 +18,15 @@ export class LoginComponent {
   password = '';
   showPassword: boolean = false;
 
-  togglePassword() {             
-    this.showPassword = !this.showPassword;
-  }
-
   errorMessage = '';
   successMessage = '';
   isLoading = false;
 
   constructor(private authService: AuthService, private router: Router) {}
+
+  togglePassword(): void {
+    this.showPassword = !this.showPassword;
+  }
 
   onLogin(): void {
     this.errorMessage = '';
@@ -36,33 +36,25 @@ export class LoginComponent {
     this.authService.login({ email: this.email, password: this.password }).subscribe({
       next: (res) => {
         this.isLoading = false;
-        // // Save JWT if backend returns { token: "..." }
-        // if (res.token && res.user) {
-        //   this.authService.setSession(res.token, res.user);
-        // }
-        // ✅ Always call setSession, not setToken
-          if (res.token) {
-          const jwt = typeof res.token === 'string' ? res.token : res.token.token;
-          const user = res.user ?? { email: res.token.email, isAdmin: res.token.isAdmin };
 
-          this.authService.setSession(jwt, user);
-          }
+        // Always call setSession with token + user
+        if (res.token && res.user) {
+          this.authService.setSession(res.token, res.user);
+        }
+
         this.successMessage = res.message || 'Login successful!';
 
-         // 🔍 Debug logs to inspect response
-          console.log('Login response:', res);
-          console.log('isAdmin flag:', res.user?.isAdmin);
-          console.log('token object:', res.token);
+        // 🔍 Debug logs
+        console.log('Login response:', res);
+        console.log('User object:', res.user);
+        console.log('Token:', res.token);
 
-        // --- Admin redirect logic (commented) ---
-        
-        if (res.token && res.token.isAdmin) {
+        // Role-based redirect
+        if (res.user?.isAdmin) {
           this.router.navigate(['/admin']);
         } else {
           this.router.navigate(['/menu']);
         }
-
-        // setTimeout(() => this.router.navigate(['/menu']), 2000); // redirect after 2s
       },
       error: (err) => {
         this.isLoading = false;
