@@ -1,13 +1,93 @@
-.table th, .table td {
-  text-align: center;
-  vertical-align: middle;
+$primary-gradient: linear-gradient(135deg, #ff416c, #ff4b2b);
+
+.btn-primary-premium {
+  background: $primary-gradient;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 75, 43, 0.3);
+    color: white;
+  }
 }
 
-img.img-thumbnail {
-  object-fit: cover;
+.btn-white-modern {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #334155;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 9px 16px;
+  border-radius: 8px;
+  &:hover { background: #f8fafc; color: #1e293b; }
 }
 
-i {
-  cursor: pointer;
-  font-size: 1.2rem;
+.custom-premium-table {
+  thead th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 16px 12px;
+    border-bottom: 2px solid #edf2f7;
+  }
+}
+
+.table-row-item {
+  transition: background-color 0.2s ease;
+  &:hover { background-color: #f8fafc; }
+  td { padding: 16px 12px; border-bottom: 1px solid #f1f5f9; }
+}
+
+.food-preview-frame {
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f1f5f9;
+  border: 2px solid #ffffff;
+  img { width: 100%; height: 100%; object-fit: cover; }
+}
+
+// Custom badges mapping
+.bg-slate-subtle { background-color: #f1f5f9; }
+.text-slate-dark { color: #334155; font-weight: 600; font-size: 0.75rem; padding: 4px 8px; border-radius: 6px; }
+
+.bg-warning-subtle { background-color: #fef3c7; }
+.text-warning-dark { color: #d97706; font-size: 0.75rem; padding: 4px 8px; border-radius: 6px; }
+
+.diet-indicator-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  .dot { width: 6px; height: 6px; border-radius: 50%; }
+  
+  &.is-veg { color: #16a34a; .dot { background-color: #16a34a; } }
+  &.is-nonveg { color: #dc2626; .dot { background-color: #dc2626; } }
+}
+
+// Action Button Matrix Rings
+.btn-action-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+
+  &.btn-view { background-color: #eff6ff; color: #2563eb; &:hover { background-color: #2563eb; color: white; } }
+  &.btn-edit { background-color: #fef3c7; color: #d97706; &:hover { background-color: #d97706; color: white; } }
+  &.btn-delete { background-color: #fee2e2; color: #dc2626; &:hover { background-color: #dc2626; color: white; } }
 }

@@ -1,41 +1,46 @@
 <app-header></app-header>
 
-<div class="container-fluid">
-  <div class="row">
-    <!-- Sidebar -->
-    <div class="col-md-3 col-lg-2 sidebar">
-      <ul class="nav flex-column">
+<div class="admin-workspace-wrapper">
+  <aside class="admin-sidebar shadow-sm">
+    <div class="sidebar-brand-node">
+      <div class="brand-avatar-mini">
+        <i class="bi bi-shield-lock-fill"></i>
+      </div>
+      <div class="brand-info">
+        <span class="title">Control Panel</span>
+        <span class="subtitle">Culinary Management</span>
+      </div>
+    </div>
+    
+    <nav class="sidebar-navigation">
+      <ul class="nav flex-column gap-2">
         <li class="nav-item">
-          <a 
-            class="nav-link fw-bold" 
-            routerLink="menu" 
-            routerLinkActive="active" 
-            [routerLinkActiveOptions]="{ exact: true }">
-            Menu
+          <a class="nav-link-item" 
+             routerLink="menu" 
+             routerLinkActive="is-active" 
+             [routerLinkActiveOptions]="{ exact: true }">
+            <i class="bi bi-card-checklist menu-icon"></i>
+            <span class="link-label">Menu Catalogue</span>
           </a>
         </li>
         <li class="nav-item">
-          <a 
-            class="nav-link fw-bold" 
-            routerLink="users" 
-            routerLinkActive="active" 
-            [routerLinkActiveOptions]="{ exact: true }">
-            Users
+          <a class="nav-link-item" 
+             routerLink="users" 
+             routerLinkActive="is-active" 
+             [routerLinkActiveOptions]="{ exact: true }">
+            <i class="bi bi-people-fill menu-icon"></i>
+            <span class="link-label">User Accounts</span>
           </a>
         </li>
       </ul>
-    </div>
+    </nav>
+  </aside>
 
-    <!-- Main content -->
-    <div class="col-md-9 col-lg-10 content-area">
+  <main class="admin-core-viewport">
+    <div class="view-scroll-container">
       <router-outlet></router-outlet>
     </div>
-  </div>
+  </main>
 </div>
 
 <app-footer></app-footer>
-
-
-
-
-

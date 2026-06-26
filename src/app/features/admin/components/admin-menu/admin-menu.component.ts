@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '../../services/admin.service';
-import { MenuResponse } from '../../model/admin.model';
 
 @Component({
   selector: 'app-admin-menu',
@@ -15,7 +14,7 @@ export class AdminMenuComponent implements OnInit {
   categories: any[] = [];
   dietaryPreferences: any[] = [];
   menuItems: any[] = [];
-  allmenuItems:any[]= [];
+  allmenuItems: any[] = [];
 
   selectedCategory: string = '';
   selectedDiet: string = '';
@@ -23,18 +22,30 @@ export class AdminMenuComponent implements OnInit {
   constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
-    this.adminService.getCategories().subscribe(data => this.categories = data);
-    this.adminService.getDietaryPreferences().subscribe(data => this.dietaryPreferences = data);
+    this.adminService.getCategories().subscribe({
+      next: (data) => this.categories = data,
+      error: (err) => console.error('Category load error:', err)
+    });
+
+    this.adminService.getDietaryPreferences().subscribe({
+      next: (data) => this.dietaryPreferences = data,
+      error: (err) => console.error('Diet options load error:', err)
+    });
+    
     this.loadMenu();
   }
 
   loadMenu(): void {
-    this.adminService.getFilteredMenu(this.selectedCategory, this.selectedDiet).subscribe(res => {
-      this.menuItems = res.data;
+    this.adminService.getFilteredMenu(this.selectedCategory, this.selectedDiet).subscribe({
+      next: (res) => {
+        //Both arrays must sync simultaneously on data pull
+        this.menuItems = res.data;
+        this.allmenuItems = [...res.data]; 
+      },
+      error: (err) => console.error('Menu grid pull error:', err)
     });
   }
 
-  // Fix missing methods
   applyCategoryFilter(category: string): void {
     this.selectedCategory = category;
     this.loadMenu();
@@ -46,32 +57,35 @@ export class AdminMenuComponent implements OnInit {
   }
 
   viewItem(item: any): void {
-    console.log('Viewing item:', item);
-    
+    console.log('Premium View Activation Context triggered:', item);
   }
 
   updateItem(item: any): void {
-    console.log('Updating item:', item);
-    
+    console.log('Premium Modify Activation Context triggered:', item);
   }
 
   deleteItem(id: number): void {
-    this.adminService.deleteMenuItem(id).subscribe(() => {
-      this.menuItems = this.menuItems.filter(m => m.foodItemID !== id);
-    });
+    if (confirm('Are you sure you want to completely remove this dish from the active kitchen loop?')) {
+      this.adminService.deleteMenuItem(id).subscribe({
+        next: () => {
+          this.menuItems = this.menuItems.filter(m => m.foodItemID !== id);
+          this.allmenuItems = this.allmenuItems.filter(m => m.foodItemID !== id);
+        },
+        error: (err) => console.error('Failed to purge product record:', err)
+      });
+    }
   }
 
   searchItems(query: string): void {
-    if (query.trim()) {
+    const searchString = query ? query.trim().toLowerCase() : '';
+    if (searchString) {
       this.menuItems = this.allmenuItems.filter(item =>
-        item.foodItemName.toLowerCase().includes(query.toLowerCase()) ||
-        item.categoryName.toLowerCase().includes(query.toLowerCase()) ||
-        item.dietaryPreferenceName.toLowerCase().includes(query.toLowerCase())
+        item.foodItemName?.toLowerCase().includes(searchString) ||
+        item.categoryName?.toLowerCase().includes(searchString) ||
+        item.dietaryPreferenceName?.toLowerCase().includes(searchString)
       );
     } else {
-      this.menuItems = [...this.allmenuItems]; // reset when cleared
+      this.menuItems = [...this.allmenuItems]; // Safely resets dataset on backspace wipe
     }
   }
 }
-
-

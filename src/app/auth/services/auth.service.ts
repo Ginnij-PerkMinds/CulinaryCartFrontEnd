@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, Subscription, timer, tap } from 'rxjs';
+import { Observable, Subscription, timer } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { isPlatformBrowser } from '@angular/common';
 import { User } from '../../features/admin/model/user.model';
 
 @Injectable({
@@ -11,15 +13,16 @@ export class AuthService {
   private tokenKey = 'authToken';
   private userKey = 'authUser';
   private logoutTimer?: Subscription;
+  
+  //modern injection pattern to check execution platform
+  private platformId = inject(PLATFORM_ID);
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  // Signup
   signup(user: { name: string; email: string; password: string }): Observable<any> {
     return this.http.post('/api/Auth/Signup', user);
   }
 
-  // Login now expects token + user object from backend
   login(credentials: { email: string; password: string }): Observable<{ token: string; message: string; user: User }> {
     return this.http.post<{ token: string; message: string; user: User }>('/api/Auth/Login', credentials)
       .pipe(
@@ -29,53 +32,54 @@ export class AuthService {
       );
   }
 
-  // Save both token + user object in localStorage
+  // Safe wrapper for setting dynamic browser values
   setSession(token: string, user: User): void {
-    localStorage.setItem(this.tokenKey, token);
-    localStorage.setItem(this.userKey, JSON.stringify(user));
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(this.tokenKey, token);
+      localStorage.setItem(this.userKey, JSON.stringify(user));
+    }
 
-    // Auto logout after 5 minutes
     this.logoutTimer?.unsubscribe();
     this.logoutTimer = timer(5 * 60 * 1000).subscribe(() => this.logout());
   }
 
-  // Get JWT token
+  // Safe wrapper for reading browser token
   getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem(this.tokenKey);
+    }
+    return null;
   }
 
-  // Get logged-in userId directly from stored user object
   getUserId(): number | null {
     const user = this.getUser();
     return user ? user.userId : null;
   }
 
-  // Get full user object
+  // Safe wrapper for reading full user configuration model
   getUser(): User | null {
-    const userJson = localStorage.getItem(this.userKey);
-    return userJson ? JSON.parse(userJson) : null;
+    if (isPlatformBrowser(this.platformId)) {
+      const userJson = localStorage.getItem(this.userKey);
+      return userJson ? JSON.parse(userJson) : null;
+    }
+    return null;
   }
 
-  // Logout clears both token + user
   logout(): void {
-    localStorage.removeItem(this.tokenKey);
-    localStorage.removeItem(this.userKey);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem(this.tokenKey);
+      localStorage.removeItem(this.userKey);
+    }
     this.logoutTimer?.unsubscribe();
     this.router.navigate(['/logout']);
   }
 
-  // Check login status
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
 
-  // Check admin role
   isAdmin(): boolean {
     const user = this.getUser();
     return user?.isAdmin === true;
   }
 }
-
-
-
-

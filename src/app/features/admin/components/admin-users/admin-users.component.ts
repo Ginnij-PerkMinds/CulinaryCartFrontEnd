@@ -24,39 +24,38 @@ export class AdminUsersComponent implements OnInit {
     this.loadUsers();
   }
 
-  // Load all users
   loadUsers(): void {
-    this.userService.getAllUsers().subscribe(data => {
-      this.users = data.map(user => ({
-        ...user,
-        createdAtFormatted: this.datePipe.transform(user.createdAt, 'dd/MM/yyyy, hh:mm a') || '',
-        updatedAtFormatted: this.datePipe.transform(user.updatedAt, 'dd/MM/yyyy, hh:mm a') || ''
-      }));
+    this.userService.getAllUsers().subscribe({
+      next: (data) => {
+        this.users = data.map(user => ({
+          ...user,
+          createdAtFormatted: this.datePipe.transform(user.createdAt, 'dd MMM yyyy, hh:mm a') || '',
+          updatedAtFormatted: user.updatedAt ? this.datePipe.transform(user.updatedAt, 'dd MMM yyyy, hh:mm a') || '' : ''
+        }));
+      },
+      error: (err) => console.error('Failed to load portal accounts:', err)
     });
   }
 
-  // Toggle Active flag
   toggleActive(user: User): void {
-    user.isActive = !user.isActive;
-    this.userService.updateFlags(user.userId, user.isActive, user.isAdmin)
-      .subscribe({
-        next: () => console.log("IsActive updated"),
-        error: err => console.error("Error updating IsActive", err)
-      });
+    const nextState = !user.isActive;
+    this.userService.updateFlags(user.userId, nextState, user.isAdmin).subscribe({
+      next: () => {
+        user.isActive = nextState;
+        console.log('Account activity updated successfully.');
+      },
+      error: (err) => console.error('Failed to commit structural flag update:', err)
+    });
   }
 
-  // Toggle Admin flag
   toggleAdmin(user: User): void {
-    user.isAdmin = !user.isAdmin;
-    this.userService.updateFlags(user.userId, user.isActive, user.isAdmin)
-      .subscribe({
-        next: () => console.log("IsAdmin updated"),
-        error: err => console.error("Error updating IsAdmin", err)
-      });
-   }
+    const nextState = !user.isAdmin;
+    this.userService.updateFlags(user.userId, user.isActive, nextState).subscribe({
+      next: () => {
+        user.isAdmin = nextState;
+        console.log('Account clearance rights updated successfully.');
+      },
+      error: (err) => console.error('Failed to commit structural clearance update:', err)
+    });
   }
-
-
-
-
-
+}
