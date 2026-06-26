@@ -57,7 +57,7 @@ import { ViewChild } from '@angular/core';
   }
 
   // Load menu items with filters
-  applyFilters() {
+  applyFilters() {    
     this.menuService.getFilteredMenu(this.selectedCategories, this.selectedDiets)
       .subscribe({
         next: (response) => {

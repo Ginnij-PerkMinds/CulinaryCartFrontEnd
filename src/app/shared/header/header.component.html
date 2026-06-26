@@ -42,16 +42,33 @@
 
     <!-- User dropdown -->
     <div class="dropdown" *ngIf="authService.isLoggedIn()">
-      <button class="btn btn-link dropdown-toggle p-0" type="button" data-bs-toggle="dropdown">
-        <img src="assets/images/dropdown.png" alt="Dropdown Icon" class="drop-icon" />
-      </button>
-      <ul class="dropdown-menu dropdown-menu-end">
-        <li><a class="dropdown-item" (click)="openProfileModal()">Profile</a></li>
-        <li><a class="dropdown-item" (click)="openChangePasswordModal()">Change Password</a></li>
-        <li><a class="dropdown-item" (click)="authService.logout()">Logout</a></li>
-      </ul>
+    <button class="btn btn-link dropdown-toggle p-0 d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+     <div class="d-flex align-items-center gap-2">
+      <!-- Avatar frame -->
+      <div class="avatar-gradient-frame shadow-sm">
+        <!-- Show profile picture if available -->
+        <img *ngIf="currentUser.profilePic && currentUser.profilePic !== 'NA'; else initialsAvatar"
+             [src]="'http://localhost:5209/' + currentUser.profilePic"
+             alt="{{ currentUser.name }}"
+             class="rounded-circle"
+             width="40" height="40"/>
+        <!-- Fallback initials -->
+        <ng-template #initialsAvatar>
+          <div class="avatar-gradient-initial">
+            {{ currentUser.name.charAt(0).toUpperCase() }}
+          </div>
+        </ng-template>
+      </div>
     </div>
+    
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><a class="dropdown-item" (click)="openProfileModal()">Profile</a></li>
+    <li><a class="dropdown-item" (click)="openChangePasswordModal()">Change Password</a></li>
+    <li><a class="dropdown-item" (click)="authService.logout()">Logout</a></li>
+  </ul>
   </div>
+</div>
 
   <app-cart #cart></app-cart>
 </header>
@@ -69,20 +86,40 @@
           <div class="row">
             <!-- Left: Pic + Email -->
             <div class="col-md-3 text-center" *ngIf="currentUser">
+               <!-- View Mode -->
               <img *ngIf="currentUser.profilePic"
                    [src]="'http://localhost:5209/' + currentUser.profilePic"
                    alt="Profile Picture"
                    class="rounded-circle img-thumbnail mb-2"
-                   width="120" height="120"/>
+                   width="120" height="120"/>     
+            <div *ngIf="!editMode">
               <p class="text-muted mb-0">{{ currentUser.emailId }}</p>
             </div>
+              <!-- Edit Mode -->
+            <div *ngIf="editMode" class="text-start">
+               <div class="mb-3 d-flex justify-content-center">
+               <!-- <label class="form-label">Profile Picture</label> -->
+               <label class="btn btn-primary">
+                Upload
+               <input type="file" (change)="onFileSelected($event)" hidden />
+               </label>
+            </div>
+            
+           <div class="mb-3">
+           <label class="form-label">Email ID</label>
+          <input type="email" formControlName="emailId" class="form-control"/>
+          </div>
+        </div>
+      </div>
 
             <!-- Right: Info -->
             <div class="col-md-9">
               <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                   <h5 class="mb-0">Personal Info</h5>
-                  <button class="btn btn-outline-primary btn-sm" type="button" (click)="enableEdit()">Edit</button>
+                  <button class="btn btn-outline-primary btn-sm" type="button" (click)="enableEdit()">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
                 </div>
                 <div class="card-body">
                   <!-- View Mode -->
@@ -90,21 +127,10 @@
                     <p><strong>Name:</strong> {{ currentUser.name }}</p>
                     <p><strong>Phone No:</strong> {{ currentUser.phoneNo }}</p>
                     <p><strong>Address:</strong> {{ currentUser.address }}</p>
-                    <!-- <p><strong>House No:</strong> {{ currentUser.houseNo }}</p>
-                    <p><strong>Locality:</strong> {{ currentUser.locality }}</p>
-                    <p><strong>Landmark:</strong> {{ currentUser.landmark }}</p>
-                    <p><strong>City:</strong> {{ currentUser.city }}</p>
-                    <p><strong>District:</strong> {{ currentUser.district }}</p>
-                    <p><strong>Pincode:</strong> {{ currentUser.pincode }}</p>
-                    <p><strong>State:</strong> {{ currentUser.state }}</p> -->
                   </div>
 
                   <!-- Edit Mode -->
                   <div *ngIf="editMode">
-                    <div class="mb-2">
-                      <label>Email ID</label>
-                      <input formControlName="emailId" class="form-control"/>
-                    </div>
                     <div class="mb-2">
                       <label>Name</label>
                       <input formControlName="name" class="form-control"/>
@@ -114,10 +140,6 @@
                       <input formControlName="phoneNo" class="form-control"/>
                     </div>
                     <div class="mb-2">
-                      <label>Address</label>
-                      <textarea formControlName="address" class="form-control"></textarea>
-                    </div>
-                    <!-- <div class="mb-2">
                       <label>House No</label>
                       <input formControlName="houseNo" class="form-control"/>
                     </div>
@@ -144,10 +166,6 @@
                     <div class="mb-2">
                       <label>State</label>
                       <input formControlName="state" class="form-control"/>
-                    </div> -->
-                    <div class="mb-2">
-                      <label>Profile Picture</label>
-                      <input type="file" (change)="onFileSelected($event)" class="form-control"/>
                     </div>
                   </div>
                 </div>
@@ -205,8 +223,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-

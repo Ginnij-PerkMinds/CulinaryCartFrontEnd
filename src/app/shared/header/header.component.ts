@@ -78,7 +78,19 @@ export class HeaderComponent {
     if (userId) {
       this.userService.getUserById(userId).subscribe(user => {
         this.currentUser = user;
-        this.profileForm.patchValue(user);
+        this.profileForm.patchValue({
+           name: user.name,
+           emailId: user.emailId,
+           phoneNo: user.phoneNo,
+           address: user.address,   // flattened string for view mode
+           houseNo: user.houseNo,
+           locality: user.locality,
+           landmark: user.landmark,
+           city: user.city,
+           district: user.district,
+           pincode: user.pincode,
+           state: user.state
+      });
         this.authService.setSession(this.authService.getToken()!, user); 
       });
     }
