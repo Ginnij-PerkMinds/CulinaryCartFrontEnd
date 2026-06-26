@@ -17,8 +17,8 @@ export class MenuService {
   // Support multi-select filters
   getFilteredMenu(categories: string[], diets: string[], pageNumber: number=1, pageSize: number=50): Observable<MenuResponse> {
     const params: any = { PageNumber: pageNumber, PageSize: pageSize };
-    if (categories.length) params.CategoryNames = categories.join(',');
-    if (diets.length) params.DietaryPreferenceNames = diets.join(',');
+    if (categories.length) params.CategoryNames = categories;
+    if (diets.length) params.DietaryPreferenceNames = diets;
 
     return this.http.get<MenuResponse>(this.apiUrl, { params });
   }
