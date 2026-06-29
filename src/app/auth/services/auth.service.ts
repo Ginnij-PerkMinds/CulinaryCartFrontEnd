@@ -65,7 +65,23 @@ export class AuthService {
     return null;
   }
 
-  logout(): void {
+  // logout(): void {
+  //   if (isPlatformBrowser(this.platformId)) {
+  //     localStorage.removeItem(this.tokenKey);
+  //     localStorage.removeItem(this.userKey);
+  //   }
+  //   this.logoutTimer?.unsubscribe();
+  //   this.router.navigate(['/logout']);
+  // }
+   logout(): void {
+    const token = this.getToken();
+    if (token) {
+      this.http.post('/api/Auth/Logout', { token }).subscribe({
+        next: () => console.log('Token revoked on server'),
+        error: err => console.error('Logout failed', err)
+      });
+    }
+
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem(this.tokenKey);
       localStorage.removeItem(this.userKey);
