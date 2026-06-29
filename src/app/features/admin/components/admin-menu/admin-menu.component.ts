@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '../../services/admin.service';
+import { MenuModalComponent } from '../../menu-modal/menu-modal.component';
 
 @Component({
   selector: 'app-admin-menu',
   standalone: true,   
-  imports: [CommonModule, FormsModule, CurrencyPipe], 
+  imports: [CommonModule, FormsModule, CurrencyPipe, MenuModalComponent], 
   templateUrl: './admin-menu.component.html',
   styleUrls: ['./admin-menu.component.scss']
 })

@@ -4,10 +4,12 @@
       <h3 class="fw-bold text-dark m-0">Master Menu Catalogue</h3>
       <p class="text-muted small m-0">Manage food variants, active prices, and real-time offers matrix</p>
     </div>
-    <button class="btn btn-primary-premium d-flex align-items-center gap-2 shadow-sm">
+    <button class="btn btn-primary-premium d-flex align-items-center gap-2 shadow-sm"
+              data-bs-toggle="modal" data-bs-target="#addMenuModal">
       <i class="bi bi-plus-circle-fill"></i> Add Culinary Item
     </button>
   </div>
+   <app-menu-modal></app-menu-modal>
 
   <div class="filter-actions-bar p-3 mb-4 rounded-3 bg-light d-flex flex-column flex-lg-row align-items-center justify-content-between gap-3">
     <div class="d-flex flex-wrap align-items-center gap-2 w-100 justify-content-start">
