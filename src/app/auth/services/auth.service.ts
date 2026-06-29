@@ -31,6 +31,7 @@ export class AuthService {
         })
       );
   }
+ 
 
   // Safe wrapper for setting dynamic browser values
   setSession(token: string, user: User): void {
@@ -38,6 +39,8 @@ export class AuthService {
       localStorage.setItem(this.tokenKey, token);
       localStorage.setItem(this.userKey, JSON.stringify(user));
     }
+
+  window.dispatchEvent(new Event('user-updated'));
 
     this.logoutTimer?.unsubscribe();
     this.logoutTimer = timer(5 * 60 * 1000).subscribe(() => this.logout());
@@ -65,14 +68,6 @@ export class AuthService {
     return null;
   }
 
-  // logout(): void {
-  //   if (isPlatformBrowser(this.platformId)) {
-  //     localStorage.removeItem(this.tokenKey);
-  //     localStorage.removeItem(this.userKey);
-  //   }
-  //   this.logoutTimer?.unsubscribe();
-  //   this.router.navigate(['/logout']);
-  // }
    logout(): void {
     const token = this.getToken();
     if (token) {
@@ -86,6 +81,9 @@ export class AuthService {
       localStorage.removeItem(this.tokenKey);
       localStorage.removeItem(this.userKey);
     }
+  
+  window.dispatchEvent(new Event('user-updated'));
+
     this.logoutTimer?.unsubscribe();
     this.router.navigate(['/logout']);
   }
