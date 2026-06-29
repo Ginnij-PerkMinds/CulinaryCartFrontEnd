@@ -31,10 +31,12 @@
 
     <!-- Guest dropdown -->
     <div class="dropdown" *ngIf="!authService.isLoggedIn()">
-      <button class="btn btn-link dropdown-toggle p-0" type="button" data-bs-toggle="dropdown">
-        <img src="assets/images/dropdown.png" alt="Dropdown Icon" class="drop-icon" />
+      <button class="btn btn-link dropdown-toggle p-0 d-flex align-items-center" type="button" 
+                         id="guestDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <!-- <img src="assets/images/dropdown.png" alt="Dropdown Icon" class="drop-icon" /> -->
+         <i class="bi bi-person-circle fs-2"></i>
       </button>
-      <ul class="dropdown-menu dropdown-menu-end">
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="guestdropdown">
         <li><a class="dropdown-item" routerLink="/signup">Signup</a></li>
         <li><a class="dropdown-item" routerLink="/login">Login</a></li>
       </ul>
