@@ -26,6 +26,7 @@
           <th>Culinary Item</th>
           <th>Classification</th>
           <th>Campaign Offer</th>
+          <th>In Stock</th>
           <th>Unit Price</th>
           <th class="text-center pe-4">Workspace Actions</th>
         </tr>
@@ -56,6 +57,13 @@
               <i class="bi bi-lightning-fill me-1"></i>{{ item.offers }}
             </span>
             <span *ngIf="!item.offers" class="text-muted small">-</span>
+          </td>
+          <td>
+            <div class="form-check form-switch d-flex justify-content-center">
+              <input class="form-check-input" type="checkbox"
+                     [checked]="item.inStock"
+                     (change)="toggleStock(item)">
+            </div>
           </td>
           <td class="fw-bold text-dark fs-6">{{ item.price | currency:'INR' }}</td>
           <td>

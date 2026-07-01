@@ -23,7 +23,7 @@ export class MenuModalComponent implements OnInit {
   isEditMode = false;
   selectedItem: any;
 
-  // ✅ Toast notification state
+  // Toast notification state
   notification: string | null = null;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
@@ -33,7 +33,8 @@ export class MenuModalComponent implements OnInit {
       price: ['', Validators.required],
       offers: [''],
       categoryName: ['', Validators.required],
-      dietaryPreferenceName: ['', Validators.required]
+      dietaryPreferenceName: ['', Validators.required],
+      inStock: [true] 
     });
   }
 
@@ -50,7 +51,7 @@ export class MenuModalComponent implements OnInit {
   openAddModal(): void {
     this.isEditMode = false;
     this.selectedItem = null;
-    this.menuForm.reset();
+    this.menuForm.reset({ inStock: true });
     this.previewUrl = null;
     this.showModal();
   }
@@ -64,7 +65,8 @@ export class MenuModalComponent implements OnInit {
       price: item.price,
       offers: item.offers,
       categoryName: item.categoryName,
-      dietaryPreferenceName: item.dietaryPreferenceName
+      dietaryPreferenceName: item.dietaryPreferenceName,
+      inStock: item.inStock
     });
     this.previewUrl = item.imageUrl ? 'http://localhost:5209' + item.imageUrl : null;
     this.showModal();
@@ -87,13 +89,13 @@ export class MenuModalComponent implements OnInit {
    if (this.selectedFile) {
       const reader = new FileReader();
       reader.onload = () => {
-        this.previewUrl = reader.result;   // ✅ Update preview
+        this.previewUrl = reader.result;   // Update preview
       };
       reader.readAsDataURL(this.selectedFile);
     }
   }
 
-  // ✅ Toast helper
+  //  Toast helper
   showNotification(message: string): void {
     this.notification = message;
     setTimeout(() => {
@@ -111,6 +113,7 @@ export class MenuModalComponent implements OnInit {
     formData.append('Offers', this.menuForm.get('offers')?.value || '');
     formData.append('CategoryName', this.menuForm.get('categoryName')?.value);
     formData.append('DietaryPreferenceName', this.menuForm.get('dietaryPreferenceName')?.value);
+    formData.append('InStock', String(this.menuForm.get('inStock')?.value));
 
     if (this.selectedFile) {
       formData.append('ImageFile', this.selectedFile);

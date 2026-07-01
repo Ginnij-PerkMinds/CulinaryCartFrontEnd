@@ -66,8 +66,21 @@ export class AdminMenuComponent implements OnInit {
   updateItem(item: any): void {
     this.menuModal.openEditModal(item);
   }
-
-   // trigger modal instead of confirm()
+   // Toggle stock status
+  toggleStock(item: any): void {
+    const newStatus = !item.inStock;
+    this.adminService.toggleStock(item.foodItemID, newStatus).subscribe({
+      next: () => {
+        item.inStock = newStatus; // update UI instantly
+        this.showNotification(`Item ${newStatus ? 'marked In Stock' : 'marked Out of Stock'}`);
+      },
+      error: (err) => {
+        console.error('Failed to update stock status:', err);
+        this.showNotification('Error updating stock status');
+      }
+    });
+  }
+   // Redirect to delete modal
   deleteItem(item: any): void {
     this.itemToDelete = item;
     import('bootstrap').then(({ Modal }) => {
@@ -78,8 +91,7 @@ export class AdminMenuComponent implements OnInit {
       modal.show();
     });
   }
-
-  // call when user choose to delete the item in the modal
+  // Delete the item in the modal
   confirmDelete(): void {
     if (!this.itemToDelete) return;
     this.adminService.deleteMenuItem(this.itemToDelete.foodItemID).subscribe({
