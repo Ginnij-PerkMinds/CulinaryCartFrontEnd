@@ -19,6 +19,7 @@ export class MenuModalComponent implements OnInit {
 
   menuForm: FormGroup;
   selectedFile: File | null = null;
+  previewUrl: string | ArrayBuffer | null = null;
   isEditMode = false;
   selectedItem: any;
 
@@ -50,6 +51,7 @@ export class MenuModalComponent implements OnInit {
     this.isEditMode = false;
     this.selectedItem = null;
     this.menuForm.reset();
+    this.previewUrl = null;
     this.showModal();
   }
 
@@ -64,6 +66,7 @@ export class MenuModalComponent implements OnInit {
       categoryName: item.categoryName,
       dietaryPreferenceName: item.dietaryPreferenceName
     });
+    this.previewUrl = item.imageUrl ? 'http://localhost:5209' + item.imageUrl : null;
     this.showModal();
   }
 
@@ -81,6 +84,13 @@ export class MenuModalComponent implements OnInit {
 
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
+   if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrl = reader.result;   // ✅ Update preview
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
   }
 
   // ✅ Toast helper
