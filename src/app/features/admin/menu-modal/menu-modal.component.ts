@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -11,15 +11,22 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./menu-modal.component.scss']
 })
 export class MenuModalComponent implements OnInit {
-  @ViewChild('addMenuModal') modalElement!: ElementRef;
+  @ViewChild('menuModal') modalElement!: ElementRef;
 
-  addMenuForm: FormGroup;
+  @Input() categories: any[] = [];
+  @Input() dietaryPreferences: any[] = [];
+  @Output() itemSaved = new EventEmitter<void>();
+
+  menuForm: FormGroup;
   selectedFile: File | null = null;
-  categories: any[] = [];
-  dietaryPreferences: any[] = [];
+  isEditMode = false;
+  selectedItem: any;
+
+  // ✅ Toast notification state
+  notification: string | null = null;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
-    this.addMenuForm = this.fb.group({
+    this.menuForm = this.fb.group({
       foodItemName: ['', Validators.required],
       description: [''],
       price: ['', Validators.required],
@@ -39,36 +46,93 @@ export class MenuModalComponent implements OnInit {
       .subscribe(res => this.dietaryPreferences = res);
   }
 
+  openAddModal(): void {
+    this.isEditMode = false;
+    this.selectedItem = null;
+    this.menuForm.reset();
+    this.showModal();
+  }
+
+  openEditModal(item: any): void {
+    this.isEditMode = true;
+    this.selectedItem = item;
+    this.menuForm.patchValue({
+      foodItemName: item.foodItemName,
+      description: item.description,
+      price: item.price,
+      offers: item.offers,
+      categoryName: item.categoryName,
+      dietaryPreferenceName: item.dietaryPreferenceName
+    });
+    this.showModal();
+  }
+
+  showModal(): void {
+    if (this.modalElement) {
+      import('bootstrap').then(({ Modal }) => {
+        let modal = Modal.getInstance(this.modalElement.nativeElement);
+        if (!modal) {
+          modal = new Modal(this.modalElement.nativeElement);
+        }
+        modal.show();
+      });
+    }
+  }
+
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
   }
 
+  // ✅ Toast helper
+  showNotification(message: string): void {
+    this.notification = message;
+    setTimeout(() => {
+      this.notification = null;
+    }, 3000); // auto-hide after 3 seconds
+  }
+
   onSubmit(): void {
-    if (this.addMenuForm.invalid) return;
+    if (this.menuForm.invalid) return;
 
     const formData = new FormData();
-
-    // Append with exact casing expected by backend DTO
-    formData.append('FoodItemName', this.addMenuForm.get('foodItemName')?.value);
-    formData.append('Price', String(this.addMenuForm.get('price')?.value));
-    formData.append('Offers', this.addMenuForm.get('offers')?.value);
-    formData.append('CategoryName', this.addMenuForm.get('categoryName')?.value);
-    formData.append('DietaryPreferenceName', this.addMenuForm.get('dietaryPreferenceName')?.value);
+    formData.append('FoodItemName', this.menuForm.get('foodItemName')?.value);
+    formData.append('Description', this.menuForm.get('description')?.value || '');
+    formData.append('Price', String(this.menuForm.get('price')?.value));
+    formData.append('Offers', this.menuForm.get('offers')?.value || '');
+    formData.append('CategoryName', this.menuForm.get('categoryName')?.value);
+    formData.append('DietaryPreferenceName', this.menuForm.get('dietaryPreferenceName')?.value);
 
     if (this.selectedFile) {
       formData.append('ImageFile', this.selectedFile);
     }
 
-    this.http.post('/api/Menu/AddMenu', formData).subscribe({
-      next: () => {
-        alert('Menu item added successfully!');
-        this.closeModal();
-      },
-      error: (err) => {
-        console.error(err);
-        alert('Error adding item');
-      }
-    });
+    if (this.isEditMode && this.selectedItem) {
+      // Update existing item
+      this.http.put(`/api/Menu/UpdateMenu/${this.selectedItem.foodItemID}`, formData).subscribe({
+        next: () => {
+          this.itemSaved.emit();
+          this.showNotification('Menu item updated successfully!');
+          this.closeModal();
+        },
+        error: (err) => {
+          console.error(err);
+          this.showNotification('Error updating item');
+        }
+      });
+    } else {
+      // Add new item
+      this.http.post('/api/Menu/AddMenu', formData).subscribe({
+        next: () => {
+          this.itemSaved.emit();
+          this.showNotification('Menu item added successfully!');
+          this.closeModal();
+        },
+        error: (err) => {
+          console.error(err);
+          this.showNotification('Error adding item');
+        }
+      });
+    }
   }
 
   closeModal(): void {
@@ -80,6 +144,7 @@ export class MenuModalComponent implements OnInit {
     }
   }
 }
+
 
 
 

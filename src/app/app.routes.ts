@@ -6,6 +6,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AdminHomeComponent } from './features/admin/components/admin-home/admin-home.component';
 import { AdminMenuComponent } from './features/admin/components/admin-menu/admin-menu.component';
 import { AdminUsersComponent } from './features/admin/components/admin-users/admin-users.component';
+import { AdminGuard } from './core/Guards/admin.guard';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -16,6 +17,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminHomeComponent,
+    canActivate: [AdminGuard],
     children: [
       { path: 'menu', component: AdminMenuComponent },
       { path: 'users', component: AdminUsersComponent }
@@ -23,4 +25,5 @@ export const routes: Routes = [
   },
   { path: '**', redirectTo: '' }
 ];
+
 

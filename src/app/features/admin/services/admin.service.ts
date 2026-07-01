@@ -31,8 +31,8 @@ export class AdminService {
   }
 
   // Delete menu item
-  deleteMenuItem(id: number): Observable<any> {
-    return this.http.delete(`${this.menuUrl}/DeleteMenu/${id}`);
+  deleteMenuItem(id: number): Observable<void> {
+  return this.http.delete<void>(`${this.menuUrl}/DeleteMenu/${id}`);
   }
 }
 
