@@ -1,14 +1,18 @@
 /* Shrink all cards slightly */
 .shrink-card {
-  transform: scale(0.88);
+  transform: scale(0.90);
   transform-origin: top center;
 }
 
 /* Card background: white with 45% opacity */
 .card.bg-custom {
-  background-color: rgba(249, 247, 247, 0.85) !important;
+  background-color: rgba(250, 249, 246, 0.8);
   color: #e53935; 
 }
+.ratio img {
+  object-fit: cover;   /* crops neatly */
+}
+
 
 /* Carousel images smaller */
 .carousel-inner img {
@@ -35,15 +39,15 @@
   bottom: 34px;
   left: 0;
   width: 70%;
-  margin-left: 12rem;
+  margin-left: 16rem;
   padding: 0.4rem;
   text-align: center;
   border-radius: 5px;
   z-index: 999;
   overflow: hidden;
 
-  background-color: rgba(7, 7, 7, 0.65); 
-  color: #f0e509a7;
+  background-color: rgba(7, 7, 7, 0.7); 
+  color: white;
   font-weight: bold;
 }
 
@@ -63,3 +67,29 @@
   0%   { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
 }
+.social-bar {
+  position: fixed;
+  top: 60%;
+  left: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 999; // stays above content
+}
+
+.social-icon {
+  font-size: 24px;
+  color: #fff;
+  background: #333;
+  padding: 10px;
+  border-radius: 60%;
+  text-align: center;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.social-icon:hover {
+  background: #ff5722; // highlight color
+  transform: scale(1.1);
+}
+
+

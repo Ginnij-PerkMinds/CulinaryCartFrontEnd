@@ -6,6 +6,9 @@ import { AuthService } from '../../auth/services/auth.service';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 
+
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-landing',
   standalone: true,
@@ -14,6 +17,7 @@ import { FooterComponent } from '../../shared/footer/footer.component';
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent {
+  private showingExpertise = false;
   name: string = '';
   email: string = '';
   password: string = '';
@@ -26,6 +30,22 @@ export class LandingComponent {
     private authService: AuthService,
     private router: Router
   ) {}
+   // 🔹 Swap About Us / Expertise cards when clicked
+  swapCards(): void {
+    const carouselElement = document.querySelector('#aboutExpertiseCarousel');
+    if (carouselElement) {
+      const carousel = new bootstrap.Carousel(carouselElement);
+      if (this.showingExpertise) {
+        carousel.prev(); // go back to About Us
+      } else {
+        carousel.next(); // go forward to Expertise
+      }
+      this.showingExpertise = !this.showingExpertise; 
+    }
+  }
+  goToSignup(): void {
+  this.router.navigate(['/signup']);
+}
 
   // Signup handler (real API)
   onSignup(): void {

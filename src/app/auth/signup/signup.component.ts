@@ -13,6 +13,7 @@ import {FooterComponent} from "../../shared/footer/footer.component";
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
+
 export class SignupComponent {
   name = '';
   email = '';
