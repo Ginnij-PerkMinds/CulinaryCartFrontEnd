@@ -5,11 +5,47 @@
       <h3 class="fw-bold text-dark m-0">Master Menu Catalogue</h3>
       <p class="text-muted small m-0">Manage food variants, active prices, and real-time offers matrix</p>
     </div>
+
+    <div class="search-input-box w-50">
+      <div class="input-group shadow-sm rounded-3 overflow-hidden">
+        <span class="input-group-text bg-white border-0 text-muted"><i class="bi bi-search"></i></span>
+        <input #searchInput type="text" class="form-control border-0 ps-1" placeholder="Search by name, tags..." (input)="searchItems(searchInput.value)">
+      </div>
+    </div>
+
     <button class="btn btn-primary-premium d-flex align-items-center gap-2 shadow-sm"
             (click)="menuModal.openAddModal()">
       <i class="bi bi-plus-circle-fill"></i> Add Culinary Item
     </button>
   </div>
+
+  <!-- <div class="filter-actions-bar p-3 mb-4 rounded-3 bg-light d-flex flex-column flex-lg-row align-items-center justify-content-between gap-3">
+    <div class="d-flex flex-wrap align-items-center gap-2 w-100 justify-content-start">
+      <div class="btn-group dropup-center dropdown">
+        <button class="btn btn-white-modern dropdown-toggle shadow-sm" type="button" data-bs-toggle="dropdown">
+          <i class="bi bi-funnel text-muted me-2"></i> Category: <span class="text-primary fw-bold">{{ selectedCategory || 'All' }}</span>
+        </button>
+        <ul class="dropdown-menu shadow-sm border-0 border-radius-10 animate slideIn">
+          <li><a class="dropdown-item" (click)="applyCategoryFilter('')">Show All</a></li>
+          <li *ngFor="let cat of categories">
+            <a class="dropdown-item" (click)="applyCategoryFilter(cat.categoryName)">{{ cat.categoryName }}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="btn-group dropdown">
+        <button class="btn btn-white-modern dropdown-toggle shadow-sm" type="button" data-bs-toggle="dropdown">
+          <i class="bi bi-egg-fried text-muted me-2"></i> Preference: <span class="text-primary fw-bold">{{ selectedDiet || 'All' }}</span>
+        </button>
+        <ul class="dropdown-menu shadow-sm border-0 border-radius-10">
+          <li><a class="dropdown-item" (click)="applyDietFilter('')">Show All</a></li>
+          <li *ngFor="let diet of dietaryPreferences">
+            <a class="dropdown-item" (click)="applyDietFilter(diet.diet)">{{ diet.diet }}</a>
+          </li>
+        </ul>
+      </div>
+    </div> 
+   </div>  -->
 
   <!-- Menu Modal -->
   <app-menu-modal #menuModal
@@ -26,6 +62,7 @@
           <th>Culinary Item</th>
           <th>Classification</th>
           <th>Campaign Offer</th>
+          <th>Remaining Quantity</th>
           <th>In Stock</th>
           <th>Unit Price</th>
           <th class="text-center pe-4">Workspace Actions</th>
@@ -58,6 +95,7 @@
             </span>
             <span *ngIf="!item.offers" class="text-muted small">-</span>
           </td>
+          <td>{{ item.remainingQuantity }}</td>
           <td>
             <div class="form-check form-switch d-flex justify-content-center">
               <input class="form-check-input" type="checkbox"

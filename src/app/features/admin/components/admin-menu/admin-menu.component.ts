@@ -3,6 +3,8 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '../../services/admin.service';
 import { MenuModalComponent } from '../../menu-modal/menu-modal.component';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import Fuse from 'fuse.js';
 
 @Component({
   selector: 'app-admin-menu',
@@ -26,7 +28,9 @@ export class AdminMenuComponent implements OnInit {
 
   notification: string | null = null;
 
-  constructor(private adminService: AdminService) {}
+  private fuse: Fuse<any> | null = null;
+
+  constructor(private adminService: AdminService, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.adminService.getCategories().subscribe({
@@ -48,38 +52,54 @@ export class AdminMenuComponent implements OnInit {
         //Both arrays must sync simultaneously on data pull
         this.menuItems = res.data;
         this.allmenuItems = [...res.data]; 
+         this.fuse = new Fuse(this.allmenuItems, {           // fusion search setup
+          keys: ['foodItemName', 'categoryName', 'dietaryPreferenceName', 'offers'],
+          threshold: 0.3, // lower = stricter, higher = fuzzier
+        });
       },
       error: (err) => console.error('Menu grid pull error:', err)
     });
   }
+  
+  applyFilters(): void {
+  this.menuItems = this.allmenuItems.filter(item => {
+    const categoryMatch = !this.selectedCategory || item.categoryName === this.selectedCategory;
+    const dietMatch = !this.selectedDiet || item.dietaryPreferenceName === this.selectedDiet;
+    return categoryMatch && dietMatch; // intersection logic
+  });
+}
 
-  applyCategoryFilter(category: string): void {
-    this.selectedCategory = category;
-    this.loadMenu();
-  }
+applyCategoryFilter(category: string): void {
+  this.selectedCategory = category;
+  this.applyFilters();
+}
 
-  applyDietFilter(diet: string): void {
-    this.selectedDiet = diet;
-    this.loadMenu();
-  }
+applyDietFilter(diet: string): void {
+  this.selectedDiet = diet;
+  this.applyFilters();
+}
 
   updateItem(item: any): void {
     this.menuModal.openEditModal(item);
   }
-   // Toggle stock status
+
   toggleStock(item: any): void {
-    const newStatus = !item.inStock;
-    this.adminService.toggleStock(item.foodItemID, newStatus).subscribe({
-      next: () => {
-        item.inStock = newStatus; // update UI instantly
-        this.showNotification(`Item ${newStatus ? 'marked In Stock' : 'marked Out of Stock'}`);
-      },
-      error: (err) => {
-        console.error('Failed to update stock status:', err);
-        this.showNotification('Error updating stock status');
+  const newStatus = !item.inStock;
+
+  this.http.put(`/api/Menu/ToggleStock/${item.foodItemID}`, newStatus).subscribe({
+    next: () => {
+      item.inStock = newStatus;
+      if (!newStatus) {
+        item.remainingQuantity = 0; //  manual toggle off sets quantity to 0
       }
-    });
-  }
+      this.showNotification(`Item ${newStatus ? 'marked In Stock' : 'marked Out of Stock'}`);
+    },
+    error: (err) => {
+      console.error(err);
+      this.showNotification('Error updating stock status');
+    }
+  });
+}
    // Redirect to delete modal
   deleteItem(item: any): void {
     this.itemToDelete = item;
@@ -91,6 +111,7 @@ export class AdminMenuComponent implements OnInit {
       modal.show();
     });
   }
+
   // Delete the item in the modal
   confirmDelete(): void {
     if (!this.itemToDelete) return;
@@ -111,23 +132,20 @@ export class AdminMenuComponent implements OnInit {
       }
     });
   }
+
+   searchItems(query: string): void {
+    const searchString = query ? query.trim() : '';
+    if (searchString && this.fuse) {
+      this.menuItems = this.fuse.search(searchString).map(result => result.item);
+    } else {
+      this.menuItems = [...this.allmenuItems];
+    }
+  }
+
     showNotification(message: string): void {
     this.notification = message;
     setTimeout(() => {
       this.notification = null;
     }, 3000); 
-  }
-
-  searchItems(query: string): void {
-    const searchString = query ? query.trim().toLowerCase() : '';
-    if (searchString) {
-      this.menuItems = this.allmenuItems.filter(item =>
-        item.foodItemName?.toLowerCase().includes(searchString) ||
-        item.categoryName?.toLowerCase().includes(searchString) ||
-        item.dietaryPreferenceName?.toLowerCase().includes(searchString)
-      );
-    } else {
-      this.menuItems = [...this.allmenuItems]; 
-    }
-  }
+  } 
 }
