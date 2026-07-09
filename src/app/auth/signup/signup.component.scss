@@ -1,103 +1,105 @@
-/* Offer Bar at Bottom */
-.offer-bar {
-  position: fixed;
-  bottom: 35px;
-  left: 0;
-  width: 60%;
-  margin-left: 20rem;
-  padding: 0.5rem;
-  text-align: center;
+.signup-form {
+  width: 100%;
+  max-width: 380px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   border-radius: 8px;
-  z-index: 999;
-  overflow: hidden;
+  padding: 2rem;
+
+  h2 {
+    font-weight: 700;
+    color: #dc3545; // Red accent for signup
+  }
+
+  .form-control {
+    border-radius: 6px;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220,53,69,0.25);
+    }
+  }
+
+  .toggle-password {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #666;
+
+    &:hover {
+      color: #dc3545;
+    }
+  }
+
+  .btn {
+    border-radius: 6px;
+    font-weight: 600;
+
+    &.btn-danger {
+      background-color: #dc3545;
+      border: none;
+
+      &:hover {
+        background-color: #bb2d3b;
+      }
+    }
+  }
+
+  .alert {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+  }
+
+  .mt-3 {
+    font-size: 0.9rem;
+
+    a, button.btn-link {
+      color: #dc3545;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
 
-.offer-track {
-  display: inline-block;
-  white-space: nowrap;
-  animation: scroll-left 35s linear infinite;
-}
-
-.offer-track span {
-  display: inline-block;
-  margin: 0 6rem;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-}
-
-@keyframes scroll-left {
-  0%   { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
-
-/* Transparent card backgrounds */
-.card {
-  background: rgba(250, 249, 246, 0.8);
-  border: none;
-}
-
-/* Carousel items */
-.carousel-item {
+/* Social Icons for Signup */
+.social-icons {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 220px; /* compact height */
+  gap: 20px;
+
+  a {
+    text-decoration: none;
+    color: #dc3545; // Red accent for signup
+    font-size: 24px;
+    transition: color 0.3s, transform 0.3s;
+
+    &:hover {
+      color: #ff4d4d;
+      transform: scale(1.2);
+    }
+  }
 }
 
-.carousel-item .ratio {
-  width: 220px;
-  height: 220px;
+/* Offcanvas header styling */
+.offcanvas-header {
+  border-bottom: 1px solid #eee;
+
+  .offcanvas-title {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .btn-close {
+    filter: invert(0.5);
+  }
 }
 
-.carousel-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-}
 
-/* Password toggle */
-.toggle-password {
-  cursor: pointer;
-  font-size: 1.2rem;
-  color: #666;
-  transition: color 0.3s ease, font-weight 0.3s ease;
-}
-.toggle-password:hover {
-  color: #ffeb3b;
-  font-weight: bold;
-}
-
-/* Alerts */
-.alert {
-  margin-top: 0.75rem;
-  font-size: 0.9rem;
-}
-
-/* Prevent overlap with footer + offer bar */
-section.container {
-  padding-bottom: 140px;
-}
-.social-bar {
-  position: fixed;
-  top: 60%;
-  left: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 999; // stays above content
-}
-
-.social-icon {
-  font-size: 24px;
-  color: #fff;
-  background: #333;
-  padding: 10px;
-  border-radius: 60%;
-  text-align: center;
-  transition: background 0.3s, transform 0.3s;
-}
-
-.social-icon:hover {
-  background: #ff5722; // highlight color
-  transform: scale(1.1);
-}

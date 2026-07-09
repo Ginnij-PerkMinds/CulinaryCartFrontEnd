@@ -6,9 +6,10 @@ html, body {
   font-family: Arial, sans-serif;
 
   /* Global background applied to ALL pages */
-  background: url('assets/images/background.jpg') no-repeat center center fixed;
-  background-size: cover;
+  // background: url('assets/images/background.jpg') no-repeat center center fixed;
+  // background-size: cover;
   image-rendering: crisp-edges;
+  background-color: #eef0f2; /* fallback color */
 }
 
 /* Optional overlay for readability */

@@ -60,7 +60,7 @@ export class AdminMenuComponent implements OnInit {
       error: (err) => console.error('Menu grid pull error:', err)
     });
   }
-  
+
   applyFilters(): void {
   this.menuItems = this.allmenuItems.filter(item => {
     const categoryMatch = !this.selectedCategory || item.categoryName === this.selectedCategory;
@@ -85,14 +85,16 @@ applyDietFilter(diet: string): void {
 
   toggleStock(item: any): void {
   const newStatus = !item.inStock;
-
   this.http.put(`/api/Menu/ToggleStock/${item.foodItemID}`, newStatus).subscribe({
-    next: () => {
-      item.inStock = newStatus;
-      if (!newStatus) {
-        item.remainingQuantity = 0; //  manual toggle off sets quantity to 0
-      }
-      this.showNotification(`Item ${newStatus ? 'marked In Stock' : 'marked Out of Stock'}`);
+    next: (res:any) => {
+      item.inStock = res.item.inStock;
+      // if (!newStatus) {
+        item.remainingQuantity = res.item.remainingQuantity; //  manual toggle off sets quantity to 0
+      // } else if (item.remainingQuantity === 0) {
+      //   item.remainingQuantity = 50; // default restore quantity
+      // }
+      // this.showNotification(`Item ${newStatus ? 'marked In Stock' : 'marked Out of Stock'}`);
+      this.showNotification(res.message);
     },
     error: (err) => {
       console.error(err);
@@ -100,6 +102,17 @@ applyDietFilter(diet: string): void {
     }
   });
 }
+checkoutItem(item: any, quantity: number): void {
+  this.http.put(`/api/Menu/Checkout/${item.foodItemID}`, quantity).subscribe({
+    next: (res: any) => {
+      item.inStock = res.item.inStock;
+      item.remainingQuantity = res.item.remainingQuantity;
+      this.showNotification(res.message);
+    },
+    error: () => this.showNotification('Error during checkout')
+  });
+}
+
    // Redirect to delete modal
   deleteItem(item: any): void {
     this.itemToDelete = item;

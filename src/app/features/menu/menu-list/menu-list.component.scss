@@ -27,3 +27,12 @@ aside {
   object-fit: cover;
 }
 
+.product-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  &:hover {
+    transform: scale(1.1);   /* enlarge by 5% */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* stronger shadow */
+    z-index: 2; /* ensures enlarged card stays above neighbors */
+  }
+}

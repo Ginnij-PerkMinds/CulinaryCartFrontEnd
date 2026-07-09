@@ -27,7 +27,7 @@
     <!-- Menu Grid -->
     <section class="col-md-9 col-lg-10">
       <div class="row g-3 menu-grid">
-        <div class="col" *ngFor="let item of menuItems">
+        <!-- <div class="col" *ngFor="let item of menuItems">
           <div class="card h-100 text-center p-2">
             <img [src]="'http://localhost:5209' + item.imageUrl"
                  class="card-img-top"
@@ -54,7 +54,48 @@
     </section>
 
   </div>
+</div> -->
+<div class="col" *ngFor="let item of menuItems">
+  <div class="card product-card h-80 shadow-sm border-0 position-relative">
+    
+    <!-- Offer Badge (Top Left) -->
+    <span class="badge bg-success position-absolute top-0 start-0 m-2">
+      {{ item.offers }} Off
+    </span>
+
+    <!-- Product Image -->
+    <img [src]="'http://localhost:5209' + item.imageUrl"
+         class="card-img-top"
+         alt="{{ item.foodItemName }}"
+         style="height:90px; object-fit:cover;">
+
+    <!-- Card Body -->
+    <div class="card-body p-2 text-center">
+      <!-- Product Name -->
+      <h6 class="card-title text-dark fw-bold mb-1">{{ item.foodItemName }}</h6>
+
+      <!-- Category + Dietary -->
+      <!-- <small class="d-block text-muted fw-semibold mb-1">
+        {{ item.categoryName }} | {{ item.dietaryPreferenceName }}
+      </small> -->
+
+      <!-- Price -->
+      <span class="fw-bold text-danger d-block mb-2">
+        {{ item.price | currency:'INR' }}
+      </span>
+    </div>
+    
+
+    <!-- Add Icon (Bottom Right) -->
+    <button class="btn btn-warning btn-sm fw-bold position-absolute bottom-0 end-0 m-2"
+            (click)="addToCart(item)">
+            Add
+      <!-- <i class="bi bi-cart-plus"></i> -->
+    </button>
+  </div>
 </div>
+
+
 
 <app-footer></app-footer>
 

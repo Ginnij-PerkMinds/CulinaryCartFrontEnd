@@ -1,177 +1,219 @@
-<app-header></app-header>
+<section class="hero-section text-white py-5">
+  <div class="container">
 
-<section class="container my-4 mt-5">
-  <div class="row g-3 justify-content-center align-items-stretch">
+    <!-- Top Navbar -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div class="d-flex align-items-center">
+        <img src="assets/images/logo.png" alt="Culinary Cart" class="logo-img me-2">
+        <h3 class="fw-bold mb-0">Culinary Cart</h3>
+      </div>
+      <div class="nav-links">
+        <a href="#" class="btn btn-link text-white fw-bold">Partner with us</a>
+        <button class="btn btn-dark fw-bold ms-2" data-bs-toggle="offcanvas" data-bs-target="#signinOffcanvas">
+          Sign in
+        </button>
+      </div>
+    </div>
 
-    <!-- Outer Carousel: About Us + Expertise -->
-    <div class="col-md-6 me-5" (click)="swapCards()">
-      <div id="aboutExpertiseCarousel" 
-           class="carousel slide carousel-fade h-100" 
-           data-bs-wrap="true">
-        <div class="carousel-inner h-100">
+    <!-- Tagline -->
+    <div class="tagline text-center mb-5 mt-5">
+      <h1 class="fw-bold mb-2">Order Food. Discover best cuisines.</h1>
+      <h2 class="fw-bold">Culinary it!</h2>
+    </div>
 
-          <!-- About Us Card -->
-          <div class="carousel-item active h-100">
-            <div class="card shadow-sm bg-custom h-100 p-3">
-              <div class="card-body">
-                <h6 class="text-warning fs-1 mb-4 text-left">🍴 About Us</h6>
-                <div class="row align-items-start">
-                  <!-- Image -->
-                  <div class="col-md-5 text-center">
-                    <div class="ratio ratio-16x9">
-                      <img src="assets/images/aboutus.png"
-                           class="img-fluid rounded shadow mx-auto mb-3 mt-n2"
-                           alt="AboutUs">
-                    </div>
-                  </div>
-                  <!-- Text -->
-                  <div class="col-md-7 d-flex flex-column justify-content-start">
-                    <p class="fw-bold fst-italic fs-5 mb-3">
-                      At Culinary Cart, food is more than just a meal – it’s an experience.
-                      We bring diverse cuisines under one roof, making dining simple, cozy,
-                      delightful, and accessible.
-                    </p>
-                    <p class="fw-bold fst-italic fs-5 mb-3">
-                      Authentic flavors at your fingertips – simple sign-up, smart ordering,
-                      and meals crafted to delight.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <!-- Search Bars -->
+    <div class="search-bars d-flex justify-content-center flex-wrap gap-4 mb-5">
+      <div class="input-group location-input">
+        <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+        <input type="text" class="form-control" placeholder="Enter your delivery location">
+      </div>
+      <div class="input-group search-input">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+        <input type="text" class="form-control" placeholder="Search for items and more">
+      </div>
+    </div>
+
+    <!-- Service Cards Side by Side -->
+    <div class="row justify-content-center g-4">
+      <!-- Food Delivery -->
+      <div class="col-md-4">
+        <div class="card service-card text-dark position-relative">
+          <span class="offer-badge">UPTO 60% OFF</span>
+          <img src="assets/images/fooddelivery.png" class="card-img-top" alt="Food Delivery">
+          <div class="card-body text-center">
+            <h5 class="fw-bold">FOOD DELIVERY</h5>
+            <p>FRESH FROM OUR KITCHEN</p>
+            <button class="btn btn-primary fw-bold mt-2"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#signinOffcanvas">
+        Order Now
+      </button>
           </div>
+        </div>
+      </div>
 
-          <!-- Expertise Card -->
-          <div class="carousel-item h-100">
-            <div class="card shadow-sm bg-custom h-100 text-center p-3">
-              <div class="card-body">
-                <h6 class="text-warning fs-2 mb-2">Our Expertise</h6>
-                <p class="fw-bold fst-italic fs-5 mb-2">We specialize in a variety of cuisines.</p>
-                <div class="row align-items-start"> 
-                  
-                  <!-- Chef Image -->
-                  <div class="col-md-5 text-center">
-                    <div class="ratio ratio-4x3">
-                      <img src="assets/images/chefcuisine.png"
-                           class="img-fluid rounded shadow mx-auto mb-3 mt-n2"
-                           alt="chefcuisine">
-                    </div>
-                  </div>
-
-                  <!-- Inner Carousel -->
-                  <div class="col-md-7">
-                    <div id="expertiseCarousel" 
-                         class="carousel slide carousel-fade" 
-                         data-bs-ride="carousel" 
-                         data-bs-interval="3000" 
-                         data-bs-pause="false" 
-                         data-bs-wrap="true">
-
-                      <!-- Indicators -->
-                      <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#expertiseCarousel" data-bs-slide-to="0" class="active"></button>
-                        <button type="button" data-bs-target="#expertiseCarousel" data-bs-slide-to="1"></button>
-                        <button type="button" data-bs-target="#expertiseCarousel" data-bs-slide-to="2"></button>
-                        <button type="button" data-bs-target="#expertiseCarousel" data-bs-slide-to="3"></button>
-                        <button type="button" data-bs-target="#expertiseCarousel" data-bs-slide-to="4"></button>
-                        <button type="button" data-bs-target="#expertiseCarousel" data-bs-slide-to="5"></button>
-                      </div>
-
-                      <!-- Carousel Items -->
-                      <div class="carousel-inner text-center">
-                        <div class="carousel-item active">
-                          <div class="ratio ratio-4x3">
-                            <img src="assets/images/piza.jpg" class="d-block w-90 rounded" alt="Pizza">
-                          </div>
-                        </div>
-                        <div class="carousel-item">
-                          <div class="ratio ratio-4x3"> 
-                            <img src="assets/images/burger.jpg" class="d-block w-90 rounded" alt="Burger">
-                          </div>
-                        </div>
-                        <div class="carousel-item">
-                          <div class="ratio ratio-4x3">
-                            <img src="assets/images/coldcoffee.jpg" class="d-block w-90 rounded" alt="Cold Coffee">
-                          </div>
-                        </div>
-                        <div class="carousel-item">
-                          <div class="ratio ratio-4x3">
-                            <img src="assets/images/pasta.jpg" class="d-block w-90 rounded" alt="Pasta">
-                          </div>
-                        </div>
-                        <div class="carousel-item">
-                          <div class="ratio ratio-4x3">
-                            <img src="assets/images/tikka.jpg" class="d-block w-90 rounded" alt="Tikka">
-                          </div>
-                        </div>
-                        <div class="carousel-item">
-                          <div class="ratio ratio-4x3">
-                            <img src="assets/images/wrap.jpg" class="d-block w-90 rounded" alt="Wrap">
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Controls -->
-                      <button class="carousel-control-prev" type="button" data-bs-target="#expertiseCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                      </button>
-                      <button class="carousel-control-next" type="button" data-bs-target="#expertiseCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <!-- Dineout -->
+      <div class="col-md-4">
+        <div class="card service-card text-dark position-relative">
+          <span class="offer-badge">UPTO 50% OFF</span>
+          <img src="assets/images/dineout.jpg" class="card-img-top" alt="Dineout">
+          <div class="card-body text-center">
+            <h5 class="fw-bold">DINEOUT</h5>
+            <p>EAT OUT & SAVE MORE</p>
+            <button class="btn btn-success fw-bold mt-2"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#signinOffcanvas">
+        Book Now
+      </button>
           </div>
-
-        </div> 
-      </div> 
-    </div> 
-
-    <!-- Fixed Promo Card -->
-    <div class="col-md-4 ms-5">
-      <div class="card shadow-sm bg-custom h-100 text-center p-3">
-        <div class="card-body">
-          <img src="assets/images/connect.jpg" class="img-fluid rounded mb-1 w-75 mx-auto" alt="Connect with Us">
-          <img src="assets/images/chef.jpg" class="img-fluid rounded mb-2 w-50 mx-auto" alt="Chef">
-
-          <h6 class="text-success fs-5 mb-1">Get ₹299 Off</h6>
-          <p class="fw-bold fs-5 mb-2">On your first five orders</p>
-          <p class="fw-bold fs-5 mb-2">Crafted With Intention Served With Passion</p>
-          
-          <button class="btn btn-signup fw-bold" (click)="goToSignup()">Join Us</button>
         </div>
       </div>
     </div>
 
-  </div> 
+  </div>
 </section>
-
-<!-- Offer Bar -->
-<div class="offer-bar card">
-  <div class="offer-track">
-    <span>🔥 Limited Time Offer: 20% OFF on all items!</span>
-    <span>🥤 Buy 1 Get 1 Free on Cold Coffee!</span>
-    <span>🍔 Flat ₹50 OFF on Burgers!</span>
+<!-- Offcanvas Signin Modal -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="signinOffcanvas">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title"></h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body">
+    <!-- Angular Login Component -->
+    <app-login></app-login>
   </div>
 </div>
 
-<!-- Vertical Social Bar -->
-<div class="social-bar">
-  <a href="https://facebook.com" target="_blank" class="social-icon">
-    <i class="fab fa-facebook-f"></i>
-  </a>
-  <a href="https://x.com" target="_blank" class="social-icon">
-    <i class="fab fa-x"></i>
-  </a>
-  <a href="https://instagram.com" target="_blank" class="social-icon">
-    <i class="fab fa-instagram"></i>
-  </a>
+<!-- Offcanvas Signup Modal -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="signupOffcanvas">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title"></h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body">
+    <!-- Angular Signup Component -->
+    <app-signup></app-signup>
+  </div>
 </div>
 
-<app-footer></app-footer>
+<!-- Cuisine Gallery -->
+<section class="cuisine-section py-5">
+  <div class="container">
+  <h3 class="text-center fw-bold mb-4">Our Cuisines</h3>
+  <div class="row g-4 justify-content-center">
 
+    <!-- Row 1 -->
+    <div class="col-6 col-md-2">
+      <div class="ratio ratio-4x3">
+      <img src="assets/images/piza.jpg" class="img-fluid rounded shadow-sm" alt="Pizza">
+    </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="ratio ratio-4x3">
+      <img src="assets/images/burger.jpg" class="img-fluid rounded shadow-sm" alt="Burger">
+    </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="ratio ratio-4x3">
+      <img src="assets/images/pasta.jpg" class="img-fluid rounded shadow-sm" alt="Pasta">
+    </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="ratio ratio-4x3">
+      <img src="assets/images/tikka.jpg" class="img-fluid rounded shadow-sm" alt="Tikka">
+    </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="ratio ratio-4x3">
+      <img src="assets/images/wrap.jpg" class="img-fluid rounded shadow-sm" alt="Wrap">
+    </div>
+    </div>
+    <div class="row g-4 justify-content-center">
+    <!-- Row 2 -->
+    <div class="col-6 col-md-2">
+      <div class="ratio ratio-4x3">
+      <img src="assets/images/coldcoffee.jpg" class="img-fluid rounded shadow-sm" alt="Cold Coffee">
+    </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="ratio ratio-4x3">
+      <img src="assets/images/biryani.jpg" class="img-fluid rounded shadow-sm" alt="Biryani">
+    </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="ratio ratio-4x3">
+      <img src="assets/images/sushi.jpg" class="img-fluid rounded shadow-sm" alt="Sushi">
+    </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="ratio ratio-4x3">
+      <img src="assets/images/salad.jpg" class="img-fluid rounded shadow-sm" alt="Salad">
+    </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="ratio ratio-4x3">
+      <img src="assets/images/dessert.jpg" class="img-fluid rounded shadow-sm" alt="Dessert">
+    </div>
+    </div>
+    </div>
+    <!-- Culinary Cart Footer -->
+<footer class="footer-section py-5">
+  <div class="container">
+    <div class="row">
 
+      <!-- Logo & Copyright -->
+      <div class="col-md-3 mb-4">
+        <div class="d-flex align-items-center mb-3">
+          <img src="assets/images/logo.png" alt="Culinary Cart" class="footer-logo me-2">
+          <h4 class="fw-bold mb-0">Culinary Cart</h4>
+        </div>
+        <p class="small">© 2026 Culinary Cart Limited</p>
+      </div>
 
+      <!-- Company -->
+      <div class="col-md-2 mb-4">
+        <h6 class="fw-bold">Company</h6>
+        <ul class="list-unstyled">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Team</a></li>
+          <li><a href="#">Culinary One</a></li>
+        </ul>
+      </div>
 
+      <!-- Contact -->
+      <div class="col-md-2 mb-4">
+        <h6 class="fw-bold">Contact Us</h6>
+        <ul class="list-unstyled">
+          <li><a href="#">Help & Support</a></li>
+          <li><a href="#">Partner With Us</a></li>
+          <li><a href="#">Ride With Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div class="col-md-2 mb-4">
+        <h6 class="fw-bold">Legal</h6>
+        <ul class="list-unstyled">
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <!-- Social Links -->
+      <div class="col-md-3 mb-4">
+        <h6 class="fw-bold me-3">Follow Us</h6>
+        <div class="social-icons d-inline-flex gap-3">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+  </div>
+</div>

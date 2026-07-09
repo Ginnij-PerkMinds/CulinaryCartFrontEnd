@@ -1,168 +1,49 @@
-/* Page Layout */
-html, body {
-  height: 100%;
-  margin: 0;
-}
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-app-root {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-main {
-  flex: 1;
-}
-
-/* Offer Scroll Bar */
-.offer-scroll {
-  overflow: hidden;
-  white-space: nowrap;
-  background: #747373, opacity($color: #848282);
-  color: #f1e605;
-  font-weight: bold;
-  font-style:italic;
-  font-size: medium;
-  padding: 0.9rem;
-
-  span {
-    display: inline-block;
-    padding-left: 100%;
-    animation: scroll-left 30s linear infinite;
-  }
-}
-@keyframes scroll-left {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
-}
-
-/* Cards */
-.card {
-  height: 100%;
-  border-radius: 8px;
-}
-.row.g-4 {
-  align-items: stretch;
-}
-
-/* Expertise carousel images */
-.carousel-inner img {
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-/* About Us branding */
-.about-card h2 {
-  color: #ffeb3b;
-}
-.about-card p {
-  color: #e53935;
-  font-weight: bold;
-  font-style: italic;
-}
-
-/* Expertise branding */
-.expertise-card h2 {
-  color: #ffeb3b;
-}
-.expertise-card p {
-  color: #f1f1f1;
-}
-
-/* Login branding */
-.login-card h2 {
-  color: #d8f313;
-}
-
-/* Form focus */
-.form-control:focus {
-  border-color: #e53935;
-  box-shadow: 0 0 4px rgba(230, 57, 70, 0.4);
-}
-
-/* Password toggle */
-.toggle-password {
-  cursor: pointer;
-  font-size: 1.2rem;
-  color: #666;
-  transition: color 0.3s ease, font-weight 0.3s ease;
-
-  &:hover {
-    color: #ffeb3b;
-    font-weight: bold;
-  }
-}
-
-/* Buttons */
-.btn-success {
-  background: #28a745;
-  border: none;
-  font-weight: 600;
-
-  &:hover {
-    background: #08e029;
-  }
-  &:disabled {
-    background: #e53935;
-    cursor: not-allowed;
-  }
-}
-
-/* Signup link */
-.signup-link a {
-  color: #05eb78;
-  font-weight: bold;
-
-  &:hover {
-    color: #ffeb3b;
-  }
-}
-
-/*  Footer  */
-.site-footer {
-  background: #f9f9f9;
-  padding: 1rem;
-  text-align: center;
-  position: fixed;   /* sticky footer */
-  bottom: 0;
-  left: 0;
+.login-form {
   width: 100%;
-  z-index: 1000;
+  max-width: 360px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 
-  .footer-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+  h2 {
+    font-weight: 700;
+    color: #EA4626; // Blood Orange
+  }
 
-    span, a {
-      color: #555;
-      font-size: 0.9rem;
-      text-decoration: none;
-    }
+  .form-control {
+    border-radius: 6px;
+  }
 
-    a:hover {
-      text-decoration: underline;
-    }
+  .toggle-password {
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
 
-    .separator {
-      color: #999;
-      font-weight: bold;
-    }
+  .btn {
+    border-radius: 6px;
+    font-weight: 600;
+  }
+
+  .alert {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 6px;
   }
 }
 
-/* Prevent content overlap with sticky footer */
-main {
-  padding-bottom: 60px; 
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px; // consistent spacing between icons
+
+  a {
+    text-decoration: none;
+    color: #EA4626; // Blood Orange
+    font-size: 24px;
+    transition: color 0.3s, transform 0.3s;
+
+    &:hover {
+      color: #ff7043;
+      transform: scale(1.2);
+    }
+  }
 }
-
-
-
-
-
-

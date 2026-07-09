@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../auth/services/auth.service';   
-import { HeaderComponent } from '../../shared/header/header.component';
-import { FooterComponent } from '../../shared/footer/footer.component';
+import {LoginComponent} from "../../auth/login/login.component";
+import { SignupComponent } from '../../auth/signup/signup.component';
 
 
 declare var bootstrap: any;
@@ -12,7 +12,7 @@ declare var bootstrap: any;
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeaderComponent, FooterComponent],
+  imports: [CommonModule, FormsModule, LoginComponent, SignupComponent],
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
