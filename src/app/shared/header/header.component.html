@@ -1,18 +1,41 @@
-<header class="app-header d-flex justify-content-between align-items-center bg-danger text-white px-4 py-2 sticky-top">
+<header class="app-header d-flex justify-content-between align-items-center text-white px-4 py-2 sticky-top">
   <!-- Logo -->
+   <div class="logo-brand">
   <div class="logo-container">
     <a href="http://localhost:4200">
-      <img src="assets/images/Culinary.png" alt="Culinary Cart Logo" class="logo img-fluid" />
+      <img src="assets/images/logo.png" alt="Culinary Cart Logo" class="logo img-fluid" />
     </a>
   </div>
 
   <!-- Title -->
-  <h1 class="brand-title fs-2 fw-bold text-white text-center flex-grow-1">
-    Culinary Cart Restaurant
+  <h1 class="brand-title fs-2 fw-bold text-white">
+    Culinary Cart 
   </h1>
+  </div>
 
   <!-- Controls -->
-  <div class="header-controls d-flex align-items-center gap-3 position-relative">
+  <div class="header-controls d-flex align-items-center gap-3 position-relative ms-auto">
+     
+    <!-- Always show Home -->
+    <a routerLink=" " class="btn btn-link text-white fw-bold">
+      <i class="bi bi-house-door-fill me-1"></i> Home 
+    </a>
+
+     <!-- Always Show Menu -->
+    <a *ngIf="authService.isLoggedIn()" routerLink="/menu" class="btn btn-link text-white fw-bold">
+      <i class="bi bi-card-list me-1"></i> Menu
+    </a>
+
+      <!-- Show Manage if admin -->
+    <a *ngIf="authService.isLoggedIn() && authService.isAdmin()" routerLink="/admin/menu" class="btn btn-link text-white fw-bold">
+      <i class="bi bi-gear-fill me-1"></i> Manage
+    </a>
+
+  <!--Show SignIn when no one Logged In-->
+   <button *ngIf="!authService.isLoggedIn()" class="btn btn-dark fw-bold ms-2" data-bs-toggle="offcanvas" 
+    data-bs-target="#signinOffcanvas"> Sign in
+   </button>
+
     <!-- Cart -->
     <button class="btn btn-dark position-relative"
             *ngIf="authService.isLoggedIn() && !authService.isAdmin()"
@@ -27,19 +50,6 @@
     <div class="cart-popup-notification alert alert-light py-1 px-2 position-absolute top-100 end-0 mt-1"
          *ngIf="cartNotification">
       {{ cartNotification }}
-    </div>
-
-    <!-- Guest dropdown -->
-    <div class="dropdown" *ngIf="!authService.isLoggedIn()">
-      <button class="btn btn-link dropdown-toggle p-0 d-flex align-items-center" type="button" 
-                         id="guestDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-        <!-- <img src="assets/images/dropdown.png" alt="Dropdown Icon" class="drop-icon" /> -->
-         <i class="bi bi-person-circle fs-2"></i>
-      </button>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="guestdropdown">
-        <li><a class="dropdown-item" routerLink="/signup">Signup</a></li>
-        <li><a class="dropdown-item" routerLink="/login">Login</a></li>
-      </ul>
     </div>
 
     <!-- User dropdown -->
@@ -61,9 +71,9 @@
           </div>
         </ng-template>
       </div>
-    </div>
-    
+    </div> 
   </button>
+
   <ul class="dropdown-menu dropdown-menu-end">
     <li><a class="dropdown-item" (click)="openProfileModal()">Profile</a></li>
     <li><a class="dropdown-item" (click)="openChangePasswordModal()">Change Password</a></li>
@@ -72,7 +82,7 @@
   </div>
 </div>
 
-  <app-cart #cart></app-cart>
+<app-cart #cart></app-cart>
 </header>
 
 <!-- Profile Modal -->
@@ -97,7 +107,7 @@
             <div *ngIf="!editMode">
               <p class="text-muted mb-0">{{ currentUser.emailId }}</p>
             </div>
-              <!-- Edit Mode -->
+            <!-- Edit Mode -->
             <div *ngIf="editMode" class="text-start">
                <div class="mb-3 d-flex justify-content-center">
                <!-- <label class="form-label">Profile Picture</label> -->
@@ -175,7 +185,8 @@
             </div>
           </div>
         </div>
-        <!-- Footer -->
+
+        <!-- Profile Modal Footer -->
         <div class="modal-footer" *ngIf="editMode">
           <button class="btn btn-secondary" type="button" (click)="cancelEdit()">Cancel</button>
           <button class="btn btn-primary" type="submit">Save Changes</button>
@@ -216,12 +227,13 @@
           </div>
         </div>
         
-        <!-- Footer buttons included -->
+        <!-- Change Password Footer -->
         <div class="modal-footer">
          <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
           <button class="btn btn-primary" type="submit" >Update Password</button>
         </div>
       </form>
+      
     </div>
   </div>
 </div>

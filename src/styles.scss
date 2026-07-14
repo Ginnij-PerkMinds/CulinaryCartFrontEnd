@@ -1,15 +1,11 @@
 /* Reset default margins/padding */
 html, body {
-  height: 100%;   /* ensures flex layout works correctly */
+  height: 100%;
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-
-  /* Global background applied to ALL pages */
-  // background: url('assets/images/background.jpg') no-repeat center center fixed;
-  // background-size: cover;
-  image-rendering: crisp-edges;
   background-color: #eef0f2; /* fallback color */
+  image-rendering: crisp-edges;
 }
 
 /* Optional overlay for readability */
@@ -22,23 +18,29 @@ body::before {
   z-index: -1;
 }
 
-/* Layout fix to push footer down */
-app-root {
+/* Flex layout for the whole app */
+body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;   /* full viewport height */
+  min-height: 100vh; /* full viewport height */
 }
 
-main, .container {
-  flex: 1;   /* pushes footer down */
+main {
+  flex: 1; /* pushes footer down */
 }
 
 /* Footer sits at bottom naturally */
-app-footer, .site-footer {
+.footer-section {
+  width: 100%;
   margin-top: auto;
+  background-color: #EA4626; /* Blood Orange */
+  color: #fff;
 }
- .bg-danger {
-  background-color: #e53935 !important;
+
+.footer-logo {
+  height: 50px;
+  width: auto;
 }
+
 
 

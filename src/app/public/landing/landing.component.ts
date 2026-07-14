@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../auth/services/auth.service';   
 import {LoginComponent} from "../../auth/login/login.component";
 import { SignupComponent } from '../../auth/signup/signup.component';
+import { HeaderComponent } from '../../shared/header/header.component';
+import { FooterComponent } from '../../shared/footer/footer.component';
 
 
 declare var bootstrap: any;
@@ -12,11 +14,14 @@ declare var bootstrap: any;
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, FormsModule, LoginComponent, SignupComponent],
+  imports: [CommonModule, FormsModule, LoginComponent, SignupComponent,HeaderComponent,FooterComponent],
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent {
+export class LandingComponent implements OnInit{
+
+  currentUser: any = null;
+
   private showingExpertise = false;
   name: string = '';
   email: string = '';
@@ -27,9 +32,13 @@ export class LandingComponent {
   isLoading: boolean = false;
 
   constructor(
-    private authService: AuthService,
-    private router: Router
+    public authService: AuthService,
+    public router: Router
   ) {}
+
+  ngOnInit(): void {
+    this.currentUser = this.authService.getUser();
+  }
    // 🔹 Swap About Us / Expertise cards when clicked
   swapCards(): void {
     const carouselElement = document.querySelector('#aboutExpertiseCarousel');
@@ -89,4 +98,15 @@ export class LandingComponent {
       alert('Please login or signup to view the menu.');
     }
   }
+
+logout(): void {
+  // Clear session via AuthService
+  this.authService.logout();
+
+  // Reset currentUser so template switches back to Sign in button
+  this.currentUser = null;
+
+  // Optional: redirect to landing or login
+  this.router.navigate(['/']);
+}
 }

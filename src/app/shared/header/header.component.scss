@@ -1,13 +1,26 @@
 .logo-container {
-  caret-color: transparent; 
+  caret-color: transparent;  
 }
+
 .app-header {
   height: 70px;
+  background-color: #EA4626;   // Blood Orange
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  width:100%;
+  border-bottom: 1px solid #ffffff;
+}
+.logo-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px; // adjust spacing between logo and text
 }
 
 .logo {
-  height: 155px; 
-  width: auto;
+  height: 60px; 
+  width: 60px;
+  border-radius: 14px;
+  object-fit: cover;
 }
 
 .brand-title {
@@ -69,4 +82,3 @@
   text-transform: uppercase;
   line-height: 1;
 }
-

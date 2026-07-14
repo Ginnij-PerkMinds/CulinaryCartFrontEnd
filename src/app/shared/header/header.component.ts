@@ -163,9 +163,3 @@ export class HeaderComponent {
       });
   }
 }
-
-
-
-
-
-
