@@ -1,0 +1,157 @@
+<div class="dashboard-container p-4">
+  <!-- Header -->
+  <div class="dashboard-header mb-4 d-flex justify-content-between align-items-center">
+    <div>
+      <h2 class="fw-bold text-blood-orange mb-0">Welcome Back, {{ username }}!</h2>
+      <p class="text-muted mb-0">Here’s your restaurant overview.</p>
+    </div>
+
+    <!-- Complaints & Feedback -->
+    <div class="d-flex gap-2">
+      <button class="btn btn-blood-orange">
+        <i class="bi bi-chat-dots"></i> Complaints
+      </button>
+      <button class="btn btn-blood-orange">
+        <i class="bi bi-chat-left-text"></i> Feedback
+      </button>
+    </div>
+  </div>
+
+  <!-- Dashboard Cards Row -->
+  <div class="row g-3 mb-3">
+    <!-- Orders Overview -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card dashboard-card text-center">
+        <div class="total-badge fs-5">
+          Total Orders: <span class="badge bg-primary">{{orderStats.totalOrders}}</span>
+        </div>
+        <canvas id="ordersPieChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Customer Insights -->
+    <div class="col-md-3 col-sm-6 d-flex flex-column">
+      <div class="card fs-4 dashboard-card text-center mb-3">
+        <h6 class="text-muted fs-5">Customer Insights</h6>
+        <ul class="list-unstyled small mb-0">
+          <li>Total Customers: <span class="badge bg-primary">{{userStats.totalCustomers}}</span></li>
+          <li>Active Customers: <span class="badge bg-success">{{userStats.activeCustomers}}</span></li>
+          <li>New Customers: <span class="badge bg-info">{{userStats.newCustomers}}</span></li>
+        </ul>
+      </div>
+
+      <div class="card fs-4 dashboard-card text-center">
+        <h6 class="text-muted fs-5">User Insights</h6>
+        <ul class="list-unstyled small mb-0">
+          <li>Total Users: <span class="badge bg-primary">{{userStats.totalUsers}}</span></li>
+          <li>Total Admins: <span class="badge bg-warning">{{userStats.adminUsers}}</span></li>
+          <li>Active Users: <span class="badge bg-success">{{userStats.activeUsers}}</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Revenue Chart -->
+    <div class="col-md-6">
+      <div class="card fs-4 dashboard-card text-center">
+        <div class="revenue-badge fs-5">
+          Revenue: <span class="badge bg-success">{{orderStats.totalRevenue | currency:'INR'}}</span>
+        </div>
+        <canvas id="revenueChart"></canvas>
+      </div>
+    </div>
+
+   <!--Menu Summary-->
+    <div class="col-md-12">
+      <div class="card dashboard-card p-3 position-relative">
+        <!-- Header row -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="fw-bold text-blood-orange mb-0">Menu Summary</h5>
+          <button class="btn btn-blood-orange" (click)="menuModal.openAddModal()">
+            <i class="bi bi-plus-circle-fill"></i> Add Item
+          </button>
+        </div>    
+    
+    <!-- Content row -->
+    <div class="row gx-5 mb-5">
+      <!-- Summary badges -->
+      <div class="col-md-4 col-sm-12 d-flex align-items-center justify-content-center">
+        <ul class="list-unstyled mb-0 fs-4 text-start">
+          <li>Total Items: <span class="badge bg-primary">{{menuInsights.totalItems}}</span></li>
+          <li>Categories: <span class="badge bg-warning">{{menuInsights.totalCategories}}</span></li>
+          <li>Dietary Preferences: <span class="badge bg-success">{{menuInsights.totalDietPreferences}}</span></li>
+        </ul>
+      </div>
+
+      <!-- Dietary Preferences Chart -->
+      <div class="col-md-4 col-sm-12">
+        <canvas id="menuInsightsChart" style="max-height:250px;"></canvas>
+      </div>
+
+      <!-- Category Distribution Chart -->
+      <div class="col-md-4 col-sm-12">
+        <canvas id="categoryChart" style="max-height:250px;"></canvas>
+      </div>
+    </div>
+
+    <!-- Needs Attention button at bottom-right -->
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-warning pulse"
+              data-bs-toggle="modal" data-bs-target="#needsAttentionModal">
+        <i class="bi bi-exclamation-triangle-fill"></i> Needs Attention
+      </button>
+    </div>
+  </div>
+</div>
+
+  <!-- Needs Attention Modal -->
+  <div class="modal fade" id="needsAttentionModal" tabindex="-1" aria-labelledby="needsAttentionLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold text-blood-orange" id="needsAttentionLabel">Needs Attention</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-unstyled mb-0">
+            <li><span class="badge bg-warning">{{ menuSnapshot.lowStockAlerts }} Low Stock</span></li>
+            <li><span class="badge bg-danger">{{ menuSnapshot.outOfStock }} Out of Stock</span></li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-blood-orange"
+                  [routerLink]="['/admin/menu']"
+                  [queryParams]="{ action: 'update-stock' }"
+                  data-bs-dismiss="modal">
+            <i class="bi bi-box-seam"></i> Update Stock
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Rated Dishes -->
+  <div class="card dashboard-card mb-4 p-3 slide-in">
+    <h6 class="fw-bold text-blood-orange">Top Rated Dishes</h6>
+    <div class="row g-3">
+      <div class="col-md-4 col-sm-6" *ngFor="let dish of menuSnapshot.topRatedDishes">
+        <div class="d-flex align-items-center">
+          <img [src]="dish.image" alt="Top Dish" class="rounded me-3" width="90" height="90">
+          <div>
+            <h6 class="fw-bold mb-0">{{ dish.name }}</h6>
+            <small class="text-warning">
+              <i class="bi bi-star-fill"></i> {{ dish.rating }} Rating
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Attach Menu Modal -->
+          <app-menu-modal #menuModal
+                          [categories]="categories"
+                          [dietaryPreferences]="dietaryPreferences"
+                          (itemSaved)="refreshSummary()">
+          </app-menu-modal>

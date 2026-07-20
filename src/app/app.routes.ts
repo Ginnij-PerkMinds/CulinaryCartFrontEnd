@@ -7,6 +7,7 @@ import { AdminHomeComponent } from './features/admin/components/admin-home/admin
 import { AdminMenuComponent } from './features/admin/components/admin-menu/admin-menu.component';
 import { AdminUsersComponent } from './features/admin/components/admin-users/admin-users.component';
 import { AdminGuard } from './core/Guards/admin.guard';
+import { AdminDashboardComponent } from './features/admin/components/admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -14,16 +15,17 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'menu', component: MenuListComponent },
+  
   {
     path: 'admin',
     component: AdminHomeComponent,
     canActivate: [AdminGuard],
     children: [
+      {path:'dashboard',component: AdminDashboardComponent},
       { path: 'menu', component: AdminMenuComponent },
-      { path: 'users', component: AdminUsersComponent }
+      { path: 'users', component: AdminUsersComponent },
+      {path:'', redirectTo: 'dashboard', pathMatch:'full'}
     ]
   },
   { path: '**', redirectTo: '' }
 ];
-
-

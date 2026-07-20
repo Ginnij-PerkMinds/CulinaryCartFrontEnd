@@ -22,6 +22,7 @@ export class MenuService {
 
     return this.http.get<MenuResponse>(this.apiUrl, { params });
   }
+  
   // fetch categories from DB
   getCategories(): Observable<any[]> {                 
         return this.http.get<any[]>(this.categoryUrl);     

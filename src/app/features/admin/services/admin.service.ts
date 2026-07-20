@@ -30,6 +30,7 @@ export class AdminService {
     return this.http.get<MenuResponse>(`${this.menuUrl}/ShowMenu`, { params });
   }
   
+  
   toggleStock(id: number, inStock: boolean) {
   return this.http.put(`/api/Menu/ToggleStock/${id}`, inStock);
   }

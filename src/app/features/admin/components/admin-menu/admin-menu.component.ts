@@ -60,6 +60,7 @@ export class AdminMenuComponent implements OnInit {
       error: (err) => console.error('Menu grid pull error:', err)
     });
   }
+  
 
   applyFilters(): void {
   this.menuItems = this.allmenuItems.filter(item => {

@@ -1,0 +1,108 @@
+/* Brand Colors */
+.text-blood-orange {
+  color: #EA4626;
+}
+
+.btn-blood-orange {
+  background-color: #EA4626;
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-blood-orange:hover {
+  background-color: #d63d20;
+  color: #fff;
+}
+
+.dashboard-card {
+  padding: 1rem;
+  border-left: 4px solid #EA4626;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;  /* headline stays at top */
+  align-items: stretch;         /* allow natural left/right alignment */
+  text-align: left;             /* default left alignment */
+}
+
+/* Card Headings */
+.dashboard-card h6,
+.dashboard-card .card-header {
+  font-weight: 600;
+  margin-bottom: 1rem;            /* consistent gap below headline */
+  margin-top: 0.5rem;
+  color: #555;                    /* softer headline color */
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #eee;  /* subtle divider under headline */
+  padding-bottom: 0.5rem;
+  width: 100%;
+}
+
+/* Card Base */
+.card {
+  border-left: 5px solid #EA4626;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Dashboard Header */
+.dashboard-header h2 {
+  color: #EA4626;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.corner-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #EA4626;
+}
+.corner-badge-right {
+  position: absolute;
+  top: 10px;
+  right: 10px;   // 👈 places it in the right corner
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2e7d32; // green tone for revenue
+}
+.card canvas {
+  width: 100% !important;
+  height: 300px !important;
+}
+.menu-summary-header {
+  display: flex;
+  justify-content: space-between; /* pushes title left, button right */
+  align-items: center;            /* vertical alignment */
+}
+
+.menu-summary-header h5 {
+  margin: 0;                      /* remove extra spacing */
+}
+
+.menu-summary-header .btn {
+  margin: 0;                      /* keep button tight to corner */
+}
+
+.slide-in {
+  animation: slideIn 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
