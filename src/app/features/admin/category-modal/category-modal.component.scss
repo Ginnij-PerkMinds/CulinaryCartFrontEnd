@@ -1,0 +1,26 @@
+$blood-orange: #EA4626;
+
+.border-blood-orange {
+  border: 2px solid $blood-orange;
+  border-radius: 6px;
+}
+
+.bg-blood-orange {
+  background-color: $blood-orange !important;
+}
+
+.table-blood-orange {
+  background-color: $blood-orange !important;
+}
+
+.bg-soft-peach {
+  background-color: #FFE5DC !important; /* soft peach tint */
+}
+
+.btn-blood-orange {
+  background-color: $blood-orange;
+  color: #fff;
+}
+.btn-blood-orange:hover {
+  background-color: darken($blood-orange, 10%);
+}

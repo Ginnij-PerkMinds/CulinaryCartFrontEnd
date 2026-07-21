@@ -2,9 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface DietaryPreferenceDto {
+  id: number;
+  name: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class DietaryPreferencesService {
-  private baseUrl = '/api/DietaryPreference';   // adjust if your API base differs
+  private baseUrl = 'http://localhost:5209/api/DietaryPreference';   // adjust if your API base differs
 
   constructor(private http: HttpClient) {}
 

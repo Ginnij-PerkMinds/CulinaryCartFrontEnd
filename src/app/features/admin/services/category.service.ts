@@ -2,29 +2,34 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface CategoryDto {
+  id: number;
+  name: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class CategoryService {
-  private baseUrl = '/api/Category';   // adjust if your API base differs
+  private apiUrl = 'http://localhost:5209/api/category'; 
 
   constructor(private http: HttpClient) {}
 
   getCategories(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/GetCategories`);
+    return this.http.get<any[]>(`${this.apiUrl}/GetCategories`);
   }
 
   getCategory(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/GetCategory/${id}`);
+    return this.http.get<any>(`${this.apiUrl}/GetCategory/${id}`);
   }
 
   addCategory(category: { name: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/AddCategory`, category);
+    return this.http.post(`${this.apiUrl}/AddCategory`, category);
   }
 
   updateCategory(id: number, category: { name: string }): Observable<any> {
-    return this.http.put(`${this.baseUrl}/UpdateCategory/${id}`, category);
+    return this.http.put(`${this.apiUrl}/UpdateCategory/${id}`, category);
   }
 
   deleteCategory(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/DeleteCategory/${id}`);
+    return this.http.delete(`${this.apiUrl}/DeleteCategory/${id}`);
   }
 }

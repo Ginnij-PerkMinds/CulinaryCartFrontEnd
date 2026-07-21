@@ -1,57 +1,74 @@
-<div #categoryModalRef class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h5 class="modal-title fw-bold text-blood-orange" id="categoryModalLabel">Manage Categories</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+<div #categoryModal class="modal fade" id="categoryModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content border-blood-orange bg-soft-peach">
+      
+      <!-- Header -->
+      <div class="modal-header bg-blood-orange text-white">
+        <h5 class="modal-title">Manage Categories</h5>
+        <button type="button" class="btn-close btn-close-white" (click)="closeModal()"></button>
       </div>
 
       <!-- Body -->
       <div class="modal-body">
-        <div class="row">
-          <!-- Two-column layout -->
-          <div class="col-md-6 mb-3" *ngFor="let cat of categories">
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-              <div *ngIf="editingCategoryId !== cat.id; else editForm">
-                {{ cat.name }}
-              </div>
-              <ng-template #editForm>
-                <input type="text" [(ngModel)]="editingCategoryName" class="form-control form-control-sm me-2">
-              </ng-template>
-
-              <div class="btn-group">
-                <button *ngIf="editingCategoryId !== cat.id" class="btn btn-sm btn-outline-primary" (click)="startEdit(cat)">
+        <table class="table table-striped table-hover">
+          <thead class="table-blood-orange text-white">
+            <tr>
+              <th>Name</th>
+              <th style="width:120px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cat of categories">
+              <td>
+                <span *ngIf="editingCategoryId !== cat.id">{{ cat.name }}</span>
+                <input *ngIf="editingCategoryId === cat.id"
+                       [(ngModel)]="editingCategoryName"
+                       class="form-control form-control-sm"/>
+              </td>
+              <td>
+                <button *ngIf="editingCategoryId !== cat.id"
+                        class="btn btn-sm btn-outline-primary me-1"
+                        (click)="startEdit(cat)">
                   <i class="bi bi-pencil"></i>
                 </button>
-                <button *ngIf="editingCategoryId === cat.id" class="btn btn-sm btn-success" (click)="saveEdit()">
+                <button *ngIf="editingCategoryId === cat.id"
+                        class="btn btn-sm btn-success me-1"
+                        (click)="saveEdit()">
                   <i class="bi bi-check-lg"></i>
                 </button>
-                <button *ngIf="editingCategoryId === cat.id" class="btn btn-sm btn-secondary" (click)="cancelEdit()">
+                <button *ngIf="editingCategoryId === cat.id"
+                        class="btn btn-sm btn-secondary me-1"
+                        (click)="cancelEdit()">
                   <i class="bi bi-x-lg"></i>
                 </button>
-                <button class="btn btn-sm btn-outline-danger" (click)="deleteCategory(cat.id)">
+                <button class="btn btn-sm btn-outline-danger"
+                        (click)="deleteCategory(cat.id)">
                   <i class="bi bi-trash"></i>
                 </button>
-              </div>
-            </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Add new category -->
+        <div class="card mt-3 border-blood-orange">
+          <div class="card-body">
+            <input type="text" [(ngModel)]="newCategoryName"
+                   placeholder="New category"
+                   class="form-control mb-2"/>
+            <button class="btn btn-blood-orange w-100" (click)="addCategory()">Add Category</button>
           </div>
         </div>
-
-        <!-- Add new category input -->
-        <div class="list-group-item mt-3">
-          <input type="text" [(ngModel)]="newCategoryName" placeholder="New category" class="form-control mb-2">
-          <button class="btn btn-blood-orange w-100" (click)="addCategory()">Add Category</button>
-        </div>
       </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <!-- Footer -->
+      <div class="modal-footer bg-soft-peach">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
       </div>
-
     </div>
   </div>
 </div>
+
 
 
 

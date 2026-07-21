@@ -28,6 +28,26 @@
   letter-spacing: 1.3px;
   text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
 }
+.nav-link {
+  position: relative;
+  padding-bottom: 4px; /* space for underline */
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background-color: white;
+  transition: width 0.3s ease;
+}
+
+.nav-link.active-tab::after {
+  width: 100%; /* underline expands fully */
+}
 
 .drop-icon {
   height: 32px;
@@ -81,4 +101,32 @@
   font-size: 25px;
   text-transform: uppercase;
   line-height: 1;
+}
+
+/* Blood orange color */
+$blood-orange: #EA4626;
+
+/* Modal border */
+.border-blood-orange {
+  border: 3px solid $blood-orange;
+  border-radius: 8px;
+}
+
+/* Modal header */
+.bg-blood-orange {
+  background-color: $blood-orange !important;
+}
+.bg-soft-peach {
+  background-color: #FFE5DC; 
+}
+
+/* Buttons already styled */
+.btn-blood-orange {
+  background-color: $blood-orange;
+  color: #fff;
+  border: none;
+}
+.btn-blood-orange:hover {
+  background-color: darken($blood-orange, 10%);
+  color: #fff;
 }

@@ -17,17 +17,21 @@
   <div class="header-controls d-flex align-items-center gap-3 position-relative ms-auto">
      
     <!-- Always show Home -->
-    <a routerLink=" " class="btn btn-link text-white fw-bold">
+    <a routerLink="/" routerLinkActive="active-tab" [routerLinkActiveOptions]="{ exact: true }"
+    class="nav-link text-white fw-bold">
       <i class="bi bi-house-door-fill me-1"></i> Home 
     </a>
 
      <!-- Always Show Menu -->
-    <a *ngIf="authService.isLoggedIn()" routerLink="/menu" class="btn btn-link text-white fw-bold">
+    <a *ngIf="authService.isLoggedIn()" routerLink="/menu" routerLinkActive="active-tab"
+    class="nav-link text-white fw-bold">
       <i class="bi bi-card-list me-1"></i> Menu
     </a>
 
       <!-- Show Manage if admin -->
-    <a *ngIf="authService.isLoggedIn() && authService.isAdmin()" routerLink="/admin" class="btn btn-link text-white fw-bold">
+    <a *ngIf="authService.isLoggedIn() && authService.isAdmin()" routerLink="/admin/dashboard"
+    routerLinkActive="active-tab" 
+    class="nav-link text-white fw-bold">
       <i class="bi bi-gear-fill me-1"></i> Manage
     </a>
 
@@ -86,12 +90,12 @@
 </header>
 
 <!-- Profile Modal -->
-<div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+  <div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
+    <div class="modal-content border-blood-orange bg-soft-peach shadow-lg">
+      <div class="modal-header bg-blood-orange text-white">
         <h5 class="modal-title">Profile</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
         <div class="modal-body">
@@ -197,12 +201,12 @@
 </div>
 
 <!-- Change Password Modal -->
-<div class="modal fade" id="passwordModal" tabindex="-1" aria-hidden="true">
+  <div class="modal fade" id="passwordModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-md modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
+    <div class="modal-content border-blood-orange bg-soft-peach shadow-lg">
+      <div class="modal-header bg-blood-orange text-white">
         <h5 class="modal-title">Change Password</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
         <div class="modal-body">
