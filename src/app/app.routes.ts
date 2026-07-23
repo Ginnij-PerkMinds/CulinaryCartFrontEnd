@@ -8,6 +8,8 @@ import { AdminMenuComponent } from './features/admin/components/admin-menu/admin
 import { AdminUsersComponent } from './features/admin/components/admin-users/admin-users.component';
 import { AdminGuard } from './core/Guards/admin.guard';
 import { AdminDashboardComponent } from './features/admin/components/admin-dashboard/admin-dashboard.component';
+import { AdminCategoryComponent } from './features/admin/components/admin-category/admin-category.component';
+import { AdminDietaryPreferenceComponent } from './features/admin/components/admin-dietarypreference/admin-dietarypreference.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -24,6 +26,8 @@ export const routes: Routes = [
       {path:'dashboard',component: AdminDashboardComponent},
       { path: 'menu', component: AdminMenuComponent },
       { path: 'users', component: AdminUsersComponent },
+      {path: 'category', component: AdminCategoryComponent},
+      {path: 'dietarypreference', component: AdminDietaryPreferenceComponent},
       {path:'', redirectTo: 'dashboard', pathMatch:'full'}
     ]
   },

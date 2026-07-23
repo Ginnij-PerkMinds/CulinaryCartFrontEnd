@@ -36,22 +36,26 @@
         </li>
         <!-- Category -->
         <li class="nav-item">
-           <button class="nav-link-item btn btn-link text-start"
-              data-bs-toggle="modal" data-bs-target="#categoryModal">
-              <i class="bi bi-tags menu-icon"></i>
-              <span class="link-label">Category</span>
-           </button>
+          <a class="nav-link-item" 
+             routerLink="category" 
+             routerLinkActive="is-active" 
+             [routerLinkActiveOptions]="{ exact: true }">
+            <i class="bi bi-tags menu-icon"></i>
+            <span class="link-label">Category</span>
+          </a>
         </li>
-        <app-category-modal></app-category-modal>
+       
         <!-- Dietary Preferences -->
-        <li class="nav-item">
-          <button class="nav-link-item btn btn-link text-start"
-            data-bs-toggle="modal" data-bs-target="#dietModal">
+       <li class="nav-item">
+          <a class="nav-link-item" 
+             routerLink="dietarypreference" 
+             routerLinkActive="is-active" 
+             [routerLinkActiveOptions]="{ exact: true }">
             <i class="bi bi-heart-fill menu-icon"></i>
-            <span class="link-label">Dietary Preferences</span>
-          </button>
-       </li>
-       <app-dietary-preferences-modal></app-dietary-preferences-modal>
+            <span class="link-label">Dietary Preference</span>
+          </a>
+        </li>
+       
        <!--User Accounts-->
         <li class="nav-item">
           <a class="nav-link-item" 

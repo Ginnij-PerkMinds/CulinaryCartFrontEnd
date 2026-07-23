@@ -1,0 +1,59 @@
+/* Page background */
+.category-page {
+  background-color: #FFE5DC; /* soft peach */
+  min-height: 100vh; /* full height background */
+  padding: 1rem;
+}
+
+/* Table header bar */
+.category-table thead tr th{
+  background-color: #EA4626 !important; /* blood orange */
+  color: #fff imo !important;               /* white text */
+}
+
+.category-table th {
+  font-weight: bold;
+  text-align: left;
+}
+
+/* Blood orange color */
+$blood-orange: #EA4626;
+
+/* Modal/Card border */
+.border-blood-orange {
+  border: 3px solid $blood-orange;
+  border-radius: 8px;
+}
+
+/* Header background */
+.bg-blood-orange {
+  background-color: $blood-orange !important;
+}
+
+/* Soft peach background */
+.bg-soft-peach {
+  background-color: #FFE5DC !important;
+}
+
+/* Blood orange button */
+.btn-blood-orange {
+  background-color: $blood-orange;
+  color: #fff;
+  border: none;
+}
+
+.btn-blood-orange:hover {
+  background-color: darken($blood-orange, 10%);
+  color: #fff;
+}
+.global-notification {
+  position: fixed;
+  top: 1rem;       /* distance from top */
+  right: 1rem;     /* distance from right edge */
+  z-index: 2000;   /* above header, tables, modals */
+  min-width: 250px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
