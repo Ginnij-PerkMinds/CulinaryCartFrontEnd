@@ -7,20 +7,8 @@
     +
   </button>
 </div>
-  <!-- Notification Banner -->
-  <div *ngIf="notification" class="notification wrapper">
-  <div class="alert mb-0 ms-3 py-1 px-3"
-       [ngClass]="{
-         'alert-success': (notification | lowercase).includes('success'),
-         'alert-danger': (notification | lowercase).includes('error'),
-         'alert-info': !(notification | lowercase).includes('success') && !(notification | lowercase).includes('error')
-       }"
-       role="alert">
-    {{ notification }}
-  </div>
-</div>
 
-  <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="adddietaryModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-sm modal-dialog-centered">
     <div class="modal-content border-blood-orange">
@@ -38,7 +26,7 @@
   </div>
 </div>
 
-  <!-- Table of dietary preferences -->
+<!-- Table of dietary preferences -->
   <table class="table table-striped table-hover dietary-table">
     <thead>
       <tr>
@@ -78,3 +66,16 @@
       </tr>
     </tbody>
   </table>
+
+  <!-- Notification Banner -->
+  <div *ngIf="notification"
+       class="alert global-notification"
+       [ngClass]="{
+         'alert-success': (notification | lowercase).includes('success'),
+         'alert-danger': (notification | lowercase).includes('error'),
+         'alert-info': !(notification | lowercase).includes('success') && !(notification | lowercase).includes('error')
+       }"
+       role="alert">
+    {{ notification }}
+  </div>
+</div>

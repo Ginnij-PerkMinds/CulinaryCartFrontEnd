@@ -48,7 +48,3 @@ export class UserService {
     return this.http.delete<{ message: string }>(`${this.apiUrl}/DeleteUser/${id}`);
   }
 }
-
-
-
-

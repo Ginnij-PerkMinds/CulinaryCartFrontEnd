@@ -28,6 +28,26 @@
   letter-spacing: 1.3px;
   text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
 }
+.nav-link {
+  position: relative;
+  padding-bottom: 4px; /* space for underline */
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background-color: white;
+  transition: width 0.3s ease;
+}
+
+.nav-link.active-tab::after {
+  width: 100%; /* underline expands fully */
+}
 
 .nav-link {
   position: relative;

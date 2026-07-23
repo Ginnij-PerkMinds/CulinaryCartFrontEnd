@@ -45,6 +45,3 @@ export class MenuService {
     return this.http.post(`${this.apiUrl}/AddMenu`, formData);
   }
 }
-
-
-

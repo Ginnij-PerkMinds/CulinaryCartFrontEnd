@@ -1,14 +1,14 @@
 /* Page background */
 .dietary-page {
   background-color: #FFE5DC; /* soft peach */
-  min-height: 100vh; /* full height background */
+  min-height: 100vh; 
   padding: 1rem;
 }
 
 /* Table header bar */
 .dietary-table thead tr th{
-  background-color: #EA4626 !important; /* blood orange */
-  color: #fff  !important;               /* white text */
+  background-color: #EA4626 !important; 
+  color: #fff  !important;              
 }
 
 .dietary-table th {
@@ -47,15 +47,13 @@ $blood-orange: #EA4626;
   color: #fff;
 }
 
-.notification-wrapper {
+.global-notification {
   position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 2000; /* higher than modals and tables */
-}
-
-.notification-wrapper .alert {
+  top: 1rem;      
+  right: 1rem;     
+  z-index: 2000;   
   min-width: 250px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  font-size: 0.9rem;
 }
-

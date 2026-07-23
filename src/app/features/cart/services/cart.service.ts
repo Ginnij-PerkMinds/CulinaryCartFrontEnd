@@ -55,4 +55,3 @@ export class CartService {
     return this.http.post(`${this.baseUrl}/checkout`, cartItems, { headers });
   }
 }
-

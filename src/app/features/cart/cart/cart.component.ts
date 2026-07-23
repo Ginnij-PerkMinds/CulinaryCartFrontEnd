@@ -111,8 +111,3 @@ export class CartComponent {
     setTimeout(() => this.notification = null, 5000);
   }
 }
-
-
-
-
-

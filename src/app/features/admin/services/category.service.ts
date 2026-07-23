@@ -1,67 +1,37 @@
-// import { Injectable } from '@angular/core';
-// import { HttpClient } from '@angular/common/http';
-// import { Observable } from 'rxjs';
-// import { CategoryUpdateRequest } from '../model/category.dto';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class CategoryService {
-//   private baseUrl = '/api/Category';
-
-//   constructor(private http: HttpClient) {}
-
-//   getCategories(): Observable<any[]> {
-//     return this.http.get<any[]>(`${this.baseUrl}/GetCategories`);
-//   }
-
-//   getCategory(id: number): Observable<any> {
-//     return this.http.get<any>(`${this.baseUrl}/GetCategory/${id}`);
-//   }
-
-//   addCategory(request: CategoryUpdateRequest): Observable<any> {
-//     return this.http.post(`${this.baseUrl}/AddCategory`, request);
-//   }
-
-//   updateCategory(id: number, request: CategoryUpdateRequest): Observable<any> {
-//     return this.http.put(`${this.baseUrl}/UpdateCategory/${id}`, request);
-//   }
-
-//   deleteCategory(id: number): Observable<any> {
-//     return this.http.delete(`${this.baseUrl}/DeleteCategory/${id}`);
-//   }
-// }
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CategoryUpdateRequest } from '../model/category.dto';
 
-@Injectable({
-  providedIn: 'root'
-})
+export interface CategoryDto {
+  id: number;
+  name: string;
+}
+
+@Injectable({ providedIn: 'root' })
 export class CategoryService {
-  private baseUrl = 'http://localhost:5209/api/Category';
+  private apiUrl = 'http://localhost:5209/api/category'; 
 
   constructor(private http: HttpClient) {}
 
   // GET all categories
   getCategories(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/GetCategories`);
+    return this.http.get<any[]>(`${this.apiUrl}/GetCategories`);
   }
 
-  // POST new category
+  getCategory(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/GetCategory/${id}`);
+  }
+
   addCategory(request: CategoryUpdateRequest): Observable<any> {
-    return this.http.post(`${this.baseUrl}/AddCategory`, request);
+    return this.http.post(`${this.apiUrl}/AddCategory`, request);
   }
 
-  // PUT update category
-  updateCategory(categoryId: number, request: CategoryUpdateRequest): Observable<any> {
-    return this.http.put(`${this.baseUrl}/UpdateCategory/${categoryId}`, request);
+  updateCategory(id: number, request: CategoryUpdateRequest): Observable<any> {
+    return this.http.put(`${this.apiUrl}/UpdateCategory/${id}`, request);
   }
 
-  // DELETE category
-  deleteCategory(categoryId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/DeleteCategory/${categoryId}`);
+  deleteCategory(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/DeleteCategory/${id}`);
   }
 }
-

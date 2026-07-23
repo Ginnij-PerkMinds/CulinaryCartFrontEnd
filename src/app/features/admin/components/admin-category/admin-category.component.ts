@@ -25,20 +25,16 @@ export class AdminCategoryComponent implements OnInit {
   }
 
   private normalizeMessage(res: any): string {
-    // If backend returned a plain string
-    if (typeof res === 'string') {
+    if (typeof res === 'string') {                 // If backend returned a plain string
       return res;
     }
-    // If backend returned an object with a message property
-    if (res && typeof res.message === 'string') {
+    if (res && typeof res.message === 'string') {  // If backend returned an object with a message property
       return res.message;
     }
-    // If backend error is wrapped
-    if (res && typeof res.error === 'string') {
+    if (res && typeof res.error === 'string') {    // If backend error is wrapped
       return res.error;
     }
-    // If Angular wrapped the string in an object
-    if (res && typeof res === 'object') {
+    if (res && typeof res === 'object') {         // If Angular wrapped the string in an object
       return res.text || JSON.stringify(res);
     }
     return 'Unknown response from server';
