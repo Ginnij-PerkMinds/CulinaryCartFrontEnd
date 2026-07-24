@@ -1,5 +1,5 @@
- <app-header></app-header>
-
+<app-header></app-header>
+<!-- Hero Section -->
 <section class="hero-section text-white py-1">
   <div class="container">
     <!-- Tagline -->
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <!-- Service Cards Side by Side -->
+    <!-- Service Cards -->
     <div class="row justify-content-center g-4">
       <!-- Food Delivery -->
       <div class="col-md-4">
@@ -33,8 +33,8 @@
             <button class="btn btn-primary fw-bold mt-2"
               data-bs-toggle="offcanvas"
               data-bs-target="#signinOffcanvas">
-        Order Now
-      </button>
+              Order Now
+            </button>
           </div>
         </div>
       </div>
@@ -50,13 +50,12 @@
             <button class="btn btn-success fw-bold mt-2"
               data-bs-toggle="offcanvas"
               data-bs-target="#signinOffcanvas">
-        Book Now
-      </button>
+              Book Now
+            </button>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -67,7 +66,6 @@
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
   </div>
   <div class="offcanvas-body">
-    <!-- Angular Login Component -->
     <app-login></app-login>
   </div>
 </div>
@@ -79,7 +77,6 @@
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
   </div>
   <div class="offcanvas-body">
-    <!-- Angular Signup Component -->
     <app-signup></app-signup>
   </div>
 </div>
@@ -87,64 +84,126 @@
 <!-- Cuisine Gallery -->
 <section class="cuisine-section py-5">
   <div class="container">
-  <h3 class="text-center fw-bold mb-4">Our Cuisines</h3>
-  <div class="row g-4 justify-content-center">
-
-    <!-- Row 1 -->
-    <div class="col-6 col-md-2">
-      <div class="ratio ratio-4x3">
-      <img src="assets/images/piza.jpg" class="img-fluid rounded shadow-sm" alt="Pizza">
-    </div>
-    </div>
-    <div class="col-6 col-md-2">
-      <div class="ratio ratio-4x3">
-      <img src="assets/images/burger.jpg" class="img-fluid rounded shadow-sm" alt="Burger">
-    </div>
-    </div>
-    <div class="col-6 col-md-2">
-      <div class="ratio ratio-4x3">
-      <img src="assets/images/pasta.jpg" class="img-fluid rounded shadow-sm" alt="Pasta">
-    </div>
-    </div>
-    <div class="col-6 col-md-2">
-      <div class="ratio ratio-4x3">
-      <img src="assets/images/tikka.jpg" class="img-fluid rounded shadow-sm" alt="Tikka">
-    </div>
-    </div>
-    <div class="col-6 col-md-2">
-      <div class="ratio ratio-4x3">
-      <img src="assets/images/wrap.jpg" class="img-fluid rounded shadow-sm" alt="Wrap">
-    </div>
-    </div>
+    <h3 class="text-center fw-bold mb-4" style="color:#FF4500;">Our Cuisines</h3>
     <div class="row g-4 justify-content-center">
-    <!-- Row 2 -->
-    <div class="col-6 col-md-2">
-      <div class="ratio ratio-4x3">
-      <img src="assets/images/coldcoffee.jpg" class="img-fluid rounded shadow-sm" alt="Cold Coffee">
+
+      <!-- Row 1 -->
+      <div class="col-6 col-md-2">
+        <div class="ratio ratio-4x3">
+          <img src="assets/images/piza.jpg" class="img-fluid rounded shadow-sm" alt="Pizza">
+        </div>
+      </div>
+      <div class="col-6 col-md-2">
+        <div class="ratio ratio-4x3">
+          <img src="assets/images/burger.jpg" class="img-fluid rounded shadow-sm" alt="Burger">
+        </div>
+      </div>
+      <div class="col-6 col-md-2">
+        <div class="ratio ratio-4x3">
+          <img src="assets/images/pasta.jpg" class="img-fluid rounded shadow-sm" alt="Pasta">
+        </div>
+      </div>
+      <div class="col-6 col-md-2">
+        <div class="ratio ratio-4x3">
+          <img src="assets/images/tikka.jpg" class="img-fluid rounded shadow-sm" alt="Tikka">
+        </div>
+      </div>
+      <div class="col-6 col-md-2">
+        <div class="ratio ratio-4x3">
+          <img src="assets/images/wrap.jpg" class="img-fluid rounded shadow-sm" alt="Wrap">
+        </div>
+      </div>
     </div>
-    </div>
-    <div class="col-6 col-md-2">
-      <div class="ratio ratio-4x3">
-      <img src="assets/images/biryani.jpg" class="img-fluid rounded shadow-sm" alt="Biryani">
-    </div>
-    </div>
-    <div class="col-6 col-md-2">
-      <div class="ratio ratio-4x3">
-      <img src="assets/images/sushi.jpg" class="img-fluid rounded shadow-sm" alt="Sushi">
-    </div>
-    </div>
-    <div class="col-6 col-md-2">
-      <div class="ratio ratio-4x3">
-      <img src="assets/images/salad.jpg" class="img-fluid rounded shadow-sm" alt="Salad">
-    </div>
-    </div>
-    <div class="col-6 col-md-2">
-      <div class="ratio ratio-4x3">
-      <img src="assets/images/dessert.jpg" class="img-fluid rounded shadow-sm" alt="Dessert">
-    </div>
-    </div>
+
+    <div class="row g-4 justify-content-center mt-4">
+      <!-- Row 2 -->
+      <div class="col-6 col-md-2">
+        <div class="ratio ratio-4x3">
+          <img src="assets/images/coldcoffee.jpg" class="img-fluid rounded shadow-sm" alt="Cold Coffee">
+        </div>
+      </div>
+      <div class="col-6 col-md-2">
+        <div class="ratio ratio-4x3">
+          <img src="assets/images/biryani.jpg" class="img-fluid rounded shadow-sm" alt="Biryani">
+        </div>
+      </div>
+      <div class="col-6 col-md-2">
+        <div class="ratio ratio-4x3">
+          <img src="assets/images/sushi.jpg" class="img-fluid rounded shadow-sm" alt="Sushi">
+        </div>
+      </div>
+      <div class="col-6 col-md-2">
+        <div class="ratio ratio-4x3">
+          <img src="assets/images/salad.jpg" class="img-fluid rounded shadow-sm" alt="Salad">
+        </div>
+      </div>
+      <div class="col-6 col-md-2">
+        <div class="ratio ratio-4x3">
+          <img src="assets/images/dessert.jpg" class="img-fluid rounded shadow-sm" alt="Dessert">
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section py-5 bg-light">
+  <div class="container">
+    <h3 class="text-center fw-bold mb-4" style="color:#FF4500;">What Our Customers Say</h3>
+    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+
+        <!-- Testimonial 1 -->
+        <div class="carousel-item active text-center p-4">
+          <p class="fs-5 fst-italic" style="color: black;">
+            "Culinary Cart makes ordering food effortless. Always fresh and flavorful!"
+          </p>
+          <h5 class="fw-bold mt-3" style="color:#FF4500;">— Priya Sharma</h5>
+          <span style="color:#FF4500;">★★★★★</span>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="carousel-item text-center p-4">
+          <p class="fs-5 fst-italic" style="color: black;">
+            "I love the variety of cuisines. It feels like traveling the world through food."
+          </p>
+          <h5 class="fw-bold mt-3" style="color:#FF4500;">— Arjun Mehta</h5>
+          <span style="color:#FF4500;">★★★★☆</span>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="carousel-item text-center p-4">
+          <p class="fs-5 fst-italic" style="color: black;">
+            "Fast delivery and excellent service. Culinary Cart is my go‑to app."
+          </p>
+          <h5 class="fw-bold mt-3" style="color:#FF4500;">— Neha Kapoor</h5>
+          <span style="color:#FF4500;">★★★★★</span>
+        </div>
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter Signup -->
+<section class="newsletter-section py-5 bg-white text-center">
+  <div class="container">
+    <h3 class="fw-bold mb-3" style="color:#FF4500;">Stay Updated</h3>
+    <p class="mb-4" style="color: black;">
+      Subscribe to get offers, new cuisines, and updates directly in your inbox.
+    </p>
+    <div class="input-group w-50 mx-auto">
+      <input type="email" class="form-control" placeholder="Enter your email">
+      <button class="btn fw-bold" style="background-color:#FF4500; color:white;">
+        Subscribe
+      </button>
+    </div>
+  </div>
 </section>
 <app-footer></app-footer>

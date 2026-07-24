@@ -1,0 +1,89 @@
+/* Menu Modal Theme */
+#menuModal .modal-content {
+  border: 3px solid #EA4626;   /* blood orange border */
+  border-radius: 12px;
+  background-color: #FFE5DC;   /* soft peach background */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+#menuModal .modal-header {
+  background-color: #EA4626;   /* blood orange header */
+  color: #fff;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+#menuModal .modal-title {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+#menuModal .btn-close {
+  filter: invert(1);   /* white close button */
+}
+
+#menuModal .modal-body {
+  background-color: #FFE5DC;   /* soft peach body */
+  padding: 1.5rem;
+}
+
+#menuModal .card {
+  border-radius: 10px;
+  background-color: #fdfdfd;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+#menuModal .form-label {
+  font-weight: 600;
+  color: #333;
+}
+
+#menuModal .form-control,
+#menuModal .form-select {
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+#menuModal .form-control:focus,
+#menuModal .form-select:focus {
+  border-color: #EA4626;
+  box-shadow: 0 0 0 0.2rem rgba(234,70,38,0.25);
+}
+
+#menuModal .modal-footer {
+  border-top: 1px solid #ddd;
+  background-color: #f8f9fa;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+#menuModal .btn-blood-orange {
+  background-color: #EA4626;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+#menuModal .btn-blood-orange:hover {
+  background-color: #d63d20;
+  color: #fff;
+}
+
+/* Image preview */
+#menuModal img.img-thumbnail {
+  border-radius: 8px;
+  border: 2px solid #EA4626;
+}
+
+/* Toast Notification inside Menu Modal */
+.toast-container .card {
+  border: 2px solid #EA4626;
+  background-color: #FFE5DC;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.toast-container .card-body {
+  font-weight: 600;
+  color: #333;
+}

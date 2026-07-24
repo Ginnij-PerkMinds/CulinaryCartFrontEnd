@@ -4,10 +4,19 @@
   min-height: 100vh; 
   padding: 1rem;
 }
+/* Blood Orange Section Title */
+.dietary-title {
+  color: #EA4626;   /* blood orange */
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(234,70,38,0.25);
+}
+
 
 /* Table header bar */
 .dietary-table thead tr th{
-  background-color: #EA4626 !important; 
+  background-color: black !important; 
   color: #fff  !important;              
 }
 

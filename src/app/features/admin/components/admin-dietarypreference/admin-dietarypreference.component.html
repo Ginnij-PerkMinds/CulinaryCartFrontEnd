@@ -1,6 +1,6 @@
-<div class="container mt-4 dietary-page">
+<div class="dashboard-inner-card shadow-sm border-0 bg-soft-peach p-4 rounded-4 animate fadeIn">
 <div class="d-flex justify-content-between align-items-center mb-3">
-  <h3 class="mb-0">Manage Dietary preferences</h3>
+  <h3 class="dietary-title mb-0">Manage Dietary preferences</h3>
   <button class="btn btn-blood-orange rounded-circle"
           data-bs-toggle="modal" data-bs-target="#adddietaryModal"
           style="width:40px; height:40px; font-size:20px; line-height:1;">
@@ -43,26 +43,28 @@
                  class="form-control form-control-sm"/>
         </td>
         <td>
-          <button *ngIf="editingPrefId !== pref.dietId"
-                  class="btn btn-sm btn-outline-primary me-1"
-                  (click)="startEdit(pref)">
-            <i class="bi bi-pencil"></i>
-          </button>
-          <button *ngIf="editingPrefId === pref.dietId"
-                  class="btn btn-sm btn-success me-1"
-                  (click)="saveEdit()">
-            <i class="bi bi-check-lg"></i>
-          </button>
-          <button *ngIf="editingPrefId === pref.dietId"
-                  class="btn btn-sm btn-secondary me-1"
-                  (click)="cancelEdit()">
-            <i class="bi bi-x-lg"></i>
-          </button>
-          <button class="btn btn-sm btn-outline-danger"
-                  (click)="deleteDietaryPreference(pref.dietId)">
-            <i class="bi bi-trash"></i>
-          </button>
-        </td>
+        <button *ngIf="editingPrefId !== pref.dietId"
+          class="btn btn-sm btn-outline-primary me-1"
+          (click)="startEdit(pref)">
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button *ngIf="editingPrefId !== pref.dietId"
+          class="btn btn-sm btn-outline-danger me-1"
+          (click)="deleteDietaryPreference(pref.dietId)">
+          <i class="bi bi-trash"></i>
+        </button>
+
+        <button *ngIf="editingPrefId === pref.dietId"
+          class="btn btn-sm btn-success me-1"
+          (click)="saveEdit()">
+          <i class="bi bi-check-lg"></i>
+        </button>
+       <button *ngIf="editingPrefId === pref.dietId"
+          class="btn btn-sm btn-secondary me-1"
+          (click)="cancelEdit()">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </td>
       </tr>
     </tbody>
   </table>

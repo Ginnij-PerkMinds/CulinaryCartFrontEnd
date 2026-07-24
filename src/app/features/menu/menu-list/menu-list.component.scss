@@ -1,11 +1,23 @@
 /* Sidebar fills page height */
-aside {
-  height: calc(95vh - 120px); 
+main {
+  flex: 1;                  
+  background-color: #fff;   
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  display:flex;
+  align-items: stretch;
 }
 
-/* Force exactly 5 cards per row */
+aside, section {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Exactly 5 cards per row */
 .menu-grid > .col {
-  flex: 0 0 20%;   // each card = 20% width
+  flex: 0 0 20%;   
   max-width: 20%;
 }
 
@@ -33,6 +45,6 @@ aside {
   &:hover {
     transform: scale(1.1);   /* enlarge by 5% */
     box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* stronger shadow */
-    z-index: 2; /* ensures enlarged card stays above neighbors */
+    z-index: 2; 
   }
 }

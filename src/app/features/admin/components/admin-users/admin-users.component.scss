@@ -32,6 +32,18 @@ $border-color: #f1f5f9;
   td { padding: 14px 12px; border-bottom: 1px solid $border-color; }
 }
 
+/* Blood Orange Section Title */
+.user-account-title {
+  color: #EA4626;   /* blood orange */
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(234,70,38,0.25);
+}
+.bg-soft-peach {
+  background-color: #FFE5DC;   /* soft peach */
+}
+
 // Avatar Layouts
 .avatar-profile-frame {
   width: 44px;

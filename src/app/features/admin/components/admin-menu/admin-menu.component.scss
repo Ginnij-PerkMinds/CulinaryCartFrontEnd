@@ -1,30 +1,34 @@
 $primary-gradient: linear-gradient(135deg, #ff416c, #ff4b2b);
 
-.btn-primary-premium {
-  background: $primary-gradient;
-  color: white;
-  border: none;
-  padding: 10px 22px;
+/* Blood Orange Solid Button */
+.btn-blood-orange {
+  background-color: #EA4626;   /* blood orange */
+  color: #fff;
   font-weight: 600;
   font-size: 0.9rem;
+  padding: 10px 22px;
+  border: none;
   border-radius: 8px;
   transition: all 0.2s ease;
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(255, 75, 43, 0.3);
-    color: white;
-  }
 }
 
-.btn-white-modern {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  color: #334155;
-  font-weight: 600;
-  font-size: 0.85rem;
-  padding: 9px 16px;
-  border-radius: 8px;
-  &:hover { background: #f8fafc; color: #1e293b; }
+.btn-blood-orange:hover {
+  background-color: #d63d20;   /* darker shade on hover */
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(234,70,38,0.3);
+}
+
+/* Blood Orange Title */
+.menu-catalogue-title {
+  color: #EA4626;   /* blood orange */
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(234,70,38,0.25);
+}
+.bg-soft-peach {
+  background-color: #FFE5DC;   /* soft peach */
 }
 
 .custom-premium-table {
