@@ -31,7 +31,7 @@ export class CartComponent {
     this.cartService.getCart().subscribe({
       next: (items) => {
         this.cartItems = items.map((i: any) => ({
-          foodItemID: i.foodItemID,   
+          foodItemId: i.foodItemId,   // ✅ consistent casing
           foodItemName: i.foodItemName,
           price: i.price,
           quantity: i.quantity,
@@ -58,7 +58,7 @@ export class CartComponent {
     item.quantity = newQty;
     this.updateCounts();
     this.showNotification("Cart Updated");
-    this.cartService.updateItem(item.foodItemID, newQty).subscribe({
+    this.cartService.updateItem(item.foodItemId, newQty).subscribe({
       next: () => this.loadCart(),
       error: () => this.showNotification("Failed to update quantity.")
     });
@@ -70,7 +70,7 @@ export class CartComponent {
       item.quantity = newQty;
       this.updateCounts();
       this.showNotification("Cart Updated");
-      this.cartService.updateItem(item.foodItemID, newQty).subscribe({
+      this.cartService.updateItem(item.foodItemId, newQty).subscribe({
         next: () => this.loadCart(),
         error: () => this.showNotification("Failed to update quantity.")
       });
@@ -78,9 +78,9 @@ export class CartComponent {
   }
 
   removeItem(item: any): void {
-    this.cartService.removeItem(item.foodItemID).subscribe({
+    this.cartService.removeItem(item.foodItemId).subscribe({
       next: () => {
-        this.cartItems = this.cartItems.filter(i => i.foodItemID !== item.foodItemID);
+        this.cartItems = this.cartItems.filter(i => i.foodItemId !== item.foodItemId);
         this.updateCounts();
         this.showNotification("Item removed");
         this.loadCart();

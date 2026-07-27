@@ -18,10 +18,10 @@ export class CartService {
   }
 
   // View cart
-  getCart(): Observable<any[]> {
-    const headers = this.getAuthHeaders();
-    return this.http.get<any[]>(`${this.baseUrl}/ViewCart`, { headers });
-  }
+   getCart(): Observable<any[]> {
+   const headers = this.getAuthHeaders();
+   return this.http.get<any[]>(`${this.baseUrl}/view`, { headers });  
+}
 
   // Add item
   addItem(foodItemId: number, qty: number): Observable<any> {
