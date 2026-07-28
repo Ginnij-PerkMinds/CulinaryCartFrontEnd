@@ -10,6 +10,7 @@ import { AdminGuard } from './core/Guards/admin.guard';
 import { AdminDashboardComponent } from './features/admin/components/admin-dashboard/admin-dashboard.component';
 import { AdminCategoryComponent } from './features/admin/components/admin-category/admin-category.component';
 import { AdminDietaryPreferenceComponent } from './features/admin/components/admin-dietarypreference/admin-dietarypreference.component';
+import { PromocodeComponent } from './features/admin/components/promocode/promocode.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -28,6 +29,7 @@ export const routes: Routes = [
       { path: 'users', component: AdminUsersComponent },
       {path: 'category', component: AdminCategoryComponent},
       {path: 'dietarypreference', component: AdminDietaryPreferenceComponent},
+      {path:'promocode', component: PromocodeComponent},
       {path:'', redirectTo: 'dashboard', pathMatch:'full'}
     ]
   },

@@ -7,6 +7,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { AdminMenuComponent } from './components/admin-menu/admin-menu.component';
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
+// import { PromocodeComponent } from './components/promocode/promocode.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AdminUsersComponent } from './components/admin-users/admin-users.compon
     AdminHomeComponent,
     AdminMenuComponent,
     AdminUsersComponent
+    // PromocodeComponent
   ]
 })
 export class AdminModule {}
