@@ -82,7 +82,10 @@
 
   <ul class="dropdown-menu dropdown-menu-end">
     <li><a class="dropdown-item" (click)="openProfileModal()">Profile</a></li>
-    <li><a class="dropdown-item" (click)="openChangePasswordModal()">Change Password</a></li>
+    <li><a class="dropdown-item" (click)="openChangePasswordModal()">Change Password</a></li>   
+    <li *ngIf="authService.isLoggedIn() && !authService.isAdmin()">
+    <a class="dropdown-item" (click)="openOrdersModal()">My Orders</a>
+    </li>
     <li><a class="dropdown-item" (click)="authService.logout()">Logout</a></li>
   </ul>
   </div>
@@ -239,7 +242,54 @@
           <button class="btn btn-primary" type="submit" >Update Password</button>
         </div>
       </form>
-      
+    </div>
+  </div>
+</div>
+
+<!-- My Orders Modal -->
+<div class="modal fade" id="ordersModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content border-blood-orange bg-soft-peach shadow-lg">
+      <div class="modal-header bg-blood-orange text-white">
+        <h5 class="modal-title">My Orders</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <ng-container *ngIf="myOrders.length > 0; else noOrders">
+          <!-- Loop through each order -->
+          <div *ngFor="let order of myOrders" class="mb-4">
+            <h6 class="fw-bold">
+              <!-- Order #{{ order.orderId }} — {{ order.orderDate | date:'short':'IST' }} -->
+               Order #{{ order.orderId }} — {{ order.orderDate | date:'dd/MM/yyyy, h:mm a':'Asia/Kolkata' }}
+            </h6>
+            <p><strong>Total:</strong> {{ order.totalAmount | currency:'INR':'symbol' }}</p>
+
+            <!-- Items table -->
+            <table class="table table-sm table-striped">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Qty</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of order.items">
+                  <td>{{ item.foodItemName }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>{{ item.finalPrice | currency:'INR':'symbol' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+
+        <!-- No orders fallback -->
+        <ng-template #noOrders>
+          <p class="text-muted">No past orders found.</p>
+        </ng-template>
+      </div>
     </div>
   </div>
 </div>

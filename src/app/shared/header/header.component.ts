@@ -6,6 +6,7 @@ import { AuthService } from "../../auth/services/auth.service";
 import { CartComponent } from '../../features/cart/cart/cart.component';
 import { UserService } from '../../features/admin/services/user.service';
 import { User } from '../../features/admin/model/user.model';
+import { OrderHistoryService } from '../../features/admin/services/orderhistory.service';
 
 declare var bootstrap: any;
 
@@ -17,10 +18,12 @@ declare var bootstrap: any;
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  
   constructor(
     public authService: AuthService,
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private orderHistoryService: OrderHistoryService   
   ) {}
 
   @ViewChild(CartComponent) cart!: CartComponent;
@@ -31,6 +34,7 @@ export class HeaderComponent {
   passwordForm!: FormGroup;
   editMode = false;
   selectedFile: File | null = null;
+  myOrders: any[]= [];     
 
   ngOnInit(): void {
     this.profileForm = this.fb.group({
@@ -58,8 +62,14 @@ export class HeaderComponent {
       if (storedUser) {
         this.currentUser = storedUser;
         this.profileForm.patchValue(storedUser);
+        this.loadMyOrders(storedUser.userId);
       }
     }
+  }
+  loadMyOrders(userId: number): void {
+    this.orderHistoryService.getMyOrders(userId).subscribe(data => {
+      this.myOrders = data;
+    });
   }
 
   showCartNotification(message: string) {
@@ -162,4 +172,16 @@ export class HeaderComponent {
         }
       });
   }
+
+openOrdersModal() {
+  const modal = document.getElementById('ordersModal');
+  if (modal) new bootstrap.Modal(modal).show();
+
+  const userId = this.authService.getUserId();
+  if (userId) {
+    this.orderHistoryService.getMyOrders(this.currentUser.userId).subscribe(data => {
+      this.myOrders = data;
+    });
+  }
+ }
 }
