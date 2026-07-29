@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Promocode {
-  id?: number;              // optional for POST
+  id?: number;              
   promoCodeName: string;
   amount?: number;
   criteria: number;
@@ -31,17 +31,17 @@ export class PromocodeService {
   }
 
   // POST add promocode
-  addPromocode(promo: Promocode): Observable<Promocode> {
-    return this.http.post<Promocode>(`${this.apiUrl}/AddPromocode`, promo);
+  addPromocode(promo: Promocode): Observable<{ success: boolean, message: string }> {
+    return this.http.post<{ success: boolean, message: string }>(`${this.apiUrl}/AddPromocode`, promo);
   }
 
   // PUT update promocode
-  updatePromocode(id: number, promo: Promocode): Observable<boolean> {
-    return this.http.put<boolean>(`${this.apiUrl}/UpdatePromocode/${id}`, promo);
+  updatePromocode(id: number, promo: Promocode): Observable<{ success: boolean, message: string }> {
+    return this.http.put<{ success: boolean, message: string }>(`${this.apiUrl}/UpdatePromocode/${id}`, promo);
   }
 
   // DELETE promocode
-  deletePromocode(id: number): Observable<boolean> {
-    return this.http.delete<boolean>(`${this.apiUrl}/DeletePromocode/${id}`);
+  deletePromocode(id: number): Observable<{ success: boolean, message: string }> {
+    return this.http.delete<{ success: boolean, message: string }>(`${this.apiUrl}/DeletePromocode/${id}`);
   }
 }

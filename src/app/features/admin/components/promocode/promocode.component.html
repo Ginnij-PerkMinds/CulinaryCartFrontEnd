@@ -79,16 +79,17 @@
 
       <!-- Body -->
       <div class="modal-body">
-        <form #promoForm="ngForm" (ngSubmit)="promoForm.valid && savePromocode()" novalidate>
+        <!-- Guard the form so it only renders when selectedPromo is set -->
+        <form *ngIf="selectedPromo" #promoForm="ngForm" (ngSubmit)="promoForm.valid && savePromocode()" novalidate>
           <div class="p-4 border rounded shadow-sm bg-light">
 
             <!-- Promo Code Name -->
             <div class="mb-3">
               <label class="form-label fw-semibold">Promo Code Name</label>
               <input type="text" class="form-control"
-                     [(ngModel)]="selectedPromo!.promoCodeName"
+                     [(ngModel)]="selectedPromo.promoCodeName"
                      name="promoCodeName"
-                     (input)="selectedPromo!.promoCodeName = selectedPromo!.promoCodeName.toUpperCase()"
+                     (input)="selectedPromo.promoCodeName = selectedPromo.promoCodeName.toUpperCase()"
                      required minlength="3">
             </div>
 
@@ -96,7 +97,7 @@
             <div class="mb-3">
               <label class="form-label fw-semibold">Amount</label>
               <input type="number" class="form-control"
-                     [(ngModel)]="selectedPromo!.amount"
+                     [(ngModel)]="selectedPromo.amount"
                      name="amount"
                      min="0">
             </div>
@@ -105,7 +106,7 @@
             <div class="mb-3">
               <label class="form-label fw-semibold">Criteria</label>
               <input type="number" class="form-control"
-                     [(ngModel)]="selectedPromo!.criteria"
+                     [(ngModel)]="selectedPromo.criteria"
                      name="criteria"
                      required min="1">
             </div>
@@ -114,7 +115,7 @@
             <div class="mb-3">
               <label class="form-label fw-semibold">Usage Count</label>
               <input type="number" class="form-control"
-                     [(ngModel)]="selectedPromo!.usageCount"
+                     [(ngModel)]="selectedPromo.usageCount"
                      name="usageCount"
                      min="0">
             </div>
@@ -122,7 +123,7 @@
             <!-- Free Delivery Toggle -->
             <div class="mb-3 form-check form-switch">
               <input type="checkbox" class="form-check-input"
-                     [(ngModel)]="selectedPromo!.freeDelivery"
+                     [(ngModel)]="selectedPromo.freeDelivery"
                      name="freeDelivery"
                      id="freeDeliverySwitch">
               <label class="form-check-label fw-semibold" for="freeDeliverySwitch">Free Delivery</label>
@@ -132,12 +133,25 @@
           <!-- Footer -->
           <div class="modal-footer border-top pt-3 d-flex justify-content-end gap-2">
             <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary px-4">
-              {{ selectedPromo?.id ? 'Update Promocode' : 'Save Promocode' }}
+            <button type="submit" class="btn btn-blood-orange px-4"
+                    data-bs-dismiss="modal">
+              {{ selectedPromo.id ? 'Update Promocode' : 'Save Promocode' }}
             </button>
           </div>
         </form>
       </div>
     </div>
   </div>
+</div>
+
+<!-- Notification Banner -->
+<div *ngIf="notification"
+     class="alert global-notification position-fixed top-0 end-0 m-3 shadow-lg"
+     [ngClass]="{
+       'alert-success': (notification | lowercase).includes('success'),
+       'alert-danger': (notification | lowercase).includes('error'),
+       'alert-info': !(notification | lowercase).includes('success') && !(notification | lowercase).includes('error')
+     }"
+     role="alert">
+  {{ notification }}
 </div>

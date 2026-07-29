@@ -6,13 +6,14 @@ import { PromocodeService, Promocode } from '../../services/promocode.service';
 @Component({
   selector: 'app-promocode',
   standalone: true,
-  imports: [CommonModule, FormsModule],   // ✅ import here
+  imports: [CommonModule, FormsModule],
   templateUrl: './promocode.component.html',
   styleUrls: ['./promocode.component.scss']
 })
 export class PromocodeComponent implements OnInit {
   promocodes: Promocode[] = [];
   selectedPromo: Promocode | null = null;
+  notification: string | null = null;
 
   constructor(private promocodeService: PromocodeService) {}
 
@@ -20,21 +21,29 @@ export class PromocodeComponent implements OnInit {
     this.loadPromocodes();
   }
 
-  loadPromocodes() {
-  this.promocodeService.getPromocodes().subscribe({
-    next: data => this.promocodes = [...data],
-    error: err => console.error('Failed to load promocodes', err)
-  });
-}
+  private normalizeMessage(res: any): string {
+    if (typeof res === 'string') return res;
+    if (res && typeof res.message === 'string') return res.message;
+    if (res && typeof res.error === 'string') return res.error;
+    if (res && typeof res === 'object') return res.text || JSON.stringify(res);
+    return 'Unknown response from server';
+  }
 
-
-  toggleActive(promo: Promocode) {
-    this.promocodeService.updatePromocode(promo.id!, promo).subscribe(() => {
-      console.log("Active status updated");
+  loadPromocodes(): void {
+    this.promocodeService.getPromocodes().subscribe({
+      next: (data) => this.promocodes = [...data],
+      error: (err) => this.showNotification(this.normalizeMessage(err.error))
     });
   }
 
-  openAddModal() {
+  toggleActive(promo: Promocode): void {
+    this.promocodeService.updatePromocode(promo.id!, promo).subscribe({
+      next: (res) => this.showNotification(this.normalizeMessage(res)),
+      error: (err) => this.showNotification(this.normalizeMessage(err.error))
+    });
+  }
+
+  openAddModal(): void {
     this.selectedPromo = {
       promoCodeName: '',
       amount: 0,
@@ -45,27 +54,42 @@ export class PromocodeComponent implements OnInit {
     };
   }
 
-  openUpdateModal(promo: Promocode) {
+  openUpdateModal(promo: Promocode): void {
     this.selectedPromo = { ...promo };
   }
 
-  savePromocode() {
+  savePromocode(): void {
     if (this.selectedPromo?.id) {
-      this.promocodeService.updatePromocode(this.selectedPromo.id, this.selectedPromo).subscribe(() => {
-        this.loadPromocodes();
+      this.promocodeService.updatePromocode(this.selectedPromo.id, this.selectedPromo).subscribe({
+        next: (res) => {
+          this.loadPromocodes();
+          this.showNotification(this.normalizeMessage(res));
+        },
+        error: (err) => this.showNotification(this.normalizeMessage(err.error))
       });
     } else {
-      this.promocodeService.addPromocode(this.selectedPromo!).subscribe(() => {
-        this.loadPromocodes();
+      this.promocodeService.addPromocode(this.selectedPromo!).subscribe({
+        next: (res) => {
+          this.loadPromocodes();
+          this.showNotification(this.normalizeMessage(res));
+        },
+        error: (err) => this.showNotification(this.normalizeMessage(err.error))
       });
     }
   }
 
-  deletePromocode(id: number) {
-    this.promocodeService.deletePromocode(id).subscribe(() => {
-      this.promocodes = this.promocodes.filter(p => p.id !== id);
+  deletePromocode(id: number): void {
+    this.promocodeService.deletePromocode(id).subscribe({
+      next: (res) => {
+        this.promocodes = this.promocodes.filter(p => p.id !== id);
+        this.showNotification(this.normalizeMessage(res));
+      },
+      error: (err) => this.showNotification(this.normalizeMessage(err.error))
     });
   }
+  
+  showNotification(message: string): void {
+    this.notification = message;
+    setTimeout(() => this.notification = null, 3000);
+  }
 }
-
-

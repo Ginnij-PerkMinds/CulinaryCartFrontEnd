@@ -78,3 +78,38 @@ input {
   &.btn-edit { background-color: #fef3c7; color: #d97706; &:hover { background-color: #d97706; color: white; } }
   &.btn-delete { background-color: #fee2e2; color: #dc2626; &:hover { background-color: #dc2626; color: white; } }
 }
+
+.global-notification {
+  z-index: 1055; // higher than modal backdrop
+  min-width: 250px;
+  max-width: 350px;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  animation: slideIn 0.4s ease-out;
+
+  &.alert-success {
+    background-color: green;
+    color: #fff;
+  }
+
+  &.alert-danger {
+    background-color: #dc3545;
+    color: #fff;
+  }
+
+  &.alert-info {
+    background-color: #6c757d;
+    color: #fff;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
