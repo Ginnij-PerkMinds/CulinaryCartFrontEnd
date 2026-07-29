@@ -1,0 +1,116 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ChargeService } from '../../services/charge.service';
+import { ChargeDto } from '../../model/charge.dto';
+
+@Component({
+  selector: 'app-charge',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './charge.component.html',
+  styleUrls: ['./charge.component.scss']
+})
+export class ChargeComponent implements OnInit {
+  charges: ChargeDto[] = [];
+  selectedCharge: ChargeDto | null = null;
+  notification: string | null = null;
+
+  constructor(private chargeService: ChargeService) {}
+
+  ngOnInit(): void {
+    this.loadCharges();
+  }
+
+  private normalizeMessage(res: any): string {
+    if (typeof res === 'string') return res;
+    if (res && typeof res.message === 'string') return res.message;
+    if (res && typeof res.error === 'string') return res.error;
+    if (res && typeof res === 'object') return res.text || JSON.stringify(res);
+    return 'Unknown response from server';
+  }
+
+  loadCharges(): void {
+    this.chargeService.getAllCharges().subscribe({
+      next: (data) => this.charges = [...data],
+      error: (err) => this.showNotification(this.normalizeMessage(err.error))
+    });
+  }
+
+  toggleActive(charge: ChargeDto): void {
+  const updateRequest = {
+    chargeId: charge.chargeId,
+    chargeType: charge.chargeType,
+    value: charge.value.toString(),   
+    isActive: charge.isActive
+  };
+
+  this.chargeService.updateCharge(updateRequest.chargeId, updateRequest).subscribe({
+    next: (res) => this.showNotification(this.normalizeMessage(res)),
+    error: (err) => this.showNotification(this.normalizeMessage(err.error))
+  });
+}
+
+  openAddModal(): void {
+    this.selectedCharge = {
+      chargeId: 0,
+      chargeType: '',
+      value: 0,
+      isActive: true
+    };
+  }
+
+  openUpdateModal(charge: ChargeDto): void {
+    this.selectedCharge = { ...charge };
+  }
+
+  saveCharge(): void {
+  if (this.selectedCharge?.chargeId && this.selectedCharge.chargeId > 0) {
+    // ✅ Convert ChargeDto → UpdateChargeRequest
+    const updateRequest = {
+      chargeId: this.selectedCharge.chargeId,
+      chargeType: this.selectedCharge.chargeType,
+      value: this.selectedCharge.value.toString(), 
+      isActive: this.selectedCharge.isActive
+    };
+
+    this.chargeService.updateCharge(updateRequest.chargeId, updateRequest).subscribe({
+      next: (res) => {
+        this.loadCharges();
+        this.showNotification(this.normalizeMessage(res));
+      },
+      error: (err) => this.showNotification(this.normalizeMessage(err.error))
+    });
+  } else {
+    // ✅ AddChargeRequest also expects value as string
+    const addRequest = {
+      chargeType: this.selectedCharge!.chargeType,
+      value: this.selectedCharge!.value.toString(),
+      isActive: this.selectedCharge!.isActive
+    };
+
+    this.chargeService.addCharge(addRequest).subscribe({
+      next: (res) => {
+        this.loadCharges();
+        this.showNotification(this.normalizeMessage(res));
+      },
+      error: (err) => this.showNotification(this.normalizeMessage(err.error))
+    });
+  }
+}
+
+  deleteCharge(id: number): void {
+    this.chargeService.deleteCharge(id).subscribe({
+      next: (res) => {
+        this.charges = this.charges.filter(c => c.chargeId !== id);
+        this.showNotification(this.normalizeMessage(res));
+      },
+      error: (err) => this.showNotification(this.normalizeMessage(err.error))
+    });
+  }
+
+  showNotification(message: string): void {
+    this.notification = message;
+    setTimeout(() => this.notification = null, 3000);
+  }
+}

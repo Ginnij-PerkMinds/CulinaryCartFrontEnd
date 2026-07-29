@@ -1,0 +1,111 @@
+$primary-gradient: linear-gradient(135deg, #ff416c, #ff4b2b);
+
+.bg-blood-orange {
+  background-color: #EA4626;
+}
+
+.border-blood-orange {
+  border: 2px solid #EA4626;  
+  border-radius: 8px;         
+}
+
+.btn-blood-orange {
+  background-color: #EA4626; 
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-blood-orange:hover {
+  background-color: #d63d20;   /* darker shade on hover */
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(234,70,38,0.3);
+}
+
+/* Blood Orange Title */
+.charge-catalogue-title {
+  color: #EA4626;   /* blood orange */
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(234,70,38,0.25);
+}
+
+.bg-soft-peach {
+  background-color: #FFE5DC;   /* soft peach */
+}
+
+.custom-premium-table {
+  thead th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 16px 12px;
+    border-bottom: 2px solid #edf2f7;
+  }
+}
+
+.table-row-item {
+  transition: background-color 0.2s ease;
+  &:hover { background-color: #f8fafc; }
+  td { padding: 16px 12px; border-bottom: 1px solid #f1f5f9; }
+}
+
+// Action Button Matrix Rings
+.btn-action-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+
+  &.btn-edit { background-color: #fef3c7; color: #d97706; &:hover { background-color: #d97706; color: white; } }
+  &.btn-delete { background-color: #fee2e2; color: #dc2626; &:hover { background-color: #dc2626; color: white; } }
+}
+
+.global-notification {
+  z-index: 1055; // higher than modal backdrop
+  min-width: 250px;
+  max-width: 350px;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  animation: slideIn 0.4s ease-out;
+
+  &.alert-success {
+    background-color: green;
+    color: #fff;
+  }
+
+  &.alert-danger {
+    background-color: #dc3545;
+    color: #fff;
+  }
+
+  &.alert-info {
+    background-color: #6c757d;
+    color: #fff;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
