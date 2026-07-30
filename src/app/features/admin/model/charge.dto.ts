@@ -1,3 +1,5 @@
+
+
 export interface ChargeDto {
   chargeId: number;
   chargeType: string;
@@ -7,13 +9,13 @@ export interface ChargeDto {
 
 export interface AddChargeRequest {
   chargeType: string;
-  value: string;   // accepts "3%" input
+  value: number;   
   isActive: boolean;
 }
 
 export interface UpdateChargeRequest {
   chargeId: number;
   chargeType: string;
-  value: string;   // accepts "3%" input
+  value: number;  
   isActive: boolean;
 }

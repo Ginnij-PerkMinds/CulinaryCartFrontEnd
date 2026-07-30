@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 export interface Promocode {
   id?: number;              
   promoCodeName: string;
-  amount?: number;
+  amount: number | string;
   criteria: number;
   freeDelivery: boolean;
   usageCount?: number;

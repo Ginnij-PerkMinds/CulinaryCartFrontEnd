@@ -14,6 +14,7 @@ export class PromocodeComponent implements OnInit {
   promocodes: Promocode[] = [];
   selectedPromo: Promocode | null = null;
   notification: string | null = null;
+  isPercentage: boolean = false;
 
   constructor(private promocodeService: PromocodeService) {}
 
@@ -52,31 +53,72 @@ export class PromocodeComponent implements OnInit {
       usageCount: 0,
       isActive: true
     };
+    this.isPercentage = false;
   }
 
   openUpdateModal(promo: Promocode): void {
     this.selectedPromo = { ...promo };
-  }
-
-  savePromocode(): void {
-    if (this.selectedPromo?.id) {
-      this.promocodeService.updatePromocode(this.selectedPromo.id, this.selectedPromo).subscribe({
-        next: (res) => {
-          this.loadPromocodes();
-          this.showNotification(this.normalizeMessage(res));
-        },
-        error: (err) => this.showNotification(this.normalizeMessage(err.error))
-      });
+     // detect if amount is stored with "%" and set toggle accordingly
+    if (typeof promo.amount === 'string' && promo.amount.includes('%')) {
+      this.isPercentage = true;
+      // strip "%" for editing in input
+      this.selectedPromo.amount = parseFloat(promo.amount.replace('%', ''));
     } else {
-      this.promocodeService.addPromocode(this.selectedPromo!).subscribe({
-        next: (res) => {
-          this.loadPromocodes();
-          this.showNotification(this.normalizeMessage(res));
-        },
-        error: (err) => this.showNotification(this.normalizeMessage(err.error))
-      });
+      this.isPercentage = false;
+      this.selectedPromo.amount = Number(promo.amount);
     }
   }
+   
+  savePromocode(): void {
+  if (!this.selectedPromo) return;
+
+  let finalAmount: number;
+
+  if (this.isPercentage) {
+    // Example: user enters 10, toggle ON → store as 0.10
+    finalAmount = Number(this.selectedPromo.amount) / 100;
+  } else {
+    // Toggle OFF → store as plain numeric
+    finalAmount = Number(this.selectedPromo.amount);
+  }
+
+  const promoRequest = {
+    ...this.selectedPromo,
+    amount: finalAmount   // ✅ always numeric now
+  };
+
+  if (this.selectedPromo.id) {
+    this.promocodeService.updatePromocode(this.selectedPromo.id, promoRequest).subscribe({
+      next: (res) => {
+        this.loadPromocodes();
+        this.showNotification(this.normalizeMessage(res));
+      },
+      error: (err) => this.showNotification(this.normalizeMessage(err.error))
+    });
+  } else {
+    this.promocodeService.addPromocode(promoRequest).subscribe({
+      next: (res) => {
+        this.loadPromocodes();
+        this.showNotification(this.normalizeMessage(res));
+      },
+      error: (err) => this.showNotification(this.normalizeMessage(err.error))
+    });
+  }
+}
+
+formatAmount(amount: number | string): string {
+  if (typeof amount === 'number') {
+    // If stored as fraction (e.g. 0.10), show as percentage
+    if (amount > 0 && amount < 1) {
+      return (amount * 100).toFixed(0) + '%';
+    }
+    // Otherwise show as plain number
+    return amount.toString();
+  }
+
+  // If backend ever returns string, just show it
+  return amount;
+}
 
   deletePromocode(id: number): void {
     this.promocodeService.deletePromocode(id).subscribe({

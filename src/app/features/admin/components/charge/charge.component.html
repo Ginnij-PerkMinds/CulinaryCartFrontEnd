@@ -26,7 +26,7 @@
         <tr *ngFor="let charge of charges" class="table-row-item animate fadeIn">
           <td class="fw-bold text-secondary ps-4">#{{ charge.chargeId }}</td>
           <td><strong>{{ charge.chargeType }}</strong></td>
-          <td>{{ charge.value }}</td>
+          <td>{{ formatChargeValue(charge.value) }}</td>
           <td>
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox"
