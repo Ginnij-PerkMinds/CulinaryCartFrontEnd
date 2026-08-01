@@ -40,6 +40,7 @@
       </div>
 
       <!-- Promo code input -->
+      <div *ngIf="cartResponse.items.length > 0" class="px-3 py-2 bg-light border-bottom">
       <div class="d-flex align-items-center">
          <input type="text" [(ngModel)]="promoCode" placeholder="Enter promo code"
          class="form-control form-control-sm w-50" [readonly]="cartResponse.appliedPromoCode" />
@@ -63,7 +64,7 @@
         </div>
 
       <!-- Footer with breakdown -->
-      <div class="modal-footer d-flex flex-column align-items-end">
+      <div *ngIf="cartResponse.items.length > 0" class="modal-footer d-flex flex-column align-items-end">
         <div class="w-100 d-flex justify-content-between">
           <span>Base Amount</span>
           <span>₹{{ cartResponse.baseAmount }}</span>
