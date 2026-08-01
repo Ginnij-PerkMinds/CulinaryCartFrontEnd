@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CartResponseDto } from '../../cart/services/cart-response.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +19,11 @@ export class CartService {
   }
 
   // View cart
-   getCart(): Observable<any[]> {
-   const headers = this.getAuthHeaders();
-   return this.http.get<any[]>(`${this.baseUrl}/view`, { headers });  
-}
+  getCart(promoCode?: string): Observable<CartResponseDto> {
+    const headers = this.getAuthHeaders();
+    const url = promoCode ? `${this.baseUrl}/view?promoCode=${promoCode}` : `${this.baseUrl}/view`;
+    return this.http.get<CartResponseDto>(url, { headers });
+  }
 
   // Add item
   addItem(foodItemId: number, qty: number): Observable<any> {
@@ -50,8 +52,9 @@ export class CartService {
   }
 
   // Checkout 
-  checkout(cartItems: any[]): Observable<any> {
+  checkout(promoCode?: string): Observable<CartResponseDto> {
     const headers = this.getAuthHeaders();
-    return this.http.post(`${this.baseUrl}/checkout`, cartItems, { headers });
+    const url = promoCode ? `${this.baseUrl}/checkout?promoCode=${promoCode}` : `${this.baseUrl}/checkout`;
+    return this.http.post<CartResponseDto>(url, {}, { headers });
   }
 }

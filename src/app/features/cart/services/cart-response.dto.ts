@@ -1,0 +1,42 @@
+// export interface CartItemDto {
+//   foodItemName: string;
+//   quantity: number;
+//   finalPrice: number;
+// }
+
+// export interface CartChargeDto {
+//   chargeType: string;
+//   Value: number;
+// }
+
+// export interface CartResponseDto {
+//   items: CartItemDto[];
+//   baseAmount: number;
+//   promoDiscount: number;
+//   charges: CartChargeDto[];
+//   finalAmount: number;
+//   message?: string;
+// }
+
+export interface CartItemDto {
+  foodItemId: number,
+  foodItemName: string;
+  quantity: number;
+  finalPrice: number;
+}
+
+export interface CartChargeDto {
+  chargeType: string;
+  value: number;   // ✅ lowercase for consistency
+}
+
+export interface CartResponseDto {
+  items: CartItemDto[];
+  baseAmount: number;
+  promoDiscount: number;
+  charges: CartChargeDto[];
+  finalAmount: number;
+  appliedPromoCode?: string;
+  message?: string;
+}
+

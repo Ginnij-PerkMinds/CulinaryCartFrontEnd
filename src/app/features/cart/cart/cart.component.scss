@@ -1,17 +1,52 @@
-.cart-logo {
-  height: 80px;
-  width: auto;
+// Blood orange theme
+.bg-blood-orange {
+  background-color: #d84315 !important; // blood orange shade
 }
 
-.modal-content {
-  border-radius: 30px;
-  box-shadow: 0 6px 14px rgba(16, 16, 16, 0.3);
+.border-blood-orange {
+  border: 2px solid #d84315 !important;
 }
 
-.modal-header {
-  border-bottom: 2px solid #fff;
+.btn-blood-orange {
+  background-color: #d84315;
+  color: #fff;
+  border: none;
+
+  &:hover {
+    background-color: #bf360c;
+    color: #fff;
+  }
 }
 
-.modal-footer {
-  border-top: 1px solid #ddd;
+// Soft peach background
+.bg-soft-peach {
+  background-color: #fff5f0 !important;
+}
+
+// Cart modal tweaks
+#cartModal .modal-content {
+  border-radius: 8px;
+}
+
+#cartModal .modal-header {
+  border-bottom: 2px solid #bf360c;
+}
+
+#cartModal .modal-footer {
+  border-top: none;
+}
+.btn-success {
+  background-color: #2e7d32 !important; // deep green
+  border: none;
+  font-weight: 600;
+}
+
+.btn-outline-danger {
+  border-color: #d84315 !important; // blood orange border
+  color: #d84315 !important;
+
+  &:hover {
+    background-color: #d84315 !important;
+    color: #fff !important;
+  }
 }

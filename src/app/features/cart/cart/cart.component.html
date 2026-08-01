@@ -1,51 +1,94 @@
-<!-- Cart popup overlay -->
-<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true" [class.show]="isVisible" [style.display]="isVisible ? 'block' : 'none'">
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true"
+     [class.show]="isVisible" [style.display]="isVisible ? 'block' : 'none'">
   <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
+    <div class="modal-content border-blood-orange bg-soft-peach shadow-lg">
 
-      <!-- Header with logo + brand -->
-      <div class="modal-header bg-secondary text-black p-2" style="height: 70px;">
-            <div class="d-flex align-items-start">
-            <img src="assets/images/Culinary.png" alt="Logo" class="cart-logo me-2" style="height: 50px;" />
-            <h5 class="modal-title fw-bold mb-0 lh-lg">Culinary Cart</h5>
+      <!-- Header -->
+      <div class="modal-header bg-blood-orange text-white">
+        <div class="d-flex align-items-start">
+          <img src="assets/images/Culinary.png" alt="Logo" class="cart-logo me-2" style="height: 50px;" />
+          <h5 class="modal-title fw-bold mb-0 lh-lg">Culinary Cart</h5>
+        </div>
+        <button type="button" class="btn-close btn-close-white" (click)="closeCart()"></button>
       </div>
-            <button type="button" class="btn-close btn-close-white" (click)="closeCart()"></button>
-      </div>
-
 
       <!-- Body -->
       <div class="modal-body">
         <!-- Empty cart -->
-        <div *ngIf="cartItems.length === 0" class="text-center text-muted py-4">
-          Your cart is empty.
+        <div *ngIf="!cartResponse.items.length" class="text-center text-muted py-4">
+          {{ cartResponse.message || 'Your cart is empty.' }}
         </div>
 
         <!-- Cart items -->
-        <div *ngFor="let item of cartItems" class="row align-items-center border-bottom py-2">
+        <div *ngFor="let item of cartResponse.items" class="row align-items-center border-bottom py-2">
           <div class="col-6">
             <h6 class="mb-1">{{ item.foodItemName }}</h6>
             <small class="text-muted">Qty: {{ item.quantity }}</small>
           </div>
           <div class="col-3 text-end">
-            
-            <!-- backend-calculated price -->
             <span class="fw-bold">₹{{ item.finalPrice }}</span>
           </div>
           <div class="col-3 text-end">
             <div class="btn-group btn-group-sm" role="group">
-              <button class="btn btn-outline-secondary" (click)="decreaseQuantity(item)">−</button>
+              <button class="btn btn-outline-secondary" (click)="updateItem(item.foodItemId, item.quantity - 1)">−</button>
               <button class="btn btn-outline-secondary disabled">{{ item.quantity }}</button>
-              <button class="btn btn-outline-secondary" (click)="increaseQuantity(item)">+</button>
+              <button class="btn btn-outline-secondary" (click)="updateItem(item.foodItemId, item.quantity + 1)">+</button>
             </div>
-            <button class="btn btn-sm btn-outline-danger ms-2" (click)="removeItem(item)">🗑</button>
+            <button class="btn btn-sm btn-outline-danger ms-2" (click)="removeItem(item.foodItemId)">🗑</button>
           </div>
         </div>
       </div>
 
-      <!-- Footer -->
-      <div class="modal-footer d-flex justify-content-between">
-        <h5 class="fw-bold mb-0">Total: ₹{{ totalPrice }}</h5>
-        <button class="btn btn-warning fw-bold" (click)="checkout()">Checkout</button>
+      <!-- Promo code input -->
+      <div class="d-flex align-items-center">
+         <input type="text" [(ngModel)]="promoCode" placeholder="Enter promo code"
+         class="form-control form-control-sm w-50" [readonly]="cartResponse.appliedPromoCode" />
+
+       <!-- Show Apply button if no promo applied -->
+        <button *ngIf="!cartResponse.appliedPromoCode"
+          class="btn btn-primary btn-sm ms-2"
+          (click)="loadCart(promoCode)">
+          Apply
+        </button>
+
+       <!-- Show Applied (green) + Cancel if promo applied -->
+        <div *ngIf="cartResponse.appliedPromoCode" class="d-flex ms-2">
+          <button class="btn btn-success btn-sm me-2" disabled>
+          Applied
+          </button>
+          <button class="btn btn-outline-danger btn-sm" (click)="cancelPromo()">
+           Cancel
+          </button>
+        </div>
+        </div>
+
+      <!-- Footer with breakdown -->
+      <div class="modal-footer d-flex flex-column align-items-end">
+        <div class="w-100 d-flex justify-content-between">
+          <span>Base Amount</span>
+          <span>₹{{ cartResponse.baseAmount }}</span>
+        </div>
+
+        <div *ngIf="cartResponse.promoDiscount > 0" class="w-100 d-flex justify-content-between text-success">
+          <span>Promo Discount</span>
+          <span>-₹{{ cartResponse.promoDiscount }}</span>
+        </div>
+
+        <div *ngFor="let c of cartResponse.charges" class="w-100 d-flex justify-content-between">
+          <span>{{ c.chargeType }}</span>
+          <span>₹{{ c.value }}</span>
+        </div>
+
+        <div class="w-100 d-flex justify-content-between border-top pt-2 mt-2">
+          <h5 class="fw-bold mb-0">Final Total</h5>
+          <h5 class="fw-bold mb-0">₹{{ cartResponse.finalAmount }}</h5>
+        </div>
+
+        <div *ngIf="cartResponse.appliedPromoCode" class="w-100 text-muted small mt-1">
+          Applied Promo: {{ cartResponse.appliedPromoCode }}
+        </div>
+
+        <button class="btn btn-primary fw-bold mt-3 align-self-end" (click)="checkout()">Checkout</button>
       </div>
     </div>
   </div>

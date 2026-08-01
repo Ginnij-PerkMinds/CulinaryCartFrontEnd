@@ -1,20 +1,31 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { CartService } from '../services/cart.service';
+import { CartResponseDto } from '../../cart/services/cart-response.dto';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent {
-  cartItems: any[] = [];
-  totalPrice: number = 0;
-  itemCount: number = 0;
+   cartResponse: CartResponseDto = {
+    items: [],
+    baseAmount: 0,
+    promoDiscount: 0,
+    charges: [],
+    finalAmount: 0,
+    appliedPromoCode: '',
+    message: ''
+  };
+
+  itemCount: number = 0; 
   isVisible: boolean = false;
   notification: string | null = null;
+  promoCode: string = '';
 
   constructor(private cartService: CartService) {}
 
@@ -27,17 +38,11 @@ export class CartComponent {
     this.isVisible = false;
   }
 
-  loadCart(): void {
-    this.cartService.getCart().subscribe({
-      next: (items) => {
-        this.cartItems = items.map((i: any) => ({
-          foodItemId: i.foodItemId,   // ✅ consistent casing
-          foodItemName: i.foodItemName,
-          price: i.price,
-          quantity: i.quantity,
-          finalPrice: i.finalPrice
-        }));
-        this.updateCounts();
+  loadCart(promoCode?: string): void {
+    this.cartService.getCart(promoCode).subscribe({
+      next: (response) => {
+        this.cartResponse = response;
+        this.itemCount = response.items.reduce((sum, i) => sum + i.quantity, 0);
       },
       error: () => this.showNotification("Failed to load cart")
     });
@@ -47,59 +52,48 @@ export class CartComponent {
     this.cartService.addItem(foodItemId, qty).subscribe({
       next: () => {
         this.showNotification("Item Added Successfully!");
-        this.loadCart();
+        this.loadCart(this.promoCode);
       },
       error: () => this.showNotification("Failed to add item.")
     });
   }
 
-  increaseQuantity(item: any): void {
-    const newQty = item.quantity + 1;
-    item.quantity = newQty;
-    this.updateCounts();
-    this.showNotification("Cart Updated");
-    this.cartService.updateItem(item.foodItemId, newQty).subscribe({
-      next: () => this.loadCart(),
+  updateItem(foodItemId: number, qty: number): void {
+    this.cartService.updateItem(foodItemId, qty).subscribe({
+      next: () => this.loadCart(this.promoCode),
       error: () => this.showNotification("Failed to update quantity.")
     });
   }
 
-  decreaseQuantity(item: any): void {
-    if (item.quantity > 1) {
-      const newQty = item.quantity - 1;
-      item.quantity = newQty;
-      this.updateCounts();
-      this.showNotification("Cart Updated");
-      this.cartService.updateItem(item.foodItemId, newQty).subscribe({
-        next: () => this.loadCart(),
-        error: () => this.showNotification("Failed to update quantity.")
-      });
-    }
-  }
-
-  removeItem(item: any): void {
-    this.cartService.removeItem(item.foodItemId).subscribe({
+  removeItem(foodItemId: number): void {
+    this.cartService.removeItem(foodItemId).subscribe({
       next: () => {
-        this.cartItems = this.cartItems.filter(i => i.foodItemId !== item.foodItemId);
-        this.updateCounts();
         this.showNotification("Item removed");
-        this.loadCart();
+        this.loadCart(this.promoCode);
       },
       error: () => this.showNotification("Failed to remove item.")
     });
   }
 
-  updateCounts(): void {
-    this.totalPrice = this.cartItems.reduce((sum, i) => sum + i.finalPrice, 0);
-    this.itemCount = this.cartItems.reduce((sum, i) => sum + i.quantity, 0);
-  }
+  cancelPromo() {
+  this.promoCode = '';
+  this.loadCart(); // reload cart without promo
+}
 
   checkout(): void {
-    this.cartService.checkout(this.cartItems).subscribe({
-      next: () => {
+    this.cartService.checkout(this.promoCode).subscribe({
+      next: (response) => {
         alert('Order placed successfully!');
-        this.cartItems = [];
-        this.updateCounts();
+        this.cartResponse = {
+          items: [],
+          baseAmount: 0,
+          promoDiscount: 0,
+          charges: [],
+          finalAmount: 0,
+          appliedPromoCode: '',
+          message: ''
+        };
+        this.itemCount = 0;
         this.closeCart();
       },
       error: () => this.showNotification("Checkout failed.")

@@ -64,40 +64,6 @@ export class ChargeComponent implements OnInit {
     this.selectedCharge = { ...charge };
   }
 
-//   saveCharge(): void {
-//   if (this.selectedCharge?.chargeId && this.selectedCharge.chargeId > 0) {
-    
-//     const updateRequest = {
-//       chargeId: this.selectedCharge.chargeId,
-//       chargeType: this.selectedCharge.chargeType,
-//       value: this.selectedCharge.value.toString(), 
-//       isActive: this.selectedCharge.isActive
-//     };
-
-//     this.chargeService.updateCharge(updateRequest.chargeId, updateRequest).subscribe({
-//       next: (res) => {
-//         this.loadCharges();
-//         this.showNotification(this.normalizeMessage(res));
-//       },
-//       error: (err) => this.showNotification(this.normalizeMessage(err.error))
-//     });
-//   } else {
-   
-//     const addRequest = {
-//       chargeType: this.selectedCharge!.chargeType,
-//       value: this.selectedCharge!.value.toString(),
-//       isActive: this.selectedCharge!.isActive
-//     };
-
-//     this.chargeService.addCharge(addRequest).subscribe({
-//       next: (res) => {
-//         this.loadCharges();
-//         this.showNotification(this.normalizeMessage(res));
-//       },
-//       error: (err) => this.showNotification(this.normalizeMessage(err.error))
-//     });
-//   }
-// }
 saveCharge(): void {
   if (!this.selectedCharge) return;
 
@@ -118,9 +84,8 @@ saveCharge(): void {
   }
 }
 
-
 formatChargeValue(value: number): string {
-  return (value).toFixed(0) + '%';
+  return (value * 100).toFixed(0) + '%';
 }
 
   deleteCharge(id: number): void {

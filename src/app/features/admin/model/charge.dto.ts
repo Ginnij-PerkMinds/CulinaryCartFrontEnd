@@ -1,5 +1,3 @@
-
-
 export interface ChargeDto {
   chargeId: number;
   chargeType: string;

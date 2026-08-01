@@ -263,7 +263,7 @@
               <!-- Order #{{ order.orderId }} — {{ order.orderDate | date:'short':'IST' }} -->
                Order #{{ order.orderId }} — {{ order.orderDate | date:'dd/MM/yyyy, h:mm a':'Asia/Kolkata' }}
             </h6>
-            <p><strong>Total:</strong> {{ order.totalAmount | currency:'INR':'symbol' }}</p>
+            <p><strong>Total:</strong> {{ order.finalAmount | currency:'INR':'symbol' }}</p>
 
             <!-- Items table -->
             <table class="table table-sm table-striped">
