@@ -75,21 +75,34 @@
           <span>-₹{{ cartResponse.promoDiscount }}</span>
         </div>
 
-        <div *ngFor="let c of cartResponse.charges" class="w-100 d-flex justify-content-between">
+        <!-- <div *ngFor="let c of cartResponse.charges" class="w-100 d-flex justify-content-between">
           <span>{{ c.chargeType }}</span>
           <span>₹{{ c.value }}</span>
+        </div> -->
+
+        <div *ngFor="let c of cartResponse.charges" class="w-100 d-flex justify-content-between">
+        <span>{{ c.chargeType }}</span>
+        <span>
+          <ng-container *ngIf="c.chargeType === 'DeliveryFee' && c.value === 0; else normalCharge">
+        <span class="text-success fw-bold">FREE</span>
+          <s class="text-muted">₹{{ cartResponse.baseAmount * 0.10 | number:'1.2-2' }}</s>
+          </ng-container>
+          <ng-template #normalCharge>
+          ₹{{ c.value | number:'1.2-2' }}
+          </ng-template>
+        </span>
         </div>
 
         <div class="w-100 d-flex justify-content-between border-top pt-2 mt-2">
           <h5 class="fw-bold mb-0">Final Total</h5>
-          <h5 class="fw-bold mb-0">₹{{ cartResponse.finalAmount }}</h5>
+          <h5 class="fw-bold mb-0">₹{{ cartResponse.finalAmount | number:'1.2-2' }}</h5>
         </div>
 
         <div *ngIf="cartResponse.appliedPromoCode" class="w-100 text-muted small mt-1">
           Applied Promo: {{ cartResponse.appliedPromoCode }}
         </div>
 
-        <button class="btn btn-primary fw-bold mt-3 align-self-end" (click)="checkout()">Checkout</button>
+        <button class="btn btn-primary fw-bold mt-3 align-self-end" (click)=checkout()>Checkout</button>
       </div>
     </div>
   </div>
