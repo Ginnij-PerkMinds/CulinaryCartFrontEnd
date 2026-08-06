@@ -13,6 +13,7 @@ import { AdminDietaryPreferenceComponent } from './features/admin/components/adm
 import { PromocodeComponent } from './features/admin/components/promocode/promocode.component';
 import { ChargeComponent } from './features/admin/components/charge/charge.component';
 import { OrdersComponent } from './features/admin/components/admin-orders/admin-orders.component';
+import { RefundsComponent } from './features/admin/components/admin-refunds/admin-refunds.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -34,6 +35,7 @@ export const routes: Routes = [
       {path:'promocode', component: PromocodeComponent},
       {path:'charge', component: ChargeComponent},
       {path:'orders', component: OrdersComponent},
+      {path:'refunds', component: RefundsComponent},
       {path:'', redirectTo: 'dashboard', pathMatch:'full'}
     ]
   },

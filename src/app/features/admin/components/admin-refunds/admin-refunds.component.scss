@@ -1,0 +1,103 @@
+// Refunds Page Styling
+
+.dashboard-inner-card {
+  background-color: #FFE5DC; // soft peach
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+// Title
+.refunds-catalogue-title {
+  color: #EA4626; // blood orange
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(234,70,38,0.25);
+}
+
+// Tabs
+.nav-tabs {
+  .nav-link {
+    font-weight: 600;
+    color: #475569;
+    &.active {
+      background-color: #EA4626;
+      color: #fff;
+      border-radius: 0.5rem 0.5rem 0 0;
+    }
+  }
+}
+
+// Table
+.custom-premium-table {
+  thead th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 16px 12px;
+    border-bottom: 2px solid #edf2f7;
+  }
+}
+
+.table-row-item {
+  transition: background-color 0.2s ease;
+  &:hover { background-color: #f8fafc; }
+  td { padding: 16px 12px; border-bottom: 1px solid #f1f5f9; }
+}
+
+// Action Buttons
+.btn-action-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+
+  &.btn-success { background-color: #d1fae5; color: #16a34a;
+    &:hover { background-color: #16a34a; color: #fff; } }
+  &.btn-danger { background-color: #fee2e2; color: #dc2626;
+    &:hover { background-color: #dc2626; color: #fff; } }
+  &.btn-info { background-color: #eff6ff; color: #2563eb;
+    &:hover { background-color: #2563eb; color: #fff; } }
+}
+
+// Modal
+.modal-content {
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+
+  .modal-header {
+    border-bottom: none;
+    background-color: #2563eb; // info blue for details
+    color: #fff;
+    border-radius: 0.75rem 0.75rem 0 0;
+
+    &.bg-danger { background-color: #dc2626; } // reject modal
+    &.bg-blood-orange { background-color: #EA4626; } // details modal
+  }
+
+  .modal-body {
+    p { margin-bottom: 0.5rem; }
+    h6 { margin-top: 1rem; font-weight: 600; }
+  }
+}
+
+// Toast (optional for refund notifications)
+.toast-container {
+  .toast {
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    .toast-body {
+      font-size: 0.9rem;
+      color: #333;
+    }
+  }
+}

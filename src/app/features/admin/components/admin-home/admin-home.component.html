@@ -24,6 +24,7 @@
             <span class="link-label">Dashboard</span>
           </a>
         </li>
+
          <!--Orders-->
          <li class="nav-item">
           <a class="nav-link-item" 
@@ -32,6 +33,17 @@
              [routerLinkActiveOptions]="{ exact: true }">
             <i class="bi bi-cart-check menu-icon"></i>
             <span class="link-label">Orders</span>
+          </a>
+        </li>
+        
+        <!--Refunds-->
+        <li class="nav-item">
+          <a class="nav-link-item" 
+             routerLink="refunds" 
+             routerLinkActive="is-active" 
+             [routerLinkActiveOptions]="{ exact: true }">
+            <i class="bi bi-cash-stack menu-icon"></i>
+            <span class="link-label">Refunds</span>
           </a>
         </li>
         
