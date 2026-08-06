@@ -24,6 +24,16 @@
             <span class="link-label">Dashboard</span>
           </a>
         </li>
+         <!--Orders-->
+         <li class="nav-item">
+          <a class="nav-link-item" 
+             routerLink="orders" 
+             routerLinkActive="is-active" 
+             [routerLinkActiveOptions]="{ exact: true }">
+            <i class="bi bi-cart-check menu-icon"></i>
+            <span class="link-label">Orders</span>
+          </a>
+        </li>
         
       <!--Menu Catalogue-->
         <li class="nav-item">
@@ -86,7 +96,7 @@
      routerLink="charge" 
      routerLinkActive="is-active" 
      [routerLinkActiveOptions]="{ exact: true }">
-    <i class="bi bi-cash-coin menu-icon"></i> <!-- ✅ better icon for charges -->
+    <i class="bi bi-cash-coin menu-icon"></i> <!--  better icon for charges -->
     <span class="link-label">Charges</span>
   </a>
 </li>

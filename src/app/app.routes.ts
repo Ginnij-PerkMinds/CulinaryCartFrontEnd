@@ -12,6 +12,7 @@ import { AdminCategoryComponent } from './features/admin/components/admin-catego
 import { AdminDietaryPreferenceComponent } from './features/admin/components/admin-dietarypreference/admin-dietarypreference.component';
 import { PromocodeComponent } from './features/admin/components/promocode/promocode.component';
 import { ChargeComponent } from './features/admin/components/charge/charge.component';
+import { OrdersComponent } from './features/admin/components/admin-orders/admin-orders.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -32,6 +33,7 @@ export const routes: Routes = [
       {path: 'dietarypreference', component: AdminDietaryPreferenceComponent},
       {path:'promocode', component: PromocodeComponent},
       {path:'charge', component: ChargeComponent},
+      {path:'orders', component: OrdersComponent},
       {path:'', redirectTo: 'dashboard', pathMatch:'full'}
     ]
   },
