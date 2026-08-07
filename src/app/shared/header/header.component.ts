@@ -67,7 +67,7 @@ export class HeaderComponent {
     }
   }
   loadMyOrders(userId: number): void {
-    this.orderHistoryService.getMyOrders(userId).subscribe(data => {
+    this.orderHistoryService.getMyOrders().subscribe(data => {
       this.myOrders = data;
     });
   }
@@ -179,7 +179,7 @@ openOrdersModal() {
 
   const userId = this.authService.getUserId();
   if (userId) {
-    this.orderHistoryService.getMyOrders(this.currentUser.userId).subscribe(data => {
+    this.orderHistoryService.getMyOrders().subscribe(data => {
       this.myOrders = data;
     });
   }

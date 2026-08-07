@@ -12,6 +12,8 @@ export interface RefundDto {
   finalAmount: number;
   refundStatus: string;
   remarks?: string;
+  refundImage?: string;        // proof image path
+  refundUserRemarks?: string; 
 }
 export interface OrderItemDto {
   foodItemId: number;
@@ -34,7 +36,7 @@ export interface RefundDetailsDto extends RefundDto {
   providedIn: 'root'
 })
 export class RefundsService {
-  private apiUrl = '/api/Refunds';
+  private apiUrl = 'http://localhost:5209/api/Refunds';
 
   constructor(private http: HttpClient) {}
 

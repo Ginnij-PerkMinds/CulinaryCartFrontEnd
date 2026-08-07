@@ -42,7 +42,7 @@ export class LoginComponent {
 
         this.successMessage = res.message || 'Login successful!';
 
-        // 🔍 Debug logs
+        // Debug logs
         console.log('Login response:', res);
         console.log('User object:', res.user);
         console.log('Token:', res.token);

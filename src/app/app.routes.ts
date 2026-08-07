@@ -14,6 +14,7 @@ import { PromocodeComponent } from './features/admin/components/promocode/promoc
 import { ChargeComponent } from './features/admin/components/charge/charge.component';
 import { OrdersComponent } from './features/admin/components/admin-orders/admin-orders.component';
 import { RefundsComponent } from './features/admin/components/admin-refunds/admin-refunds.component';
+import { MyOrdersComponent } from './features/my-orders/my-orders.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'menu', component: MenuListComponent },
+  {path: 'my-orders', component: MyOrdersComponent},
   
   {
     path: 'admin',

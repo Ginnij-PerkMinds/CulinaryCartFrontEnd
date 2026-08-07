@@ -138,13 +138,24 @@
             <p><strong>Status:</strong> {{ selectedRefund.refundStatus }}</p>
           </div>
         </div>
-
+       
         <!-- Remarks -->
         <p *ngIf="selectedRefund.remarks"><strong>Remarks:</strong> {{ selectedRefund.remarks }}</p>
+       
+        <p *ngIf="selectedRefund.refundUserRemarks">
+         <strong>User Remarks:</strong> {{ selectedRefund.refundUserRemarks }}
+        </p>
+
+        <p *ngIf="selectedRefund.refundImage">
+          <strong>Proof Image:</strong><br>
+          <img [src]="selectedRefund.refundImage" alt="Refund Proof"
+          class="img-fluid rounded" style="max-width:200px;" />
+        </p>
       </div>
     </div>
   </div>
-</div>
+</div>   
+
 
 <!-- Reject Modal -->
 <div class="modal fade" #rejectModal id="rejectModal" tabindex="-1" aria-hidden="true">

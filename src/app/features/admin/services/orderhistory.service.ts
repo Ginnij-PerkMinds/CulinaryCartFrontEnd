@@ -16,7 +16,11 @@ export class OrderHistoryService {
   }
 
   // Get "My Orders" for a user
-  getMyOrders(userId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/Cart/my-orders`);
+  getMyOrders(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/MyOrders/all`);
   }
+
+ getMyOrdersDetails(orderId: number): Observable<any> {
+  return this.http.get<any>(`${this.baseUrl}/MyOrders/details/${orderId}`);
+ }
 }
