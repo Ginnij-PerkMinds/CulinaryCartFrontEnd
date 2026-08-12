@@ -7,6 +7,7 @@ export interface RefundDto {
   requestDate: string;
   refundStatus: string;
   finalAmount: number;
+  refundAmount: number;
   remarks?: string;
   refundImage?: string;
 }
@@ -16,6 +17,7 @@ export interface RefundDetailsDto {
   requestDate: string;
   refundStatus: string;
   finalAmount: number;
+  refundAmount: number;
   remarks?: string;
   refundImage?: string;
   orderId: number;
