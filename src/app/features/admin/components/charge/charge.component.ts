@@ -72,7 +72,7 @@ export class ChargeComponent implements OnInit {
     const request = {
       chargeId: this.selectedCharge.chargeId,
       chargeType: this.selectedCharge.chargeType,
-      value: fractionValue,   // ✅ send fraction (0.05 for 5%)
+      value: fractionValue,   //  send fraction (0.05 for 5%)
       isActive: this.selectedCharge.isActive
     };
 

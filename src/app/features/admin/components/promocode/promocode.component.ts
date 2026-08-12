@@ -84,7 +84,7 @@ export class PromocodeComponent implements OnInit {
 
   const promoRequest = {
     ...this.selectedPromo,
-    amount: finalAmount   // ✅ always numeric now
+    amount: finalAmount   // always numeric now
   };
 
   if (this.selectedPromo.id) {

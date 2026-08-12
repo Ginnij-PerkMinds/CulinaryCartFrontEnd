@@ -60,4 +60,9 @@ export class OrderHistoryService {
  getMyOrdersDetails(orderId: number): Observable<MyOrderDetailsDto> {
   return this.http.get<MyOrderDetailsDto>(`${this.baseUrl}/MyOrders/details/${orderId}`);
  }
+
+ getRecentOrders(): Observable<MyOrderDto[]> {
+  return this.http.get<MyOrderDto[]>(`${this.baseUrl}/MyOrders/recent`);
+}
+
 }

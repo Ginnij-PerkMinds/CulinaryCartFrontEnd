@@ -1,64 +1,120 @@
 <div class="dashboard-inner-card shadow-sm border-0 bg-soft-peach p-4 rounded-4">
-  <h3 class="refunds-catalogue-title m-0"> My Orders </h3>
-  <p class="text-muted small m-0">Track your orders and request refunds</p>
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h3 class="orders-catalogue-title m-0"> My Orders </h3>
+      <p class="text-muted small m-0">Track your orders and request refunds</p>
+    </div>
+    <!-- Refund Button -->
+    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#refundModal">
+      <i class="bi bi-arrow-repeat"></i> Request Refund
+    </button>
+  </div>
 
-  <div class="table-responsive border rounded-3 overflow-hidden mt-3">
-    <table class="table table-hover align-middle custom-premium-table m-0">
-      <thead>
-        <tr>
-          <th class="ps-4">Order ID</th>
-          <th>Date & Time</th>
-          <th>Final Amount</th>
-          <th>Refund Status</th>
-          <th>Proof</th>
-          <th class="text-center pe-4">View Details</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let order of orders" class="table-row-item animate fadeIn">
-          <td class="fw-bold text-secondary ps-4">#{{ order.orderId }}</td>
-          <td>{{ order.orderDate | date:'dd/MM/yyyy, h:mm a' }}</td>
-          <td class="fw-bold text-dark fs-6">{{ order.finalAmount | currency:'INR' }}</td>
-          <td>
-            <span [ngClass]="{
-              'badge bg-warning': order.refundStatus === 'Pending',
-              'badge bg-success': order.refundStatus === 'Initiated',
-              'badge bg-danger': order.refundStatus === 'Declined'
-            }">
-              {{ order.refundStatus || '—' }}
-            </span>
-          </td>
-          <td>
-            <img *ngIf="order.refundImage" [src]="order.refundImage" alt="Proof" class="img-thumbnail rounded" width="80" />
-          </td>
-          <td>
-            <div class="d-flex justify-content-center gap-2 pe-4">
-              <button class="btn-action-circle btn-info"
-                      (click)="viewDetails(order.orderId)"
-                      data-bs-toggle="modal"
-                      data-bs-target="#detailsModal"
-                      title="View Details">
-                <i class="bi bi-eye-fill"></i>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Tabs -->
+  <ul class="nav nav-tabs mb-3">
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="activeTab==='orders'" (click)="switchTab('orders')">Orders</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="activeTab==='refunds'" (click)="switchTab('refunds')">Refunds</a>
+    </li>
+  </ul>
+
+  <!-- Tab Content -->
+  <div class="tab-content border rounded-3 overflow-hidden">
+    <!-- Orders Tab -->
+    <div class="tab-pane fade show active" *ngIf="activeTab==='orders'">
+      <!-- My Orders Table -->
+      <div class="table-responsive border rounded-3 overflow-hidden mt-3">
+        <table class="table table-hover align-middle custom-premium-table m-0">
+          <thead>
+            <tr>
+              <th class="ps-4">Order ID</th>
+              <th>Date & Time</th>
+              <th>Final Amount</th>             
+              <th class="text-center pe-4">View Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of orders" class="table-row-item animate fadeIn">
+              <td class="fw-bold text-secondary ps-4">#{{ order.orderId }}</td>
+              <td>{{ order.orderDate | date:'dd/MM/yyyy, h:mm a' }}</td>
+              <td class="fw-bold text-dark fs-6">{{ order.finalAmount | currency:'INR' }}</td>
+              <td>
+                <div class="d-flex justify-content-center gap-2 pe-4">
+                  <button class="btn-action-circle btn-info"
+                          (click)="viewDetails(order.orderId)"
+                          data-bs-toggle="modal"
+                          data-bs-target="#orderDetailsModal"
+                          title="View Details">
+                    <i class="bi bi-eye-fill"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Refunds Tab -->
+    <div class="tab-pane fade show active" *ngIf="activeTab==='refunds'">
+      <!-- My Refunds Table -->
+      <div class="table-responsive border rounded-3 overflow-hidden mt-3">
+        <table class="table table-hover align-middle custom-premium-table m-0">
+          <thead>
+            <tr>
+              <th class="ps-4">Refund ID</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Amount</th>
+              <th>Remarks</th>
+              <th class="text-center pe-4">View Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let refund of refunds" class="table-row-item animate fadeIn">
+              <td class="fw-bold text-secondary ps-4">#{{ refund.refundId }}</td>
+              <td>{{ refund.requestDate | date:'dd/MM/yyyy, h:mm a' }}</td>
+              <td>
+                <span [ngClass]="{
+                  'badge bg-warning': refund.refundStatus === 'Pending',
+                  'badge bg-success': refund.refundStatus === 'Accepted',
+                  'badge bg-danger': refund.refundStatus === 'Rejected'
+                }">
+                  {{ refund.refundStatus }}
+                </span>
+              </td>
+              <td>{{ refund.finalAmount | currency:'INR' }}</td>
+              <td>{{ refund.remarks }}</td>
+              <td>
+                <button class="btn-action-circle btn-info"
+                        (click)="viewRefundDetails(refund.refundId)"
+                        data-bs-toggle="modal"
+                        data-bs-target="#refundDetailsModal"
+                        title="View Details">
+                  <i class="bi bi-eye-fill"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- Details Modal -->
-<div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
+<!-- Order Details Modal -->
+<div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content rounded-3 shadow-lg" *ngIf="selectedOrder">
       <div class="modal-header bg-blood-orange text-white">
         <h5 class="modal-title">Order #{{ selectedOrder.orderId }} Details</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
-
       <div class="modal-body">
-        <!-- Items Table -->
+        <!-- Items -->
         <h6>Items:</h6>
         <table class="table table-sm">
           <thead>
@@ -76,52 +132,35 @@
             </tr>
           </tbody>
         </table>
-
         <!-- Financial Breakdown -->
-        <div class="row mt-3">
-          <div class="col-md-6">
-            <p><strong>Total Cart Amount:</strong> {{ selectedOrder.baseAmount | currency:'INR':'symbol' }}</p>
-            <p><strong>Promo Discount:</strong> {{ selectedOrder.promoDiscount | currency:'INR':'symbol' }}</p>
-            <p><strong>Handling Fee:</strong> {{ selectedOrder.handlingFee | currency:'INR':'symbol' }}</p>
-            <p><strong>Delivery Fee:</strong> {{ selectedOrder.deliveryFee | currency:'INR':'symbol' }}</p>
-            <p><strong>Tax:</strong> {{ selectedOrder.taxAmount | currency:'INR':'symbol' }}</p>
-          </div>
-          <div class="col-md-6 text-end">
-            <h5 class="fw-bold text-blood-orange">
-              Final Amount: {{ selectedOrder.finalAmount | currency:'INR':'symbol' }}
-            </h5>
-          </div>
-        </div>
-
-        <!-- Refund Block -->
-        <div class="refund-block mt-4 p-3 border rounded bg-light">
-          <h6 class="fw-bold">Request Refund</h6>
-          <div class="mb-3">
-            <label>Select Item</label>
-            <select [(ngModel)]="refundItem" class="form-select">
-              <option value="all">All</option>
-              <option *ngFor="let item of selectedOrder.orderItems" [value]="item.foodItemId">
-                {{ item.foodItemName }}
-              </option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label>Remarks</label>
-            <textarea [(ngModel)]="refundRemarks" class="form-control" placeholder="Enter remarks"></textarea>
-          </div>
-          <div class="mb-3">
-            <label>Upload Proof</label>
-            <input type="file" (change)="onFileSelected($event)" class="form-control" />
-          </div>
-          <div class="d-flex justify-content-end gap-2">
-            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button class="btn btn-primary" (click)="submitRefund(selectedOrder.orderId)">Submit</button>
-          </div>
-        </div>
+        <h6>Summary:</h6>
+        <p><strong>Total:</strong> {{ selectedOrder.finalAmount | currency:'INR' }}</p>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Refund Details Modal -->
+<div class="modal fade" id="refundDetailsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content rounded-3 shadow-lg" *ngIf="selectedRefund">
+      <div class="modal-header bg-blood-orange text-white">
+        <h5 class="modal-title">Refund #{{ selectedRefund.refundId }} Details</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Status:</strong> {{ selectedRefund.refundStatus }}</p>
+        <p><strong>Remarks:</strong> {{ selectedRefund.remarks }}</p>
+        <p><strong>Amount:</strong> {{ selectedRefund.finalAmount | currency:'INR' }}</p>
+        <img *ngIf="selectedRefund.refundImage" [src]="selectedRefund.refundImage" class="img-thumbnail rounded" width="120" />
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- Refund Modal (Request Refund) -->
+<app-refund-modal></app-refund-modal>
+
+
+   
 
