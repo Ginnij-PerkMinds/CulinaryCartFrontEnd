@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RefundsUserService, RefundDto, RefundDetailsDto } from '../admin/services/refund-user.service';
 import { OrderHistoryService, MyOrderDto, MyOrderDetailsDto } from '../admin/services/orderhistory.service';
 import {RefundModalComponent} from '../refund-modal/refund-modal.component';
@@ -8,7 +9,7 @@ import {RefundModalComponent} from '../refund-modal/refund-modal.component';
 @Component({
   selector: 'app-my-orders',
   standalone: true,
-  imports: [CommonModule, FormsModule, RefundModalComponent],
+  imports: [CommonModule, DatePipe, FormsModule, RefundModalComponent],
   templateUrl: './my-orders.component.html',
   styleUrls: ['./my-orders.component.scss']
 })
@@ -31,7 +32,8 @@ export class MyOrdersComponent implements OnInit {
 
   constructor(
     private refundsService: RefundsUserService,
-    private orderHistoryService: OrderHistoryService
+    private orderHistoryService: OrderHistoryService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -58,12 +60,24 @@ export class MyOrdersComponent implements OnInit {
   }
 
   // Load refunds
+  // loadRefunds(): void {
+  //   this.refundsService.getMyRefunds().subscribe({
+  //     next: (data) => this.refunds = data,
+  //     error: (err) => console.error('Error loading refunds', err)
+  //   });
+  // }
   loadRefunds(): void {
-    this.refundsService.getMyRefunds().subscribe({
-      next: (data) => this.refunds = data,
-      error: (err) => console.error('Error loading refunds', err)
-    });
-  }
+  this.refundsService.getMyRefunds().subscribe({
+    next: (data) => {
+      // Sort refunds by requestDate descending (latest first)
+      this.refunds = data.sort((a, b) =>
+        new Date(b.requestDate).getTime() - new Date(a.requestDate).getTime()
+      );
+    },
+    error: (err) => console.error('Error loading refunds', err)
+  });
+}
+
 
   // View order details
   viewDetails(orderId: number): void {
@@ -90,4 +104,8 @@ export class MyOrdersComponent implements OnInit {
     this.refundRemarks = '';
     this.refundProofFile = null;
   }
+
+  goBack(): void {
+  this.router.navigate(['/menu']);
+}
 }

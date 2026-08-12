@@ -35,15 +35,7 @@ export class RefundsUserService {
 
   constructor(private http: HttpClient) {}
 
-  // claimRefund(orderId: number, remarks: string, refundItem: string = 'all', imageFile?: File): Observable<any> {
-  //   const formData = new FormData();
-  //   formData.append('remarks', remarks);
-  //   formData.append('refundItem', refundItem);   // ✅ new field
-  //   if (imageFile) {
-  //     formData.append('imageFile', imageFile);
-  //   }
-  //   return this.http.post(`${this.baseUrl}/claim`, formData);
-  // }
+  
   claimRefund(orderId: number, remarks: string, itemId: number | null, proofFile?: File): Observable<any> {
   const formData = new FormData();
   formData.append('OrderId', orderId.toString());
@@ -52,7 +44,7 @@ export class RefundsUserService {
   }
 
   if (itemId !== null) {
-    formData.append('ItemId', itemId.toString()); // must be numeric string
+    formData.append('ItemId', itemId.toString()); 
   }
 
   if (proofFile) {

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -10,6 +10,10 @@ import { AdminUsersComponent } from './components/admin-users/admin-users.compon
 
 @NgModule({
   declarations: [
+  ],
+  providers: [
+    { provide: DatePipe, useClass: DatePipe },
+    { provide: 'TIMEZONE', useValue: 'Asia/Kolkata' }
   ],
   imports: [
     CommonModule,

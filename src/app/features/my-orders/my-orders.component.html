@@ -5,13 +5,14 @@
       <h3 class="orders-catalogue-title m-0"> My Orders </h3>
       <p class="text-muted small m-0">Track your orders and request refunds</p>
     </div>
-    <!-- Refund Button -->
-    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#refundModal">
-      <i class="bi bi-arrow-repeat"></i> Request Refund
+    <!-- Back Button -->
+    <button class="btn btn-blood-orange" (click)="goBack()">
+        <i class="bi bi-arrow-left"></i> Back
     </button>
   </div>
 
   <!-- Tabs -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
   <ul class="nav nav-tabs mb-3">
     <li class="nav-item">
       <a class="nav-link" [class.active]="activeTab==='orders'" (click)="switchTab('orders')">Orders</a>
@@ -20,6 +21,11 @@
       <a class="nav-link" [class.active]="activeTab==='refunds'" (click)="switchTab('refunds')">Refunds</a>
     </li>
   </ul>
+   <!-- Request Refund Button -->
+    <button class="btn btn-blood-orange" data-bs-toggle="modal" data-bs-target="#refundModal">
+      <i class="bi bi-arrow-repeat"></i> Request Refund
+    </button>
+  </div>
 
   <!-- Tab Content -->
   <div class="tab-content border rounded-3 overflow-hidden">
@@ -66,9 +72,9 @@
           <thead>
             <tr>
               <th class="ps-4">Refund ID</th>
-              <th>Date</th>
+              <th>Date & Time</th>
               <th>Status</th>
-              <th>Amount</th>
+              <th>Refund Amount</th>
               <th>Remarks</th>
               <th class="text-center pe-4">View Details</th>
             </tr>
@@ -79,16 +85,16 @@
               <td>{{ refund.requestDate | date:'dd/MM/yyyy, h:mm a' }}</td>
               <td>
                 <span [ngClass]="{
-                  'badge bg-warning': refund.refundStatus === 'Pending',
-                  'badge bg-success': refund.refundStatus === 'Accepted',
-                  'badge bg-danger': refund.refundStatus === 'Rejected'
+                   ' status-pending': refund.refundStatus === 'Pending',
+                   ' status-accepted': refund.refundStatus === 'Accepted',
+                   ' status-rejected': refund.refundStatus === 'Rejected'
                 }">
                   {{ refund.refundStatus }}
                 </span>
               </td>
               <td>{{ refund.finalAmount | currency:'INR' }}</td>
               <td>{{ refund.remarks }}</td>
-              <td>
+              <td class="text-center pe-4">
                 <button class="btn-action-circle btn-info"
                         (click)="viewRefundDetails(refund.refundId)"
                         data-bs-toggle="modal"
@@ -134,7 +140,35 @@
         </table>
         <!-- Financial Breakdown -->
         <h6>Summary:</h6>
-        <p><strong>Total:</strong> {{ selectedOrder.finalAmount | currency:'INR' }}</p>
+        <!-- <p><strong>Total:</strong> {{ selectedOrder.finalAmount | currency:'INR' }}</p> -->
+         <table class="table table-sm order-breakdown-table">
+  <tbody>
+    <tr>
+      <td>Total Cart Amount</td>
+      <td class="text-end">{{ selectedOrder.baseAmount | currency:'INR' }}</td>
+    </tr>
+    <tr *ngIf="selectedOrder.appliedPromoCode">
+      <td>Applied PromoCode ({{ selectedOrder.appliedPromoCode }})</td>
+      <td class="text-end">-{{ selectedOrder.promoDiscount | currency:'INR' }}</td>
+    </tr>
+    <tr>
+      <td>Handling Fee</td>
+      <td class="text-end">{{ selectedOrder.handlingFee | currency:'INR' }}</td>
+    </tr>
+    <tr>
+      <td>Delivery Fee</td>
+      <td class="text-end">{{ selectedOrder.deliveryFee | currency:'INR' }}</td>
+    </tr>
+    <tr>
+      <td>Tax</td>
+      <td class="text-end">{{ selectedOrder.taxAmount | currency:'INR' }}</td>
+    </tr>
+    <tr class="fw-bold text-blood-orange">
+      <td>Final Amount</td>
+      <td class="text-end">{{ selectedOrder.finalAmount | currency:'INR' }}</td>
+    </tr>
+  </tbody>
+</table>
       </div>
     </div>
   </div>

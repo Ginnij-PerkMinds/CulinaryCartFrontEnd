@@ -26,7 +26,7 @@ export class RefundModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // ✅ Fetch recent orders directly from backend
+    //  Fetch recent orders directly from backend
     this.orderHistoryService.getRecentOrders().subscribe({
       next: (data) => {
         this.eligibleOrders = data;
@@ -37,7 +37,7 @@ export class RefundModalComponent implements OnInit {
   }
 
   viewOrderDetails(order: MyOrderDto): void {
-    // ✅ Fetch full order details from backend
+    //  Fetch full order details from backend
     this.orderHistoryService.getMyOrdersDetails(order.orderId).subscribe({
       next: (data) => {
         this.selectedOrder = data;

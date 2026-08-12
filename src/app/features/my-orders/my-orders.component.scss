@@ -1,4 +1,5 @@
-// Card styling
+// My Orders Page Styling
+
 .dashboard-inner-card {
   background-color: #FFE5DC; // soft peach
   border-radius: 1rem;
@@ -7,12 +8,37 @@
 }
 
 // Title
-.refunds-catalogue-title {
+.orders-catalogue-title {
   color: #EA4626; // blood orange
   font-weight: 700;
   font-size: 1.5rem;
   letter-spacing: 0.5px;
   text-shadow: 0 1px 3px rgba(234,70,38,0.25);
+}
+
+// Tabs
+.nav-tabs {
+  border-bottom: none;
+
+  .nav-link {
+    font-weight: 600;
+    background-color: #FFE5DC; // blood orange
+    color: #000;               // white text
+    border-radius: 0.5rem 0.5rem 0 0;
+    margin-right: 4px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #d63c1f; // darker blood orange on hover
+      color: #fff;
+    }
+
+    &.active {
+      background-color: #EA4626 !important; // active tab stays blood orange
+      color: #fff !important;
+      font-weight: 700;
+    }
+  }
 }
 
 // Table
@@ -31,11 +57,11 @@
 
 .table-row-item {
   transition: background-color 0.2s ease;
-  &:hover { background-color: #f8fafc; }
+  &:hover { background-color: #fdfdfd; }
   td { padding: 16px 12px; border-bottom: 1px solid #f1f5f9; }
 }
 
-// Action Buttons
+// Action Buttons (circle style)
 .btn-action-circle {
   width: 34px;
   height: 34px;
@@ -47,8 +73,28 @@
   font-size: 0.9rem;
   transition: all 0.2s ease;
 
-  &.btn-warning { background-color: #fef3c7; color: #d97706;
-    &:hover { background-color: #d97706; color: #fff; } }
+  &.btn-success { background-color: #d1fae5; color: #16a34a;
+    &:hover { background-color: #16a34a; color: #fff; } }
+  &.btn-danger { background-color: #fee2e2; color: #dc2626;
+    &:hover { background-color: #dc2626; color: #fff; } }
+  &.btn-info { background-color: #eff6ff; color: #2563eb;
+    &:hover { background-color: #2563eb; color: #fff; } }
+}
+
+// Request Refund Button
+.btn-blood-orange {
+  background-color: #EA4626; // blood orange
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #d63c1f; // darker blood orange
+    color: #fff;
+  }
 }
 
 // Modal
@@ -58,22 +104,41 @@
 
   .modal-header {
     border-bottom: none;
-    background-color: #f59e0b; // amber
+    background-color: #EA4626; // blood orange
     color: #fff;
     border-radius: 0.75rem 0.75rem 0 0;
   }
 
   .modal-body {
-    textarea, input[type="file"] {
-      border-radius: 0.5rem;
-      border: 1px solid #ddd;
-    }
+    p { margin-bottom: 0.5rem; }
+    h6 { margin-top: 1rem; font-weight: 600; }
   }
 }
-.bg-blood-orange {
-  background-color: #EA4626 !important; /* blood orange */
-  color: #fff; /* keep text white for contrast */
+
+// Refund Status Text
+.status-text {
+  font-size: 0.100rem;
+  font-weight: 1500;
+  letter-spacing: 0.3px;
 }
-.text-blood-orange {
-  color: #EA4626 !important;
+
+.status-pending {
+  color: #d97706; // dark amber/orange
 }
+
+.status-accepted {
+  color: #15803d; // dark green
+}
+
+.status-rejected {
+  color: #b91c1c; // dark red
+}
+
+
+
+
+
+
+
+
+

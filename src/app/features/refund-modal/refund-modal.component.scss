@@ -1,8 +1,79 @@
-.modal-header {
-  background-color: #EA4626; /* blood orange */
-  color: white;
+// Card / Container
+.dashboard-inner-card {
+  background-color: #fff;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-.modal-footer .btn-warning {
-  font-weight: bold;
+// Title
+.orders-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
 }
+
+.bg-blood-orange {
+  background-color: #EA4626 !important; // blood orange
+}
+
+// Tabs
+.nav-tabs {
+  .nav-link {
+    font-weight: 500;
+    color: #555;
+    &.active {
+      background-color: #ffc107; // yellow highlight
+      color: #000;
+      border-radius: 0.5rem 0.5rem 0 0;
+    }
+  }
+}
+
+// Table
+.manage-orders-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead th {
+    background-color: #f8f9fa;
+    color: #444;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    padding: 12px;
+    border-bottom: 2px solid #dee2e6;
+  }
+
+  tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+  }
+
+  tr:hover {
+    background-color: #fdfd96; // subtle yellow hover
+  }
+}
+
+// Action buttons
+.btn-action {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 0.25rem;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+
+  &.btn-view {
+    background-color: #17a2b8; // info blue
+    color: #fff;
+    &:hover { background-color: #138496; }
+  }
+
+  &.btn-refund {
+    background-color: #ffc107; // warning yellow
+    color: #000;
+    &:hover { background-color: #e0a800; }
+  }
+}
+

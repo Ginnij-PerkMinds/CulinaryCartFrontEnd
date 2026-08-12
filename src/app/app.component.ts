@@ -9,5 +9,3 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   styleUrls: ['./app.component.scss'] 
 })
 export class AppComponent {}
-
-
