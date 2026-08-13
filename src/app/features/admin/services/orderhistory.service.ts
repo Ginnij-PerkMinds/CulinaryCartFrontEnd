@@ -12,6 +12,7 @@ export interface MyOrderDto {
   refundStatus?: string;
   refundImage?: string;
   refundUserRemarks?: string;
+  orderItems?: MyOrderItemDto[];
 }
 
 export interface MyOrderItemDto {
@@ -19,6 +20,7 @@ export interface MyOrderItemDto {
   foodItemName: string;
   quantity: number;
   finalPrice: number;
+  checked?: boolean; 
 }
 
 export interface MyOrderDetailsDto {

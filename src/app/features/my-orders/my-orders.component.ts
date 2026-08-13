@@ -24,6 +24,7 @@ export class MyOrdersComponent implements OnInit {
   // Refunds
   refunds: RefundDto[] = [];
   selectedRefund: RefundDetailsDto | null = null;
+  
 
   // Refund form fields
   refundItem: string = 'all';
@@ -60,12 +61,6 @@ export class MyOrdersComponent implements OnInit {
   }
 
   // Load refunds
-  // loadRefunds(): void {
-  //   this.refundsService.getMyRefunds().subscribe({
-  //     next: (data) => this.refunds = data,
-  //     error: (err) => console.error('Error loading refunds', err)
-  //   });
-  // }
   loadRefunds(): void {
   this.refundsService.getMyRefunds().subscribe({
     next: (data) => {

@@ -15,6 +15,8 @@ export class RefundModalComponent implements OnInit {
   eligibleOrders: MyOrderDto[] = [];
   selectedOrder: MyOrderDetailsDto | null = null;
 
+  selectAllChecked: boolean = false;
+
   selectedItemId: string = 'all';
   itemDetails: any;
   userRemarks: string = '';
@@ -56,6 +58,37 @@ export class RefundModalComponent implements OnInit {
       );
     }
   }
+
+  toggleAllItems() {
+  if (!this.selectedOrder) return;
+  this.selectedOrder.orderItems.forEach(item => item.checked = this.selectAllChecked);
+}
+
+toggleSingleItem() {
+  if (!this.selectedOrder) return;
+  // If any item is unchecked, uncheck "All Items"
+  if (this.selectedOrder.orderItems.some(item => !item.checked)) {
+    this.selectAllChecked = false;
+  } else {
+    // If all items are checked, check "All Items"
+    this.selectAllChecked = true;
+  }
+}
+
+get selectedItemsTotal(): number {
+  if (!this.selectedOrder) return 0;
+
+  // If "All Items" is checked, sum all
+  if (this.selectAllChecked) {
+    return this.selectedOrder.orderItems.reduce((sum, i) => sum + i.finalPrice, 0);
+  }
+
+  // Otherwise sum only checked items
+  return this.selectedOrder.orderItems
+    .filter(i => i.checked)
+    .reduce((sum, i) => sum + i.finalPrice, 0);
+}
+
 
   onFileSelected(event: any): void {
     this.proofFile = event.target.files[0];
