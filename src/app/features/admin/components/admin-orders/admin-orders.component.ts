@@ -87,6 +87,34 @@ export class OrdersComponent implements OnInit {
         modal?.hide();
       });
     });
+  }
+  
+//   markDelivered(id: number): void {
+//   this.ordersService.markDelivered(id).subscribe({
+//     next: () => {
+//       alert('Order marked as delivered successfully.');
+//       this.loadOrders(this.activeTab);
+//     },
+//     error: (err) => {
+//       console.error('Error marking order as delivered:', err);
+//       alert('Failed to mark order as delivered. Please try again.');
+//     }
+//    });
+//   }
+// }
+markDelivered(id: number): void {
+  this.ordersService.markDelivered(id).subscribe({
+    next: () => {
+      import('bootstrap').then(({ Toast }) => {
+        const toastEl = document.getElementById('deliverToast');
+        if (toastEl) {
+          const toast = new Toast(toastEl);
+          toast.show();
+        }
+      });
+      this.loadOrders(this.activeTab);
+    },
+    error: () => alert('Failed to mark order as delivered.')
+  });
 }
-
 }

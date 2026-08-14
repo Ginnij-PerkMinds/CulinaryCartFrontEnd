@@ -9,7 +9,7 @@
 
   <!-- Tabs -->
   <ul class="nav nav-tabs mb-3">
-    <li class="nav-item" *ngFor="let tab of ['all','pending','accepted','rejected']">
+    <li class="nav-item" *ngFor="let tab of ['all','pending','accepted','rejected','delivered','refunded']">
       <a class="nav-link" [class.active]="activeTab===tab" (click)="loadOrders(tab)">
         {{ tab | titlecase }}
       </a>
@@ -29,6 +29,7 @@
           <th>Final Amount</th>
            <th class="text-center" *ngIf="activeTab === 'pending'">WorkSpaceActions</th>
            <th *ngIf="activeTab === 'rejected'">Remarks</th>
+           <th *ngIf="activeTab === 'accepted'">Delivered</th>
           <th class="text-center pe-4">View Details</th>
         </tr>
       </thead>
@@ -56,6 +57,16 @@
     </td>
        
         <td *ngIf="activeTab === 'rejected'">{{ order.remarks }}</td>
+        
+        <td *ngIf="activeTab === 'accepted'">
+  <div class="d-flex justify-content-center gap-2">
+    <button class="btn-action-circle btn-primary"
+            (click)="markDelivered(order.orderId)"
+            title="Mark Delivered">
+      <i class="bi bi-truck"></i>
+    </button>
+  </div>
+</td>
 
           <td>
             <div class="d-flex justify-content-center gap-2 pe-4">
@@ -159,3 +170,17 @@
     </div>
   </div>
 </div>
+
+<!-- Toast container -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="deliverToast" class="toast align-items-center text-bg-success border-0" role="alert">
+    <div class="d-flex">
+      <div class="toast-body">
+        Order {{selectedOrder?.orderId}} is delivered successfully!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
