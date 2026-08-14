@@ -67,4 +67,12 @@ export class OrderHistoryService {
   return this.http.get<MyOrderDto[]>(`${this.baseUrl}/MyOrders/recent`);
 }
 
+ getDeliveredOrders(): Observable<MyOrderDto[]> {
+  return this.http.get<MyOrderDto[]>(`${this.baseUrl}/MyOrders/delivered`);   
+}
+
+getDeliveredEligibleOrders(): Observable<MyOrderDto[]> {
+  return this.http.get<MyOrderDto[]>(`${this.baseUrl}/MyOrders/delivered/eligible`);
+}
+
 }

@@ -29,7 +29,7 @@ export class RefundModalComponent implements OnInit {
 
   ngOnInit(): void {
     //  Fetch recent orders directly from backend
-    this.orderHistoryService.getRecentOrders().subscribe({
+    this.orderHistoryService.getDeliveredEligibleOrders().subscribe({
       next: (data) => {
         this.eligibleOrders = data;
         console.log('Recent orders:', this.eligibleOrders);
@@ -94,31 +94,11 @@ get selectedItemsTotal(): number {
     .reduce((sum, i) => sum + i.finalPrice, 0);
 }
 
-
   onFileSelected(event: any): void {
     this.proofFile = event.target.files[0];
   }
 
-  // submitRefund(): void {
-  //   if (!this.selectedOrder) return;
-    
-  //   const itemId = this.selectedItemId === 'all' ? null : +this.selectedItemId;
-
-  //   this.refundsUserService
-  //     .claimRefund(
-  //       this.selectedOrder.orderId,
-  //       this.userRemarks,
-  //       itemId,
-  //       this.proofFile
-  //     )
-  //     .subscribe({
-  //       next: () => {
-  //         alert('Refund request submitted!');
-  //         this.resetForm();
-  //       },
-  //       error: () => alert('Failed to submit refund request.')
-  //     });
-  // }
+  // submit refund request
   submitRefund(): void {
   if (!this.selectedOrder) return;
 
