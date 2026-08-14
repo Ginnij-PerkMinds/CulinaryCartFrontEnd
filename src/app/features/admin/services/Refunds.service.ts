@@ -10,6 +10,7 @@ export interface RefundDto {
   address: string;
   phoneNo: string;
   finalAmount: number;
+  refundAmount: number;
   refundStatus: string;
   remarks?: string;
   refundImage?: string;        // proof image path
@@ -56,12 +57,26 @@ export class RefundsService {
   }
 
   // Accept refund (optional remarks)
-  acceptRefund(id: number, remarks?: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${id}/accept`, remarks || null);
-  }
+  // acceptRefund(id: number, remarks?: string): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/${id}/accept`, remarks || null);
+  // }
+  acceptRefund(id: number, refundAmount: number, remarks?: string): Observable<any> {
+  return this.http.post(`${this.apiUrl}/${id}/accept`, 
+    { refundAmount, remarks },   // ✅ send both
+    { headers: { 'Content-Type': 'application/json' } }
+  );
+}
+
 
   // Reject refund (remarks required)
-  rejectRefund(id: number, remarks: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${id}/reject`, remarks);
-  }
+  // rejectRefund(id: number, remarks: string): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/${id}/reject`, remarks);
+  // }
+  rejectRefund(id: number, remarks: string) {
+  return this.http.post(`/api/refunds/${id}/reject`, 
+    { remarks },   // ✅ send JSON object
+    { headers: { 'Content-Type': 'application/json' } } // ✅ ensure JSON header
+  );
+}
+
 }

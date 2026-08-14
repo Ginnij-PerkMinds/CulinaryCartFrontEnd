@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule, DatePipe, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RefundsService, RefundDto, RefundDetailsDto } from '../../services/Refunds.service';
+import { OrderItemDto } from '../../services/Refunds.service';
 
 @Component({
   selector: 'app-refunds',
@@ -16,6 +17,9 @@ export class RefundsComponent implements OnInit {
   activeTab: string = 'all';
   refunds: RefundDto[] = [];
   selectedRefund?: RefundDetailsDto;
+
+  refundAmount: number = 0;
+  remarks: string = '';
 
   rejectRefundId?: number;
   rejectRemarks: string = '';
@@ -47,9 +51,22 @@ export class RefundsComponent implements OnInit {
     this.refundsService.getRefundDetails(id).subscribe(data => this.selectedRefund = data);
   }
 
-  acceptRefund(id: number): void {
-    this.refundsService.acceptRefund(id).subscribe(() => this.loadRefunds(this.activeTab));
+  toggleItemSelection(item: OrderItemDto, event: any): void {
+  if (event.target.checked) {
+    this.refundAmount += item.finalPrice;
+  } else {
+    this.refundAmount -= item.finalPrice;
   }
+}
+
+  // acceptRefund(id: number): void {
+  //   this.refundsService.acceptRefund(id).subscribe(() => this.loadRefunds(this.activeTab));
+  // }
+  submitAcceptRefund(refundId: number): void {
+  this.refundsService.acceptRefund(refundId, this.refundAmount, this.remarks)
+    .subscribe(() => this.loadRefunds(this.activeTab));
+}
+
 
   openRejectModal(refundId: number): void {
     this.rejectRefundId = refundId;
@@ -64,15 +81,32 @@ export class RefundsComponent implements OnInit {
     });
   }
 
+  // submitReject(): void {
+  //   if (!this.rejectRefundId) return;
+  //   this.refundsService.rejectRefund(this.rejectRefundId, this.rejectRemarks)
+  //     .subscribe(() => {
+  //       this.loadRefunds(this.activeTab);
+  //       import('bootstrap').then(({ Modal }) => {
+  //         const modal = Modal.getInstance(this.rejectModal.nativeElement);
+  //         modal?.hide();
+  //       });
+  //     });
+  // }
   submitReject(): void {
-    if (!this.rejectRefundId) return;
-    this.refundsService.rejectRefund(this.rejectRefundId, this.rejectRemarks)
-      .subscribe(() => {
+  if (!this.rejectRefundId) return;
+  this.refundsService.rejectRefund(this.rejectRefundId, this.rejectRemarks)
+    .subscribe({
+      next: () => {
         this.loadRefunds(this.activeTab);
         import('bootstrap').then(({ Modal }) => {
           const modal = Modal.getInstance(this.rejectModal.nativeElement);
           modal?.hide();
         });
-      });
-  }
+      },
+      error: (err) => {
+        alert(err.error.message || 'Failed to reject refund');
+      }
+    });
+}
+
 }

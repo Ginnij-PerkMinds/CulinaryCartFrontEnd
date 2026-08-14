@@ -39,6 +39,11 @@ export class RefundModalComponent implements OnInit {
   }
 
   viewOrderDetails(order: MyOrderDto): void {
+    // If refund already claimed, show message instead of fetching details
+  if (order.refundStatus && order.refundStatus !== '') {
+    alert('Refund already claimed for this order.');
+    return;
+  }
     //  Fetch full order details from backend
     this.orderHistoryService.getMyOrdersDetails(order.orderId).subscribe({
       next: (data) => {
@@ -94,26 +99,46 @@ get selectedItemsTotal(): number {
     this.proofFile = event.target.files[0];
   }
 
-  submitRefund(): void {
-    if (!this.selectedOrder) return;
+  // submitRefund(): void {
+  //   if (!this.selectedOrder) return;
     
-    const itemId = this.selectedItemId === 'all' ? null : +this.selectedItemId;
+  //   const itemId = this.selectedItemId === 'all' ? null : +this.selectedItemId;
 
-    this.refundsUserService
-      .claimRefund(
-        this.selectedOrder.orderId,
-        this.userRemarks,
-        itemId,
-        this.proofFile
-      )
-      .subscribe({
-        next: () => {
-          alert('Refund request submitted!');
-          this.resetForm();
-        },
-        error: () => alert('Failed to submit refund request.')
-      });
+  //   this.refundsUserService
+  //     .claimRefund(
+  //       this.selectedOrder.orderId,
+  //       this.userRemarks,
+  //       itemId,
+  //       this.proofFile
+  //     )
+  //     .subscribe({
+  //       next: () => {
+  //         alert('Refund request submitted!');
+  //         this.resetForm();
+  //       },
+  //       error: () => alert('Failed to submit refund request.')
+  //     });
+  // }
+  submitRefund(): void {
+  if (!this.selectedOrder) return;
+
+  const itemId = this.selectedItemId === 'all' ? null : +this.selectedItemId;
+
+  const formData = new FormData();
+  formData.append("OrderId", this.selectedOrder.orderId.toString());
+  if (itemId) formData.append("ItemId", itemId.toString());
+  formData.append("Remarks", this.userRemarks);
+  formData.append("RefundAmount", this.selectedItemsTotal.toString());  // ✅ send refund amount
+  if (this.proofFile) {
+    formData.append("ProofFile", this.proofFile);
   }
+
+  this.refundsUserService.claimRefund(formData).subscribe({
+    next: () => alert("Refund request submitted!"),
+    error: () => alert("Failed to submit refund request.")
+  });
+}
+
 
   private resetForm(): void {
     this.selectedItemId = 'all';

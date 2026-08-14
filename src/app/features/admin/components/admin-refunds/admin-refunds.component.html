@@ -26,7 +26,7 @@
           <th>User Name</th>
           <th>Address</th>
           <th>Phone No</th>
-          <th>Final Amount</th>
+          <th>Refund Amount</th>
           <th class="text-center" *ngIf="activeTab === 'pending'">WorkSpaceActions</th>
           <th class="text-center pe-4">View Details</th>
           <th *ngIf="activeTab === 'rejected'">Remarks</th>
@@ -39,13 +39,13 @@
           <td>{{ refund.username }}</td>
           <td>{{ refund.address }}</td>
           <td>{{ refund.phoneNo }}</td>
-          <td class="fw-bold text-dark fs-6">{{ refund.finalAmount | currency:'INR' }}</td>
+          <td class="fw-bold text-dark fs-6">{{ refund.refundAmount | currency:'INR' }}</td>
 
           <!-- Actions only for pending -->
           <td *ngIf="activeTab === 'pending'">
             <div class="d-flex justify-content-center gap-2">
               <button class="btn-action-circle btn-success"
-                      (click)="acceptRefund(refund.refundId)"
+                      (click)="submitAcceptRefund(refund.refundId)"
                       title="Accept Refund">
                 <i class="bi bi-check-circle-fill"></i>
               </button>

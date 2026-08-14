@@ -56,23 +56,37 @@ export class OrdersComponent implements OnInit {
     this.rejectRemarks = '';
 
     import('bootstrap').then(({ Modal }) => {
+      if (this.rejectModal?.nativeElement) {
       let modal = Modal.getInstance(this.rejectModal.nativeElement);
       if (!modal) {
         modal = new Modal(this.rejectModal.nativeElement);
       }
       modal.show();
+    }
     });
   }
 
+  // submitReject(): void {
+  //   if (!this.rejectOrderId) return;
+  //   this.ordersService.rejectOrder(this.rejectOrderId, this.rejectRemarks)
+  //     .subscribe(() => {
+  //       this.loadOrders(this.activeTab);
+  //       import('bootstrap').then(({ Modal }) => {
+  //         const modal = Modal.getInstance(this.rejectModal.nativeElement);
+  //         modal?.hide();
+  //       });
+  //     });
+  // }
   submitReject(): void {
-    if (!this.rejectOrderId) return;
-    this.ordersService.rejectOrder(this.rejectOrderId, this.rejectRemarks)
-      .subscribe(() => {
-        this.loadOrders(this.activeTab);
-        import('bootstrap').then(({ Modal }) => {
-          const modal = Modal.getInstance(this.rejectModal.nativeElement);
-          modal?.hide();
-        });
+  if (!this.rejectOrderId) return;
+  this.ordersService.rejectOrder(this.rejectOrderId, this.rejectRemarks)
+    .subscribe(() => {
+      this.loadOrders(this.activeTab);
+      import('bootstrap').then(({ Modal }) => {
+        const modal = Modal.getInstance(this.rejectModal.nativeElement);
+        modal?.hide();
       });
-  }
+    });
+}
+
 }

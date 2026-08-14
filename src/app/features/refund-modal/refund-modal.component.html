@@ -36,47 +36,32 @@
         <div *ngIf="selectedOrder">
           <hr />
           <h6>Order #{{ selectedOrder.orderId }} Items</h6>
-
-          <!-- Item selection -->
-          <!-- <label class="form-label">Select Item:</label>
-          <select class="form-select" [(ngModel)]="selectedItemId" (change)="fetchItemDetails()">
-            <option value="all">All Items</option>
-            <option *ngFor="let item of selectedOrder.orderItems" [value]="item.foodItemId">
-              {{ item.foodItemName }}
-            </option>
-          </select> -->
-
-          <!-- Item details -->
-          <!-- <div *ngIf="itemDetails" class="mt-3">
-            <p><strong>{{ itemDetails.foodItemName }}</strong></p>
-            <p>Quantity: {{ itemDetails.quantity }}</p>
-            <p>Price: {{ itemDetails.finalPrice | currency:'INR' }}</p>
-          </div> -->
+         
           <!-- Master checkbox for All Items -->
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input"
-           id="selectAll"
-           [(ngModel)]="selectAllChecked"
-           (change)="toggleAllItems()">
-    <label class="form-check-label" for="selectAll">All Items</label>
-  </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input"
+            id="selectAll"
+            [(ngModel)]="selectAllChecked"
+            (change)="toggleAllItems()">
+            <label class="form-check-label" for="selectAll">All Items</label>
+           </div>
 
-  <!-- Individual item checkboxes -->
-  <div *ngFor="let item of selectedOrder.orderItems; let i = index" class="form-check">
-    <input type="checkbox" class="form-check-input"
-           id="item{{i}}"
-           [(ngModel)]="item.checked"
-           (change)="toggleSingleItem()">
-    <label class="form-check-label" for="item{{i}}">
-      {{ item.foodItemName }} 
-
-    </label>
-   
-
-  </div>
-   <div class="mt-3">
-  <p><strong>Refund Total:</strong> {{ selectedItemsTotal | currency:'INR' }}</p>
-</div>
+          <!-- Individual item checkboxes -->
+           <div class="row">
+          <div class = "col-6 mb-2" *ngFor="let item of selectedOrder.orderItems; let i = index">
+          <div class="form-check">
+             <input type="checkbox" class="form-check-input"
+             id="item{{i}}"
+             [(ngModel)]="item.checked"
+             (change)="toggleSingleItem()">
+             <label class="form-check-label" for="item{{i}}">
+             {{ item.foodItemName }} 
+             </label>
+          </div>
+           </div>
+       <div class="mt-3">
+         <p><strong>Refund Total:</strong> {{ selectedItemsTotal | currency:'INR' }}</p>
+       </div>
 
           <!-- Remarks -->
           <label class="form-label mt-3">Remarks:</label>
