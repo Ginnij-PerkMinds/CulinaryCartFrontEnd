@@ -23,6 +23,14 @@ export interface OrderItemDto {
   finalPrice: number;
 }
 
+export interface RefundItemDto {
+  refundItemId: number;
+  foodItemId: number;
+  foodItemName: string;
+  refundImage?: string;
+  remarks?: string;
+}
+
 export interface RefundDetailsDto extends RefundDto {
   orderId: number;
   baseAmount: number;
@@ -31,6 +39,7 @@ export interface RefundDetailsDto extends RefundDto {
   deliveryFee: number;
   taxAmount: number;
   orderItems: OrderItemDto[];
+  refundItems: RefundItemDto[];
 }
 
 @Injectable({

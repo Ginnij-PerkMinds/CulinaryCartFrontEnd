@@ -21,6 +21,8 @@ export interface MyOrderItemDto {
   quantity: number;
   finalPrice: number;
   checked?: boolean; 
+  remarks?: boolean;
+  proofFile?: File;
 }
 
 export interface MyOrderDetailsDto {

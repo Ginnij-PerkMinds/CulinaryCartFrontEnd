@@ -94,50 +94,63 @@
         <p><strong>Address:</strong> {{ selectedRefund.address }}</p>
         <p><strong>Phone:</strong> {{ selectedRefund.phoneNo }}</p>
 
-        <!-- Items Table -->
-        <h6>Items:</h6>
-        <table class="table table-sm">
-          <thead>
-            <tr>
-              <th>Food Item</th>
-              <th>Quantity</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of selectedRefund.orderItems">
-              <td>{{ item.foodItemName }}</td>
-              <td>{{ item.quantity }}</td>
-              <td>{{ item.finalPrice | currency:'INR' }}</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <!-- Financial Breakdown -->
-        <div class="row mt-3">
-          <div class="col-md-6">
-            <p><strong>Total Cart Amount:</strong> {{ selectedRefund.baseAmount | currency:'INR':'symbol' }}</p>
-            <p><strong>Promo Discount:</strong> {{ selectedRefund.promoDiscount | currency:'INR':'symbol' }}</p>
-            <p><strong>Handling Fee:</strong> {{ selectedRefund.handlingFee | currency:'INR':'symbol' }}</p>
-            <p><strong>Delivery Fee:</strong> {{ selectedRefund.deliveryFee | currency:'INR':'symbol' }}</p>
-            <p><strong>Tax:</strong> {{ selectedRefund.taxAmount | currency:'INR':'symbol' }}</p>
-          </div>
-          <div class="col-md-6 text-end">
-            <h5 class="fw-bold text-blood-orange">
-              Final Amount: {{ selectedRefund.finalAmount | currency:'INR':'symbol' }}
-            </h5>
-          </div>
-        </div>
-
-        <!-- Metadata + Status -->
         <div class="row mt-4">
           <div class="col-md-6">
             <p><strong>Order ID:</strong> {{ selectedRefund.orderId }}</p>
             <p><strong>Refund ID:</strong> {{ selectedRefund.refundId }}</p>
             <p><strong>Request Date:</strong> {{ selectedRefund.requestDate | date:'dd/MM/yyyy HH:mm' }}</p>
+            </div>
+            </div>  
+
+        
+         <!-- Refunded Items -->
+  <h6 class="mt-4">Refunded Items</h6>
+  <table class="table table-sm table-bordered">
+    <thead>
+      <tr>
+        <th>Food Item</th> 
+        <th>Remarks</th>      
+        <th>Refund Image</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let refundItem of selectedRefund.refundItems">
+        <td>{{ refundItem.foodItemName }}</td>
+        <td>{{ refundItem.remarks || '—' }}</td>
+        <td>
+          <img *ngIf="refundItem.refundImage" [src]="refundItem.refundImage"
+               alt="Proof" class="img-thumbnail" style="max-width:80px;" />
+          <span *ngIf="!refundItem.refundImage">—</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+     <!-- Metadata + Status + Refund Amount -->
+<div class="row mt-4 align-items-center">
+  <div class="col-md-6">
+    <p><strong>Status:</strong> {{ selectedRefund.refundStatus }}</p>
+  </div>
+  <div class="col-md-6 text-end">
+    <p class="fw-bold text-blood-orange">
+      Total Refund Amount: {{ selectedRefund.refundAmount | currency:'INR':'symbol' }}
+    </p>
+  </div>
+</div>
+        
+
+        <!-- Metadata + Status -->
+        <!-- <div class="row mt-4">
+          <div class="col-md-6">
             <p><strong>Status:</strong> {{ selectedRefund.refundStatus }}</p>
           </div>
         </div>
+
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <p><strong>Refund Amount:</strong> {{ selectedRefund.refundAmount | currency:'INR' }}</p>
+          </div> -->
        
         <!-- Remarks -->
         <p *ngIf="selectedRefund.remarks"><strong>Remarks:</strong> {{ selectedRefund.remarks }}</p>

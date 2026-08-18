@@ -12,6 +12,21 @@ export interface RefundDto {
   refundImage?: string;
 }
 
+export interface OrderItemDto {
+  foodItemId: number;
+  foodItemName: string;
+  quantity: number;
+  finalPrice: number;
+}
+
+export interface RefundItemDto {
+  refundItemId: number;
+  foodItemId: number;
+  foodItemName: string;
+  refundImage?: string;
+  remarks?: string;
+}
+
 export interface RefundDetailsDto {
   refundId: number;
   requestDate: string;
@@ -21,12 +36,8 @@ export interface RefundDetailsDto {
   remarks?: string;
   refundImage?: string;
   orderId: number;
-  orderItems: {
-    foodItemId: number;
-    foodItemName: string;
-    quantity: number;
-    finalPrice: number;
-  }[];
+  orderItems: OrderItemDto[];
+  refundItems: RefundItemDto[];
 }
 
 @Injectable({
@@ -37,30 +48,11 @@ export class RefundsUserService {
 
   constructor(private http: HttpClient) {}
 
-  
-//   claimRefund(orderId: number, remarks: string, itemId: number | null, proofFile?: File): Observable<any> {
-//   const formData = new FormData();
-//   formData.append('OrderId', orderId.toString());
-//   if (remarks) {
-//     formData.append('Remarks', remarks);
-//   }
-
-//   if (itemId !== null) {
-//     formData.append('ItemId', itemId.toString()); 
-//   }
-
-//   if (proofFile) {
-//     formData.append('ProofFile', proofFile, proofFile.name);
-//   }
-
-//   return this.http.post(`${this.baseUrl}/claim`, formData);
-// }
 claimRefund(formData: FormData): Observable<any> {
-  return this.http.post("/api/refunds/claim", formData);
+  return this.http.post(`${this.baseUrl}/claim`, formData);
 }
 
-
-    //  Get all refunds for the logged-in user
+//  Get all refunds for the logged-in user
   getMyRefunds(): Observable<RefundDto[]> {
     return this.http.get<RefundDto[]>(`${this.baseUrl}/all`);
   }

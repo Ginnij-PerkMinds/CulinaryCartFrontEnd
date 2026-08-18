@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RefundsUserService } from '../admin/services/refund-user.service';
-import { OrderHistoryService, MyOrderDto, MyOrderDetailsDto } from '../admin/services/orderhistory.service';
+import { OrderHistoryService,MyOrderItemDto, MyOrderDto, MyOrderDetailsDto } from '../admin/services/orderhistory.service';
 
 @Component({
   selector: 'app-refund-modal',
@@ -94,31 +94,50 @@ get selectedItemsTotal(): number {
     .reduce((sum, i) => sum + i.finalPrice, 0);
 }
 
-  onFileSelected(event: any): void {
-    this.proofFile = event.target.files[0];
+  // uploading proofimage
+  onItemFileSelected(event: any, item: MyOrderItemDto) {
+  const file = event.target.files[0];
+  if (file) {
+    item.proofFile = file;
   }
+}
 
-  // submit refund request
-  submitRefund(): void {
+submitRefund(): void {
   if (!this.selectedOrder) return;
 
-  const itemId = this.selectedItemId === 'all' ? null : +this.selectedItemId;
-
   const formData = new FormData();
-  formData.append("OrderId", this.selectedOrder.orderId.toString());
-  if (itemId) formData.append("ItemId", itemId.toString());
-  formData.append("Remarks", this.userRemarks);
-  formData.append("RefundAmount", this.selectedItemsTotal.toString());  // ✅ send refund amount
-  if (this.proofFile) {
-    formData.append("ProofFile", this.proofFile);
-  }
 
+  // Basic refund info
+  formData.append("orderId", this.selectedOrder.orderId.toString());
+  formData.append("refundAmount", this.selectedItemsTotal.toString());
+
+  // Build items payload
+  const selectedItems = this.selectAllChecked
+    ? this.selectedOrder.orderItems
+    : this.selectedOrder.orderItems.filter(i => i.checked);
+
+  const itemsPayload = selectedItems.map(item => ({
+    foodItemId: item.foodItemId,
+    remarks: item.remarks || "",
+    proofImage: null
+  }));
+
+  // Attach JSON string
+  formData.append("itemsJson", JSON.stringify(itemsPayload));
+
+  // Attach files separately
+  selectedItems.forEach(item => {
+    if (item.proofFile) {
+      formData.append("proofFiles", item.proofFile, `${item.foodItemId}_${item.proofFile.name}`);
+    }
+  });
+
+  // Call service
   this.refundsUserService.claimRefund(formData).subscribe({
     next: () => alert("Refund request submitted!"),
     error: () => alert("Failed to submit refund request.")
   });
 }
-
 
   private resetForm(): void {
     this.selectedItemId = 'all';
