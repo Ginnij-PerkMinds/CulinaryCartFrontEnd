@@ -32,7 +32,6 @@ export class AuthService {
       );
   }
  
-
   // Safe wrapper for setting dynamic browser values
   setSession(token: string, user: User): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -95,5 +94,17 @@ export class AuthService {
   isAdmin(): boolean {
     const user = this.getUser();
     return user?.isAdmin === true;
+  }
+
+  forgotPassword(email: string): Observable<any> {
+  return this.http.post('/api/Auth/forgot-password', { email });
+  }
+
+  verifyOtp(email: string, code: string): Observable<any> {
+  return this.http.post('/api/Auth/verify-otp', { email, code });
+  }
+
+  resetPassword(email: string, newPassword: string): Observable<any> {
+  return this.http.post('/api/Auth/reset-password', { email, newPassword });
   }
 }

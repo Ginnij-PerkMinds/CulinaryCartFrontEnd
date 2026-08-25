@@ -21,6 +21,16 @@
               (click)="togglePassword()">👁️</span>
         <div class="invalid-feedback">Password must be at least 8 characters.</div>
       </div>
+      
+       <!-- Forgot Password Button -->
+        <div class="text-end mt-2">
+       <button type="button"
+        class="btn btn-link p-0 text-primary"
+        routerLink="/forgot-password">
+        Forgot Password?
+       </button>
+       </div>
+
 
       <!-- Alerts -->
       <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>

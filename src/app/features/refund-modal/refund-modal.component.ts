@@ -107,37 +107,86 @@ submitRefund(): void {
 
   const formData = new FormData();
 
-  // Basic refund info
+  // Required fields
   formData.append("orderId", this.selectedOrder.orderId.toString());
   formData.append("refundAmount", this.selectedItemsTotal.toString());
+
+  // Add refund-level remarks if required
+  if (this.userRemarks) {
+    formData.append("remarks", this.userRemarks);
+  }
 
   // Build items payload
   const selectedItems = this.selectAllChecked
     ? this.selectedOrder.orderItems
     : this.selectedOrder.orderItems.filter(i => i.checked);
 
+  if (selectedItems.length === 0) {
+    alert("Please select at least one item to refund.");
+    return;
+  }
+
   const itemsPayload = selectedItems.map(item => ({
-    foodItemId: item.foodItemId,
-    remarks: item.remarks || "",
-    proofImage: null
+    FoodItemId: item.foodItemId,   // ✅ match backend DTO
+    Remarks: item.remarks || "",
+    ProofImage: null
   }));
 
-  // Attach JSON string
   formData.append("itemsJson", JSON.stringify(itemsPayload));
 
-  // Attach files separately
+  // Attach files
   selectedItems.forEach(item => {
     if (item.proofFile) {
       formData.append("proofFiles", item.proofFile, `${item.foodItemId}_${item.proofFile.name}`);
     }
   });
 
-  // Call service
   this.refundsUserService.claimRefund(formData).subscribe({
     next: () => alert("Refund request submitted!"),
-    error: () => alert("Failed to submit refund request.")
+    error: (err) => {
+      console.error("Refund error:", err);
+      alert("Failed to submit refund request.");
+    }
   });
 }
+
+
+// submitRefund(): void {
+//   if (!this.selectedOrder) return;
+
+//   const formData = new FormData();
+
+//   // Basic refund info
+//   formData.append("orderId", this.selectedOrder.orderId.toString());
+//   formData.append("refundAmount", this.selectedItemsTotal.toString());
+
+//   // Build items payload
+//   const selectedItems = this.selectAllChecked
+//     ? this.selectedOrder.orderItems
+//     : this.selectedOrder.orderItems.filter(i => i.checked);
+
+//   const itemsPayload = selectedItems.map(item => ({
+//     foodItemId: item.foodItemId,
+//     remarks: item.remarks || "",
+//     proofImage: null
+//   }));
+
+//   // Attach JSON string
+//   formData.append("itemsJson", JSON.stringify(itemsPayload));
+
+//   // Attach files separately
+//   selectedItems.forEach(item => {
+//     if (item.proofFile) {
+//       formData.append("proofFiles", item.proofFile, `${item.foodItemId}_${item.proofFile.name}`);
+//     }
+//   });
+
+//   // Call service
+//   this.refundsUserService.claimRefund(formData).subscribe({
+//     next: () => alert("Refund request submitted!"),
+//     error: () => alert("Failed to submit refund request.")
+//   });
+// }
 
   private resetForm(): void {
     this.selectedItemId = 'all';

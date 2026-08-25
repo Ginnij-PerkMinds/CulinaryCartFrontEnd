@@ -15,12 +15,14 @@ import { ChargeComponent } from './features/admin/components/charge/charge.compo
 import { OrdersComponent } from './features/admin/components/admin-orders/admin-orders.component';
 import { RefundsComponent } from './features/admin/components/admin-refunds/admin-refunds.component';
 import { MyOrdersComponent } from './features/my-orders/my-orders.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'landing', component: LandingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  {path:'forgot-password', component: ForgotPasswordComponent},
   { path: 'menu', component: MenuListComponent },
   {path: 'my-orders', component: MyOrdersComponent},
   
