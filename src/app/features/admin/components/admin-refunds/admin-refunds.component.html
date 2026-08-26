@@ -138,19 +138,6 @@
     </p>
   </div>
 </div>
-        
-
-        <!-- Metadata + Status -->
-        <!-- <div class="row mt-4">
-          <div class="col-md-6">
-            <p><strong>Status:</strong> {{ selectedRefund.refundStatus }}</p>
-          </div>
-        </div>
-
-        <div class="row mt-2">
-          <div class="col-md-6">
-            <p><strong>Refund Amount:</strong> {{ selectedRefund.refundAmount | currency:'INR' }}</p>
-          </div> -->
        
         <!-- Remarks -->
         <p *ngIf="selectedRefund.remarks"><strong>Remarks:</strong> {{ selectedRefund.remarks }}</p>
@@ -168,7 +155,6 @@
     </div>
   </div>
 </div>   
-
 
 <!-- Reject Modal -->
 <div class="modal fade" #rejectModal id="rejectModal" tabindex="-1" aria-hidden="true">

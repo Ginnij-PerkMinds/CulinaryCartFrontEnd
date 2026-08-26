@@ -42,17 +42,20 @@
           <td>{{ order.phoneNo }}</td>
           <td class="fw-bold text-dark fs-6">{{ order.finalAmount | currency:'INR' }}</td>
        
-           <td *ngIf="activeTab === 'pending'">
-      <div class="d-flex justify-content-center gap-2">
-        <button class="btn-action-circle btn-success" (click)="acceptOrder(order.orderId)" title="Accept Order">
+        <td *ngIf="activeTab === 'pending'">
+        <div class="d-flex justify-content-center gap-2">
+
+        <button class="btn-action-circle btn-success" 
+                (click)="acceptOrder(order.orderId)" 
+                title="Accept Order">
           <i class="bi bi-check-circle-fill"></i>
-        </button>
-       
-        <button class="btn-action-circle btn-danger"
-        (click)="openRejectModal(order.orderId)"
-        title="Reject Order">
-        <i class="bi bi-x-circle-fill"></i>
-        </button>
+        </button>  
+
+         <button class="btn-action-circle btn-danger"
+                      (click)="rejectOrder(order.orderId)"
+                      title="Reject Order">
+                <i class="bi bi-x-circle-fill"></i>
+              </button>
       </div>
     </td>
        
@@ -150,7 +153,7 @@
 </div>
 
 <!-- Reject Modal -->
-<div class="modal fade" #rejectModal id="rejectModal" tabindex="-1" aria-hidden="true">
+<!-- <div class="modal fade" #rejectModal id="rejectModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content rounded-3 shadow-lg">
       <div class="modal-header bg-danger text-white">
@@ -164,23 +167,19 @@
       <div class="modal-footer">
         <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
         <button class="btn btn-danger"
-                (click)="submitReject()"
-                [disabled]="!rejectRemarks.trim()">Submit</button>
+                (click)="submitReject()">Submit</button>
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
-<!-- Toast container -->
+<!-- Unified Toast -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
-  <div id="deliverToast" class="toast align-items-center text-bg-success border-0" role="alert">
+  <div id="orderToast" class="toast align-items-center border-0" role="alert">
     <div class="d-flex">
-      <div class="toast-body">
-        Order {{selectedOrder?.orderId}} is delivered successfully!
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto"
+      <div class="toast-body" id="orderToastBody"></div>
+      <button type="button" class="btn-close me-2 m-auto"
               data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
   </div>
 </div>
-

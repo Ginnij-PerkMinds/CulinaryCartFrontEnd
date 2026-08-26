@@ -38,7 +38,7 @@
     </a>
 
   <!--Show SignIn when no one Logged In-->
-   <button *ngIf="!authService.isLoggedIn()" class="btn btn-dark fw-bold ms-2" data-bs-toggle="offcanvas" 
+   <button *ngIf="!authService.isLoggedIn() && !isForgotPasswordPage()" class="btn btn-dark fw-bold ms-2" data-bs-toggle="offcanvas" 
     data-bs-target="#signinOffcanvas"> Sign in
    </button>
 

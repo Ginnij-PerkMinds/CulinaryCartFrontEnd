@@ -59,9 +59,6 @@ export class RefundsComponent implements OnInit {
   }
 }
 
-  // acceptRefund(id: number): void {
-  //   this.refundsService.acceptRefund(id).subscribe(() => this.loadRefunds(this.activeTab));
-  // }
   submitAcceptRefund(refundId: number): void {
   this.refundsService.acceptRefund(refundId, this.refundAmount, this.remarks)
     .subscribe(() => this.loadRefunds(this.activeTab));
@@ -73,25 +70,16 @@ export class RefundsComponent implements OnInit {
     this.rejectRemarks = '';
 
     import('bootstrap').then(({ Modal }) => {
+      if (this.rejectModal?.nativeElement) {
       let modal = Modal.getInstance(this.rejectModal.nativeElement);
       if (!modal) {
         modal = new Modal(this.rejectModal.nativeElement);
       }
       modal.show();
+    }
     });
   }
 
-  // submitReject(): void {
-  //   if (!this.rejectRefundId) return;
-  //   this.refundsService.rejectRefund(this.rejectRefundId, this.rejectRemarks)
-  //     .subscribe(() => {
-  //       this.loadRefunds(this.activeTab);
-  //       import('bootstrap').then(({ Modal }) => {
-  //         const modal = Modal.getInstance(this.rejectModal.nativeElement);
-  //         modal?.hide();
-  //       });
-  //     });
-  // }
   submitReject(): void {
   if (!this.rejectRefundId) return;
   this.refundsService.rejectRefund(this.rejectRefundId, this.rejectRemarks)
@@ -108,5 +96,4 @@ export class RefundsComponent implements OnInit {
       }
     });
 }
-
 }

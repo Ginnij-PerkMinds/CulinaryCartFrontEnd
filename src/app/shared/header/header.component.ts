@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from "../../auth/services/auth.service";
 import { CartComponent } from '../../features/cart/cart/cart.component';
@@ -23,8 +24,13 @@ export class HeaderComponent {
     public authService: AuthService,
     private fb: FormBuilder,
     private userService: UserService,
-    private orderHistoryService: OrderHistoryService   
+    private orderHistoryService: OrderHistoryService, 
+    private router:Router 
   ) {}
+
+  isForgotPasswordPage(): boolean {
+  return this.router.url.includes('/forgot-password');
+}
 
   @ViewChild(CartComponent) cart!: CartComponent;
 

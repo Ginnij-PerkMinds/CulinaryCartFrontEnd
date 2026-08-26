@@ -54,9 +54,12 @@ export class OrdersService {
     return this.http.post(`${this.apiUrl}/${id}/accept`, remarks);
   }
 
-  rejectOrder(id: number, remarks: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${id}/reject`, remarks);
-  }
+  rejectOrder(orderId: number, remarks: string) {
+  return this.http.post(`/api/orders/${orderId}/reject`, 
+    { remarks },   // send as JSON object
+    { headers: { 'Content-Type': 'application/json' } }
+  );
+}
 
   markDelivered(orderId: number, remarks: string = ''): Observable<any> {
   return this.http.post(`${this.apiUrl}/${orderId}/delivered`, remarks, {
